@@ -1,4 +1,4 @@
-package support.feedback;
+package gym.basketball;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,57 +10,54 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import support.SupportService;
+import gym.GymService;
 
-@WebServlet("/support/feedback/*")
-public class FeedbackController extends HttpServlet {
+@WebServlet("/gym/basketball/*")
+public class BasketballController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 	ArrayList<String> nonClass;
-	
-    public FeedbackController() {
+    public BasketballController() {
         super();
         nonClass = new ArrayList<>();
         nonClass.add("InsertForm");
-        nonClass.add("home");
         nonClass.add("DeleteForm");
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-request.setCharacterEncoding("utf-8");
+		
+		request.setCharacterEncoding("utf-8");
 		
 		int page = 1;
 		if(request.getParameter("page")!= null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		
-		
 		request.setAttribute("nowPage", page);
 		
 		String serviceStr = request.getRequestURI().substring(
-				(request.getContextPath()+"/support/feedback/").length()
-				);		
+				(request.getContextPath()+"/gym/basketball/").length()
+				);
+		
+		System.out.println(serviceStr);
 		
 		if(nonClass.contains(serviceStr)) {
-			request.setAttribute("mainUrl", "feedback/"+serviceStr);
+			request.setAttribute("mainUrl", "basketball/"+serviceStr);
 		}else {
 		
 			try {
-				SupportService service = (SupportService)Class.forName("support.feedback.service.Feedback"+serviceStr).newInstance();
+				GymService service = (GymService)Class.forName("gym.basketball.service.Basketball"+serviceStr).newInstance();
 				service.execute(request, response);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/support/template.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/contents/template.jsp");
 //		
 		dispatcher.forward(request, response);
 	}
-	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

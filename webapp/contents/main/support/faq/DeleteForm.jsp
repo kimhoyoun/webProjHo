@@ -3,7 +3,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <h2>글 삭제 폼</h2>
 
-<form action="DeleteRegQ" method="post" >
+<form action="DeleteReg" method="post" >
 <input type="hidden" name = "id" value=${param.id } />
 <input type="hidden" name = "page" value=${nowPage } />
 	<table border="" width=600>
@@ -16,7 +16,7 @@
 		<tr>
 			
 			<td colspan="2" align="center">
-			<a href="<c:url value="Detail?id=${param.id }&page=${nowPage}"/>">뒤로</a>
+			<a href="<c:url value="List?page=${nowPage}"/>">뒤로</a>
 			<input type="reset" value="취소" />
 			<input type="submit" value="삭제" />
 			

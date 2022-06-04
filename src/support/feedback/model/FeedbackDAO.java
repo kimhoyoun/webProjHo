@@ -30,7 +30,7 @@ public class FeedbackDAO {
 	
 		public int totalCnt(){
 		
-		sql = "select count(*) from feedback_q";
+		sql = "select count(*) from feedback";
 		
 		try {
 			ptmt = con.prepareStatement(sql);
@@ -45,10 +45,10 @@ public class FeedbackDAO {
 		
 		return 0;
 	}
-		public ArrayList<FeedbackQuestionDTO> list(int start, int limit){
-			ArrayList<FeedbackQuestionDTO> res = new ArrayList<>();
+		public ArrayList<FeedbackDTO> list(int start, int limit){
+			ArrayList<FeedbackDTO> res = new ArrayList<>();
 			
-			sql = "select * from feedback_q order by no desc limit ?, ?";
+			sql = "select * from feedback order by no desc limit ?, ?";
 			
 			try {
 				ptmt = con.prepareStatement(sql);
@@ -57,7 +57,7 @@ public class FeedbackDAO {
 				rs = ptmt.executeQuery();
 				
 				while(rs.next()) {
-					FeedbackQuestionDTO dto = new FeedbackQuestionDTO();
+					FeedbackDTO dto = new FeedbackDTO();
 					// 필요한것만 보이기
 					dto.setId(rs.getString("id"));
 					dto.setTitle(rs.getString("title"));
@@ -65,6 +65,7 @@ public class FeedbackDAO {
 					dto.setFilter(rs.getString("filter"));
 					dto.setUser_id(rs.getString("user_id"));
 					dto.setReg_date(rs.getTimestamp("reg_date"));
+					
 					
 					res.add(dto);
 				}
@@ -77,10 +78,10 @@ public class FeedbackDAO {
 			return res;
 		}
 		
-		public ArrayList<FeedbackQuestionDTO> mylist(int start, int limit, String user_id){
-			ArrayList<FeedbackQuestionDTO> res = new ArrayList<>();
+		public ArrayList<FeedbackDTO> mylist(int start, int limit, String user_id){
+			ArrayList<FeedbackDTO> res = new ArrayList<>();
 			
-			sql = "select * from feedback_q where user_id = ? order by no desc limit ?, ?";
+			sql = "select * from feedback where user_id = ? order by no desc limit ?, ?";
 			
 			try {
 				ptmt = con.prepareStatement(sql);
@@ -90,7 +91,7 @@ public class FeedbackDAO {
 				rs = ptmt.executeQuery();
 				
 				while(rs.next()) {
-					FeedbackQuestionDTO dto = new FeedbackQuestionDTO();
+					FeedbackDTO dto = new FeedbackDTO();
 					// 필요한것만 보이기
 					dto.setId(rs.getString("id"));
 					dto.setTitle(rs.getString("title"));
@@ -98,6 +99,7 @@ public class FeedbackDAO {
 					dto.setFilter(rs.getString("filter"));
 					dto.setUser_id(rs.getString("user_id"));
 					dto.setReg_date(rs.getTimestamp("reg_date"));
+					
 					
 					res.add(dto);
 				}
@@ -110,10 +112,10 @@ public class FeedbackDAO {
 			return res;
 		}
 		
-		public FeedbackQuestionDTO detailQ(String id){
-			FeedbackQuestionDTO dto = null;
+		public FeedbackDTO detail(String id){
+			FeedbackDTO dto = null;
 			
-			sql = "select * from feedback_q where id = ?";
+			sql = "select * from feedback where id = ?";
 			
 			try {
 				ptmt = con.prepareStatement(sql);
@@ -121,7 +123,7 @@ public class FeedbackDAO {
 				rs = ptmt.executeQuery();
 				
 				if(rs.next()) {
-					dto = new FeedbackQuestionDTO();
+					dto = new FeedbackDTO();
 					// 필요한것만 보이기
 					dto.setId(rs.getString("id"));
 					dto.setTitle(rs.getString("title"));
@@ -129,6 +131,10 @@ public class FeedbackDAO {
 					dto.setFilter(rs.getString("filter"));
 					dto.setUser_id(rs.getString("user_id"));
 					dto.setReg_date(rs.getTimestamp("reg_date"));
+					if(rs.getString("answer")!=null) {
+						dto.setAnswer(rs.getString("answer"));
+						dto.setReg_date_answer(rs.getTimestamp("reg_date_answer"));
+					}
 				}
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -137,9 +143,9 @@ public class FeedbackDAO {
 			return dto;
 		}
 		
-		public void insertQ(FeedbackQuestionDTO dto){
+		public void insert(FeedbackDTO dto){
 			
-			sql = "insert into feedback_q(id, title, question, filter, user_id, reg_date) "
+			sql = "insert into feedback(id, title, question, filter, user_id, reg_date) "
 					+ "values (? , ?, ? , ?, ?, sysdate() )";
 			
 			try {
@@ -161,10 +167,10 @@ public class FeedbackDAO {
 			
 		}
 		
-		public int modifyQ(FeedbackQuestionDTO dto){
+		public int modify(FeedbackDTO dto){
 			int res = 0;
 			
-			sql = "update feedback_q set title = ?, question = ?, filter = ?"
+			sql = "update feedback set title = ?, question = ?, filter = ?"
 					+ "where id = ? and user_id = ?";
 			try {
 				ptmt = con.prepareStatement(sql);
@@ -184,10 +190,32 @@ public class FeedbackDAO {
 			
 			return res;
 		}
-		public int deleteQ(FeedbackQuestionDTO dto){
+		
+		public int insertAnswer(FeedbackDTO dto){
 			int res = 0;
 			
-			sql = "delete from feedback_q where id = ?";
+			sql = "update feedback set answer = ?, reg_date_answer = sysdate()"
+					+ "where id = ? and user_id = ?";
+			try {
+				ptmt = con.prepareStatement(sql);
+				
+				ptmt.setString(1, dto.getAnswer());
+				ptmt.setString(2, dto.getId());
+				ptmt.setString(3, dto.getUser_id());
+				res = ptmt.executeUpdate();
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			
+			return res;
+		}
+		public int delete(FeedbackDTO dto){
+			int res = 0;
+			
+			sql = "delete from feedback where id = ?";
 			try {
 				ptmt = con.prepareStatement(sql);
 				ptmt.setString(1, dto.getId());

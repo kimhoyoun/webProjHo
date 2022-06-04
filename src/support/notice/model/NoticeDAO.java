@@ -45,6 +45,27 @@ public class NoticeDAO {
 		
 		return 0;
 	}
+		
+		public int totalCntSearch(String filter, String keyword){
+			
+			sql = "select count(*) from notice where notice_filter = ? and INSTR(notice_title, ?) > 0";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,filter);
+				ptmt.setString(2,keyword);
+				rs = ptmt.executeQuery();
+				
+				rs.next();
+				
+				return rs.getInt(1);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return 0;
+		}
+		
 		public ArrayList<NoticeDTO> list(int start, int limit){
 			ArrayList<NoticeDTO> res = new ArrayList<>();
 			
@@ -77,6 +98,40 @@ public class NoticeDAO {
 			return res;
 		}
 		
+		
+		public ArrayList<NoticeDTO> search(int start, int limit, String filter, String keyword){
+			ArrayList<NoticeDTO> res = new ArrayList<>();
+			
+			sql = "select * from notice where notice_filter = ? and INSTR(notice_title, ?) > 0 order by no desc limit ?, ?";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,filter);
+				ptmt.setString(2,keyword);
+				ptmt.setInt(3,start);
+				ptmt.setInt(4, limit);
+				rs = ptmt.executeQuery();
+				
+				while(rs.next()) {
+					NoticeDTO dto = new NoticeDTO();
+					// 필요한것만 보이기
+					dto.setNotice_id(rs.getString("notice_id"));
+					dto.setNotice_title(rs.getString("notice_title"));
+					dto.setNotice_content(rs.getString("notice_content"));
+					dto.setNotice_filter(rs.getString("notice_filter"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
+					
+					
+					res.add(dto);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			
+			return res;
+		}
 		
 		
 		public NoticeDTO detail(String notice_id){
@@ -113,6 +168,7 @@ public class NoticeDAO {
 			sql = "insert into notice(notice_id, notice_title, notice_content, notice_filter, reg_date) "
 					+ "values (? , ? , ? , ? ,sysdate())";
 			
+			dto.setNotice_id("notice"+System.currentTimeMillis());
 			try {
 				ptmt = con.prepareStatement(sql);
 				ptmt.setString(1, dto.getNotice_id());

@@ -4,33 +4,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import support.SupportService;
-import support.feedback.model.FeedbackAnswerDTO;
 import support.feedback.model.FeedbackDAO;
+import support.feedback.model.FeedbackDTO;
 import support.feedback.model.FeedbackQuestionDTO;
 import support.notice.model.NoticeDAO;
 import support.notice.model.NoticeDTO;
 
-public class FeedbackModifyRegA implements SupportService{
+public class FeedbackInsertAnswer implements SupportService{
 	
-	public FeedbackModifyRegA() {
+	public FeedbackInsertAnswer() {
 	}
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 			
-		FeedbackAnswerDTO dto = new FeedbackAnswerDTO();
+		FeedbackDTO dto = new FeedbackDTO();
 		dto.setId(request.getParameter("id"));
-		dto.setAnswer(request.getParameter("content"));
-		dto.setQuestion_id(request.getParameter("question_id"));
+		dto.setUser_id(request.getParameter("user_id"));
+		dto.setAnswer(request.getParameter("answer"));
 		
-		System.out.println(dto);
-		int res = new FeedbackDAO().modifyA(dto);
+		int res = new FeedbackDAO().insertAnswer(dto);
 		
-		String msg = "수정 실패", goUrl = "feedback/ModifyFormA?id="+dto.getId()+"&page="+request.getAttribute("nowPage");
+		String msg = "답변입력 실패", goUrl = "feedback/Detail?id="+dto.getId()+"&page="+request.getAttribute("nowPage");
 		
 		if(res>0) {
-			msg = "수정되었습니다.";
-			goUrl = "feedback/Detail?id="+dto.getQuestion_id()+"&page="+request.getAttribute("nowPage");
+			msg = "답변이 입력되었습니다.";
+			goUrl = "feedback/Detail?id="+dto.getId()+"&page="+request.getAttribute("nowPage");
 		}
 		
 		request.setAttribute("msg", msg);

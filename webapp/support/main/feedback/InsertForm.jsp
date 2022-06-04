@@ -36,7 +36,7 @@
   </style>
 
  <div id = div_input>
-  <form action="InsertRegQ" method="post">
+  <form action="InsertReg" method="post">
     <div id = "input_title">
       제목 : 
       <input type="text" size = "30" name = "title">

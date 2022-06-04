@@ -1,26 +1,28 @@
-package support.feedback.service;
+package support.notice.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import support.SupportService;
-import support.faq.model.FaqDAO;
-import support.feedback.model.FeedbackDAO;
+import support.notice.model.NoticeDAO;
 
-public class FeedbackMyQuestion implements SupportService{
+public class NoticeSearch implements SupportService{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
+		String filter = request.getParameter("filter");
+		String keyword = request.getParameter("keyword");
 		
 		int page = (int)request.getAttribute("nowPage");
 		
 		int limit =8; // 한 페이지당 게시글 수
 		int pageLimit = 4; // 페이지 번호 갯수
 		
-		FeedbackDAO dao = new FeedbackDAO();
 		
-		int total = dao.totalCnt();
+		NoticeDAO dao = new NoticeDAO();
+		
+		int total = dao.totalCntSearch(filter, keyword);
 		
 		int pageTotal = total/limit;
 		
@@ -37,20 +39,16 @@ public class FeedbackMyQuestion implements SupportService{
 			pageEnd = pageTotal;
 		}
 		
-		
-		String user_id = request.getParameter("user_id");
-		
-		Object data = dao.mylist(start, limit, user_id);
+		Object data = dao.search(start, limit, filter, keyword);
 		
 		request.setAttribute("mainData", data);
-		request.setAttribute("mainUrl", "/feedback/MyQuestion");
-		
+		request.setAttribute("mainUrl", "/notice/Search");
 		
 		request.setAttribute("start", start);
 		request.setAttribute("pageTotal", pageTotal);
 		request.setAttribute("pageStart", pageStart);
 		request.setAttribute("pageEnd", pageEnd);
 		
-		}
-		
+	}
+
 }

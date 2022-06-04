@@ -5,20 +5,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import support.SupportService;
 import support.feedback.model.FeedbackDAO;
-import support.feedback.model.FeedbackQuestionDTO;
-import support.notice.model.NoticeDAO;
-import support.notice.model.NoticeDTO;
+import support.feedback.model.FeedbackDTO;
 
-public class FeedbackDeleteRegQ implements SupportService{
+public class FeedbackDeleteReg implements SupportService{
 	
-	public FeedbackDeleteRegQ() {
+	public FeedbackDeleteReg() {
 	}
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 			
 		
-		FeedbackQuestionDTO dto = new FeedbackQuestionDTO();
+		FeedbackDTO dto = new FeedbackDTO();
 		
 		String id = request.getParameter("id");
 		String deleteCheck = request.getParameter("deleteCheck");
@@ -28,7 +26,7 @@ public class FeedbackDeleteRegQ implements SupportService{
 		dto.setId(id);
 		int res = 0;
 		if(deleteCheck.equals("삭제")) {
-			res = new FeedbackDAO().deleteQ(dto);
+			res = new FeedbackDAO().delete(dto);
 		}
 		 
 		String msg = "삭제 실패", goUrl = "feedback/DeleteFormQ?id="+dto.getId()+"&page="+request.getAttribute("nowPage");

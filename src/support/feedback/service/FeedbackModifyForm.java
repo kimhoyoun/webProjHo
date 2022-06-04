@@ -5,11 +5,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import support.SupportService;
 import support.feedback.model.FeedbackDAO;
-import support.notice.model.NoticeDAO;
 
-public class FeedbackModifyFormQ implements SupportService{
+public class FeedbackModifyForm implements SupportService{
 	
-	public FeedbackModifyFormQ() {
+	public FeedbackModifyForm() {
 	}
 
 	@Override
@@ -17,10 +16,9 @@ public class FeedbackModifyFormQ implements SupportService{
 		String id = request.getParameter("id");
 		FeedbackDAO dao = new FeedbackDAO();
 		
-		Object data = dao.detailQ(id);
+		Object data = dao.detail(id);
 		
 		request.setAttribute("dto", data);
-		request.setAttribute("mainUrl", "/feedback/ModifyFormQ");
-		System.out.println("BoardDetail execute() "+data);
+		request.setAttribute("mainUrl", "/feedback/ModifyForm");
 	}
 }

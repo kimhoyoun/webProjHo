@@ -4,27 +4,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import support.SupportService;
-import support.feedback.model.FeedbackAnswerDTO;
 import support.feedback.model.FeedbackDAO;
-import support.feedback.model.FeedbackQuestionDTO;
-import support.notice.model.NoticeDAO;
-import support.notice.model.NoticeDTO;
+import support.feedback.model.FeedbackDTO;
 
-public class FeedbackInsertRegA implements SupportService{
+public class FeedbackInsertReg implements SupportService{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		
+		String title = request.getParameter("title");
+		String filter = request.getParameter("filter");
 		String content = request.getParameter("content");
-		String question_id = request.getParameter("question_id");
+		String user_id = request.getParameter("user_id");
 		
-		FeedbackAnswerDTO dto = new FeedbackAnswerDTO(content, question_id);
+		FeedbackDTO dto = new FeedbackDTO(title, content, filter, user_id);
 		
-		new FeedbackDAO().insertA(dto);
+		new FeedbackDAO().insert(dto);
 		
 		request.setAttribute("msg", "작성되었습니다.");
-		request.setAttribute("goUrl", "feedback/Detail?id="+question_id);
+		request.setAttribute("goUrl", "feedback/home");
 		request.setAttribute("mainUrl", "/feedback/alert");
 	}
 
