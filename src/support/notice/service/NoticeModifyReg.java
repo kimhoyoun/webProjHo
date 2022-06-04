@@ -1,13 +1,7 @@
 package support.notice.service;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import support.SupportService;
 import support.notice.model.NoticeDAO;
@@ -21,13 +15,6 @@ public class NoticeModifyReg implements SupportService{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 			
-//		try {
-//			request.setCharacterEncoding("UTF-8");
-//		} catch (UnsupportedEncodingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
 		NoticeDTO dto = new NoticeDTO();
 		dto.setNotice_id(request.getParameter("id"));
 		dto.setNotice_title(request.getParameter("title"));

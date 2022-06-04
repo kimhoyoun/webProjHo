@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import support.SupportService;
 import support.faq.model.FaqDAO;
-import support.notice.model.NoticeDAO;
 
 public class FaqModifyForm implements SupportService{
 	

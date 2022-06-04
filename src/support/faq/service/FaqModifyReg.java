@@ -1,19 +1,11 @@
 package support.faq.service;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import support.SupportService;
 import support.faq.model.FaqDAO;
 import support.faq.model.FaqDTO;
-import support.notice.model.NoticeDAO;
-import support.notice.model.NoticeDTO;
 
 public class FaqModifyReg implements SupportService{
 	

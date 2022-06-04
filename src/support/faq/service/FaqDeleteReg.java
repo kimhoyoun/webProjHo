@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import support.SupportService;
 import support.faq.model.FaqDAO;
 import support.faq.model.FaqDTO;
-import support.notice.model.NoticeDAO;
-import support.notice.model.NoticeDTO;
 
 public class FaqDeleteReg implements SupportService{
 	
