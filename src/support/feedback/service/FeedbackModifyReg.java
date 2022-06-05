@@ -29,16 +29,16 @@ public class FeedbackModifyReg implements SupportService{
 		
 		int res = new FeedbackDAO().modify(dto);
 		
-		String msg = "수정 실패", goUrl = "feedback/ModifyForm?id="+dto.getId()+"&page="+request.getAttribute("nowPage");
+		String msg = "수정 실패", goUrl = "ModifyForm?id="+dto.getId()+"&page="+request.getAttribute("nowPage");
 		
 		if(res>0) {
 			msg = "수정되었습니다.";
-			goUrl = "feedback/Detail?id="+dto.getId()+"&page="+request.getAttribute("nowPage");
+			goUrl = "Detail?id="+dto.getId()+"&page="+request.getAttribute("nowPage");
 			System.out.println(goUrl);
 		}
 		
 		request.setAttribute("msg", msg);
 		request.setAttribute("goUrl", goUrl);
-		request.setAttribute("mainUrl", "/feedback/alert");
+		request.setAttribute("mainUrl", "alert");
 	}
 }

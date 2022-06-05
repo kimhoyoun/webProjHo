@@ -20,8 +20,8 @@ public class NoticeInsertReg implements SupportService{
 		new NoticeDAO().insert(dto);
 		
 		request.setAttribute("msg", "작성되었습니다.");
-		request.setAttribute("goUrl", "notice/List");
-		request.setAttribute("mainUrl", "/notice/alert");
+		request.setAttribute("goUrl", "List");
+		request.setAttribute("mainUrl", "alert");
 	}
 
 }

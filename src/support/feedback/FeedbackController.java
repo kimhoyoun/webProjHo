@@ -42,7 +42,7 @@ request.setCharacterEncoding("utf-8");
 				);		
 		
 		if(nonClass.contains(serviceStr)) {
-			request.setAttribute("mainUrl", "feedback/"+serviceStr);
+			request.setAttribute("mainUrl", "support/feedback/"+serviceStr);
 		}else {
 		
 			try {
@@ -53,7 +53,7 @@ request.setCharacterEncoding("utf-8");
 				e.printStackTrace();
 			} 
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/support/template.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/contents/template.jsp");
 //		
 		dispatcher.forward(request, response);
 	}

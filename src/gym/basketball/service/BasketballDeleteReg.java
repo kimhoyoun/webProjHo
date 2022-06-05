@@ -1,22 +1,25 @@
-package support.faq.service;
+package gym.basketball.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import gym.GymService;
+import gym.basketball.model.BasketballDAO;
+import gym.basketball.model.BasketballDTO;
 import support.SupportService;
-import support.faq.model.FaqDAO;
-import support.faq.model.FaqDTO;
+import support.notice.model.NoticeDAO;
+import support.notice.model.NoticeDTO;
 
-public class FaqDeleteReg implements SupportService{
+public class BasketballDeleteReg implements GymService{
 	
-	public FaqDeleteReg() {
+	public BasketballDeleteReg() {
 	}
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 			
 		
-		FaqDTO dto = new FaqDTO();
+		BasketballDTO dto = new BasketballDTO();
 		
 		String id = request.getParameter("id");
 		String deleteCheck = request.getParameter("deleteCheck");
@@ -26,7 +29,7 @@ public class FaqDeleteReg implements SupportService{
 		dto.setId(id);
 		int res = 0;
 		if(deleteCheck.equals("삭제")) {
-			res = new FaqDAO().delete(dto);
+			res = new BasketballDAO().delete(dto);
 		}
 		 
 		String msg = "삭제 실패", goUrl = "DeleteForm?id="+dto.getId()+"&page="+request.getAttribute("nowPage");

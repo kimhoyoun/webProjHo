@@ -23,21 +23,21 @@ public class NoticeDeleteReg implements SupportService{
 		
 		
 		
-		dto.setNotice_id(id);
+		dto.setId(id);
 		int res = 0;
 		if(deleteCheck.equals("삭제")) {
 			res = new NoticeDAO().delete(dto);
 		}
 		 
-		String msg = "삭제 실패", goUrl = "notice/DeleteForm?id="+dto.getNotice_id()+"&page="+request.getAttribute("nowPage");
+		String msg = "삭제 실패", goUrl = "DeleteForm?id="+dto.getId()+"&page="+request.getAttribute("nowPage");
 		
 		if(res>0) {
 			msg = "삭제성공";
-			goUrl = "notice/List?page="+request.getAttribute("nowPage");
+			goUrl = "List?page="+request.getAttribute("nowPage");
 		}
 		
 		request.setAttribute("msg", msg);
 		request.setAttribute("goUrl", goUrl);
-		request.setAttribute("mainUrl", "/notice/alert");
+		request.setAttribute("mainUrl", "alert");
 	}
 }

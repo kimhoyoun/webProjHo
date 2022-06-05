@@ -30,9 +30,9 @@
 	<tr>
 <%-- 		<td>${ start + no.index+1}</td> --%>
 		<td class = "notice_title">
-			<a href="<c:url value="Detail?id=${dto.notice_id }&page=${nowPage }"/>">${dto.notice_title }</a>
+			<a href="<c:url value="Detail?id=${dto.id }&page=${nowPage }"/>">${dto.title }</a>
 		</td>
-		<td class = "notice_filter">${dto.notice_filter }</td>
+		<td class = "notice_filter">${dto.filter }</td>
 		<td  class = "notice_date">
 		<fmt:formatDate value="${dto.reg_date }" pattern="yy-MM-dd"/>
 		</td>

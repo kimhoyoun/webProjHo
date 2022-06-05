@@ -67,7 +67,7 @@
               <li>
                 <a href="<c:url value="/info/Hello"/>">경기장대관</a>
                 <ul class="submenu_list">
-                  <li><a href="#">농구장</a></li>
+                  <li><a href="<c:url value="/gym/basketball/List"/>">농구장</a></li>
                   <li><a href="#">축구장</a></li>
                 </ul>
               </li>

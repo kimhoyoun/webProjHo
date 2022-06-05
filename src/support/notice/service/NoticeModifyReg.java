@@ -16,25 +16,24 @@ public class NoticeModifyReg implements SupportService{
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 			
 		NoticeDTO dto = new NoticeDTO();
-		dto.setNotice_id(request.getParameter("id"));
-		dto.setNotice_title(request.getParameter("title"));
-		dto.setNotice_filter(request.getParameter("filter"));
-		dto.setNotice_content(request.getParameter("content"));
+		dto.setId(request.getParameter("id"));
+		dto.setTitle(request.getParameter("title"));
+		dto.setFilter(request.getParameter("filter"));
+		dto.setContent(request.getParameter("content"));
 		
 		System.out.println(dto);
 		
 		int res = new NoticeDAO().modify(dto);
 		
-		String msg = "수정 실패", goUrl = "notice/ModifyForm?id="+dto.getNotice_id()+"&page="+request.getAttribute("nowPage");
+		String msg = "수정 실패", goUrl = "ModifyForm?id="+dto.getId()+"&page="+request.getAttribute("nowPage");
 		
 		if(res>0) {
 			msg = "수정되었습니다.";
-			goUrl = "notice/Detail?id="+dto.getNotice_id()+"&page="+request.getAttribute("nowPage");
-			System.out.println(goUrl);
+			goUrl = "Detail?id="+dto.getId()+"&page="+request.getAttribute("nowPage");
 		}
 		
 		request.setAttribute("msg", msg);
 		request.setAttribute("goUrl", goUrl);
-		request.setAttribute("mainUrl", "/notice/alert");
+		request.setAttribute("mainUrl", "alert");
 	}
 }

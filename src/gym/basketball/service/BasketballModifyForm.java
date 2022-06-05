@@ -1,25 +1,26 @@
-package support.faq.service;
+package gym.basketball.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import gym.GymService;
+import gym.basketball.model.BasketballDAO;
 import support.SupportService;
-import support.faq.model.FaqDAO;
+import support.notice.model.NoticeDAO;
 
-public class FaqModifyForm implements SupportService{
+public class BasketballModifyForm implements GymService{
 	
-	public FaqModifyForm() {
+	public BasketballModifyForm() {
 	}
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id");
-		
-		FaqDAO dao = new FaqDAO();
+		BasketballDAO dao = new BasketballDAO();
 		
 		Object data = dao.detail(id);
 		
 		request.setAttribute("dto", data);
-		request.setAttribute("mainUrl", FAQ+"ModifyForm");
+		request.setAttribute("mainUrl", BASKETBALL+"ModifyForm");
 	}
 }

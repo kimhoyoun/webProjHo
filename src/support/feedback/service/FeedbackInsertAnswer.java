@@ -25,15 +25,15 @@ public class FeedbackInsertAnswer implements SupportService{
 		
 		int res = new FeedbackDAO().insertAnswer(dto);
 		
-		String msg = "답변입력 실패", goUrl = "feedback/Detail?id="+dto.getId()+"&page="+request.getAttribute("nowPage");
+		String msg = "답변입력 실패", goUrl = "Detail?id="+dto.getId()+"&page="+request.getAttribute("nowPage");
 		
 		if(res>0) {
 			msg = "답변이 입력되었습니다.";
-			goUrl = "feedback/Detail?id="+dto.getId()+"&page="+request.getAttribute("nowPage");
+			goUrl = "Detail?id="+dto.getId()+"&page="+request.getAttribute("nowPage");
 		}
 		
 		request.setAttribute("msg", msg);
 		request.setAttribute("goUrl", goUrl);
-		request.setAttribute("mainUrl", "/feedback/alert");
+		request.setAttribute("mainUrl", "alert");
 	}
 }

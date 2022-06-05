@@ -25,16 +25,16 @@ public class FaqModifyReg implements SupportService{
 		
 		int res = new FaqDAO().modify(dto);
 		
-		String msg = "수정 실패", goUrl = "faq/List?page="+request.getAttribute("nowPage");
+		String msg = "수정 실패", goUrl = "List?page="+request.getAttribute("nowPage");
 		
 		if(res>0) {
 			msg = "수정되었습니다.";
-			goUrl = "faq/List?page="+request.getAttribute("nowPage");
+			goUrl = "List?page="+request.getAttribute("nowPage");
 			System.out.println(goUrl);
 		}
 		
 		request.setAttribute("msg", msg);
 		request.setAttribute("goUrl", goUrl);
-		request.setAttribute("mainUrl", "/faq/alert");
+		request.setAttribute("mainUrl", "alert");
 	}
 }

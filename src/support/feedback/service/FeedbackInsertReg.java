@@ -22,8 +22,8 @@ public class FeedbackInsertReg implements SupportService{
 		new FeedbackDAO().insert(dto);
 		
 		request.setAttribute("msg", "작성되었습니다.");
-		request.setAttribute("goUrl", "feedback/home");
-		request.setAttribute("mainUrl", "/feedback/alert");
+		request.setAttribute("goUrl", "home");
+		request.setAttribute("mainUrl", "alert");
 	}
 
 }

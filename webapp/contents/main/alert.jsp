@@ -4,5 +4,5 @@
 <!DOCTYPE html>
 <script>
 alert("${msg}")
-location.href="<c:url value="/support/${goUrl }"/>";
+location.href="<c:url value="${goUrl }"/>";
 </script>

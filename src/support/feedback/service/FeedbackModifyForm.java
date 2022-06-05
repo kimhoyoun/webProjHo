@@ -19,6 +19,6 @@ public class FeedbackModifyForm implements SupportService{
 		Object data = dao.detail(id);
 		
 		request.setAttribute("dto", data);
-		request.setAttribute("mainUrl", "/feedback/ModifyForm");
+		request.setAttribute("mainUrl", FEEDBACK+"ModifyForm");
 	}
 }

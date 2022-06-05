@@ -19,7 +19,7 @@ public class NoticeDetail implements SupportService{
 		Object data = dao.detail(id);
 		
 		request.setAttribute("dto", data);
-		request.setAttribute("mainUrl", "/notice/Detail");
+		request.setAttribute("mainUrl", NOTICE+"Detail");
 	}
 
 }

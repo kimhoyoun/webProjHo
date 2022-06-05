@@ -18,7 +18,7 @@ public class FeedbackDetail implements SupportService{
 		Object question = dao.detail(id);
 		
 		request.setAttribute("dto", question);
-		request.setAttribute("mainUrl", "/feedback/Detail");
+		request.setAttribute("mainUrl", FEEDBACK+"Detail");
 	}
 
 }

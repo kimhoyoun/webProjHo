@@ -80,10 +80,10 @@ public class NoticeDAO {
 				while(rs.next()) {
 					NoticeDTO dto = new NoticeDTO();
 					// 필요한것만 보이기
-					dto.setNotice_id(rs.getString("notice_id"));
-					dto.setNotice_title(rs.getString("notice_title"));
-					dto.setNotice_content(rs.getString("notice_content"));
-					dto.setNotice_filter(rs.getString("notice_filter"));
+					dto.setId(rs.getString("id"));
+					dto.setTitle(rs.getString("title"));
+					dto.setContent(rs.getString("content"));
+					dto.setFilter(rs.getString("filter"));
 					dto.setReg_date(rs.getTimestamp("reg_date"));
 					
 					
@@ -102,7 +102,7 @@ public class NoticeDAO {
 		public ArrayList<NoticeDTO> search(int start, int limit, String filter, String keyword){
 			ArrayList<NoticeDTO> res = new ArrayList<>();
 			
-			sql = "select * from notice where notice_filter = ? and INSTR(notice_title, ?) > 0 order by no desc limit ?, ?";
+			sql = "select * from notice where filter = ? and INSTR(title, ?) > 0 order by no desc limit ?, ?";
 			
 			try {
 				ptmt = con.prepareStatement(sql);
@@ -115,10 +115,10 @@ public class NoticeDAO {
 				while(rs.next()) {
 					NoticeDTO dto = new NoticeDTO();
 					// 필요한것만 보이기
-					dto.setNotice_id(rs.getString("notice_id"));
-					dto.setNotice_title(rs.getString("notice_title"));
-					dto.setNotice_content(rs.getString("notice_content"));
-					dto.setNotice_filter(rs.getString("notice_filter"));
+					dto.setId(rs.getString("id"));
+					dto.setTitle(rs.getString("title"));
+					dto.setContent(rs.getString("content"));
+					dto.setFilter(rs.getString("filter"));
 					dto.setReg_date(rs.getTimestamp("reg_date"));
 					
 					
@@ -137,7 +137,7 @@ public class NoticeDAO {
 		public NoticeDTO detail(String notice_id){
 			NoticeDTO dto = null;
 			
-			sql = "select * from notice where notice_id = ?";
+			sql = "select * from notice where id = ?";
 			
 			try {
 				ptmt = con.prepareStatement(sql);
@@ -147,10 +147,10 @@ public class NoticeDAO {
 				if(rs.next()) {
 					dto = new NoticeDTO();
 					// 필요한것만 보이기
-					dto.setNotice_id(rs.getString("notice_id"));
-					dto.setNotice_title(rs.getString("notice_title"));
-					dto.setNotice_content(rs.getString("notice_content"));
-					dto.setNotice_filter(rs.getString("notice_filter"));
+					dto.setId(rs.getString("id"));
+					dto.setTitle(rs.getString("title"));
+					dto.setContent(rs.getString("content"));
+					dto.setFilter(rs.getString("filter"));
 					dto.setReg_date(rs.getTimestamp("reg_date"));
 				}
 			}catch(Exception e) {
@@ -165,16 +165,15 @@ public class NoticeDAO {
 		
 		public void insert(NoticeDTO dto){
 			
-			sql = "insert into notice(notice_id, notice_title, notice_content, notice_filter, reg_date) "
+			sql = "insert into notice(id, title, content, filter, reg_date) "
 					+ "values (? , ? , ? , ? ,sysdate())";
 			
-			dto.setNotice_id("notice"+System.currentTimeMillis());
 			try {
 				ptmt = con.prepareStatement(sql);
-				ptmt.setString(1, dto.getNotice_id());
-				ptmt.setString(2, dto.getNotice_title());
-				ptmt.setString(3, dto.getNotice_content());
-				ptmt.setString(4, dto.getNotice_filter());
+				ptmt.setString(1, dto.getId());
+				ptmt.setString(2, dto.getTitle());
+				ptmt.setString(3, dto.getContent());
+				ptmt.setString(4, dto.getFilter());
 				ptmt.executeUpdate();
 				
 			}catch(Exception e) {
@@ -189,14 +188,14 @@ public class NoticeDAO {
 	public int modify(NoticeDTO dto){
 			int res = 0;
 			
-			sql = "update notice set notice_title = ?, notice_content = ?, notice_filter = ? "
-					+ "where notice_id = ?";
+			sql = "update notice set title = ?, content = ?, filter = ? "
+					+ "where id = ?";
 			try {
 				ptmt = con.prepareStatement(sql);
-				ptmt.setString(1, dto.getNotice_title());
-				ptmt.setString(2, dto.getNotice_content());
-				ptmt.setString(3, dto.getNotice_filter());
-				ptmt.setString(4, dto.getNotice_id());
+				ptmt.setString(1, dto.getTitle());
+				ptmt.setString(2, dto.getContent());
+				ptmt.setString(3, dto.getFilter());
+				ptmt.setString(4, dto.getId());
 				res = ptmt.executeUpdate();
 				
 			}catch(Exception e) {
@@ -211,10 +210,10 @@ public class NoticeDAO {
 		public int delete(NoticeDTO dto){
 		int res = 0;
 		
-		sql = "delete from notice where notice_id = ?";
+		sql = "delete from notice where id = ?";
 		try {
 			ptmt = con.prepareStatement(sql);
-			ptmt.setString(1, dto.getNotice_id());
+			ptmt.setString(1, dto.getId());
 			res = ptmt.executeUpdate();
 			
 		}catch(Exception e) {

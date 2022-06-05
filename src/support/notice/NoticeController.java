@@ -44,7 +44,7 @@ public class NoticeController extends HttpServlet {
 				);		
 		
 		if(nonClass.contains(serviceStr)) {
-			request.setAttribute("mainUrl", "notice/"+serviceStr);
+			request.setAttribute("mainUrl", "support/notice/"+serviceStr);
 		}else {
 		
 			try {
@@ -55,7 +55,7 @@ public class NoticeController extends HttpServlet {
 				e.printStackTrace();
 			} 
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/support/template.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/contents/template.jsp");
 //		
 		dispatcher.forward(request, response);
 	}

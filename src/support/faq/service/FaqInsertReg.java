@@ -19,8 +19,8 @@ public class FaqInsertReg implements SupportService{
 		new FaqDAO().insert(dto);
 		
 		request.setAttribute("msg", "작성되었습니다.");
-		request.setAttribute("goUrl", "faq/List");
-		request.setAttribute("mainUrl", "/faq/alert");
+		request.setAttribute("goUrl", "List");
+		request.setAttribute("mainUrl", "alert");
 	}
 
 }

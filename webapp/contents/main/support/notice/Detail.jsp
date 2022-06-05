@@ -41,11 +41,11 @@
 
     <div id = div_detail>
       <div id = "detail_title">
-        ${dto.notice_title }
+        ${dto.title }
       </div>
 
       <div id = "detail_filter">
-         ${dto.notice_filter } | 
+         ${dto.filter } | 
       </div>
 
       <div id = "detail_date">
@@ -53,14 +53,14 @@
       </div>
 
       <div id = "detail_content">
-        <p> ${dto.notice_content }</p>
+        <p> ${dto.content }</p>
       </div>
 
 	
 	<div align="right">
 		<a href="List?page=${nowPage }">목록으로</a>
-		<a href="ModifyForm?id=${dto.notice_id }&page=${nowPage}">수정</a>
-		<a href="DeleteForm?id=${dto.notice_id }&oage=${nowPage}">삭제</a>
+		<a href="ModifyForm?id=${dto.id }&page=${nowPage}">수정</a>
+		<a href="DeleteForm?id=${dto.id }&oage=${nowPage}">삭제</a>
 	</div>
   
   </div>

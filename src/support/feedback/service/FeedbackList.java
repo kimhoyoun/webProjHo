@@ -38,7 +38,7 @@ public class FeedbackList implements SupportService{
 		Object data = dao.list(start, limit);
 		
 		request.setAttribute("mainData", data);
-		request.setAttribute("mainUrl", "/feedback/List");
+		request.setAttribute("mainUrl", FEEDBACK+"List");
 		
 		
 		request.setAttribute("start", start);

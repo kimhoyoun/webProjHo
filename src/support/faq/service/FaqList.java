@@ -37,7 +37,7 @@ public class FaqList implements SupportService{
 		Object data = dao.list(start, limit);
 		
 		request.setAttribute("mainData", data);
-		request.setAttribute("mainUrl", "/faq/List");
+		request.setAttribute("mainUrl", FAQ+"List");
 		
 		
 		request.setAttribute("start", start);

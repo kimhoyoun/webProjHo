@@ -17,7 +17,7 @@
 
     div.faq_data{
       width: 90%;
-      height: 38px;
+      height: 80px;
       overflow: hidden;
       border-top: solid 1px black;
     }

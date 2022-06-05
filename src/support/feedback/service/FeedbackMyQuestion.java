@@ -43,7 +43,7 @@ public class FeedbackMyQuestion implements SupportService{
 		Object data = dao.mylist(start, limit, user_id);
 		
 		request.setAttribute("mainData", data);
-		request.setAttribute("mainUrl", "/feedback/MyQuestion");
+		request.setAttribute("mainUrl", FEEDBACK+"MyQuestion");
 		
 		
 		request.setAttribute("start", start);

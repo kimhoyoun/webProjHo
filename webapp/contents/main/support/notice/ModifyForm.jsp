@@ -37,30 +37,30 @@
 
  <div id = div_input>
   <form action="ModifyReg" method="post">
-  <input type="hidden" name = "id" value="${dto.notice_id }" />
+  <input type="hidden" name = "id" value="${dto.id }" />
   <input type="hidden" name = "page" value="${nowPage }" />
     <div id = "input_title">
       제목 : 
-      <input type="text" size = "30" name = "title" value="${dto.notice_title }">
+      <input type="text" size = "30" name = "title" value="${dto.title }">
     </div>
     <div id = "input_filter">
       필터 : 
       <select name="filter" id="">
-        <option value="서버" <c:if test="${dto.notice_filter == \"서버\"}">selected</c:if> >서버</option>
-        <option value="대관" <c:if test="${dto.notice_filter == \"대관\"}">selected</c:if>>대관</option>
-        <option value="수강" <c:if test="${dto.notice_filter == \"수강\"}">selected</c:if> >수강</option>
-        <option value="게시판" <c:if test="${dto.notice_filter == \"게시판\"}">selected</c:if>>게시판</option>
-        <option value="공지" <c:if test="${dto.notice_filter == \"공지\"}">selected</c:if>>공지</option>
+        <option value="서버" <c:if test="${dto.filter == \"서버\"}">selected</c:if> >서버</option>
+        <option value="대관" <c:if test="${dto.filter == \"대관\"}">selected</c:if>>대관</option>
+        <option value="수강" <c:if test="${dto.filter == \"수강\"}">selected</c:if> >수강</option>
+        <option value="게시판" <c:if test="${dto.filter == \"게시판\"}">selected</c:if>>게시판</option>
+        <option value="공지" <c:if test="${dto.filter == \"공지\"}">selected</c:if>>공지</option>
       </select> 
     </div>
 
     <div id = "input_content">
       <p>본문</p>
-      <textarea name="content" id="" cols="60" rows="10" >${dto.notice_content }</textarea>
+      <textarea name="content" id="" cols="60" rows="10" >${dto.content }</textarea>
     </div>
 
     <div id ="input_submit">
-    <a href="Detail?id=${dto.notice_id }&page=${nowPage }">뒤로</a>
+    <a href="Detail?id=${dto.id }&page=${nowPage }">뒤로</a>
       <input  type="submit">
     </div>
   </form>

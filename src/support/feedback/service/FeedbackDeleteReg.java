@@ -29,15 +29,15 @@ public class FeedbackDeleteReg implements SupportService{
 			res = new FeedbackDAO().delete(dto);
 		}
 		 
-		String msg = "삭제 실패", goUrl = "feedback/DeleteFormQ?id="+dto.getId()+"&page="+request.getAttribute("nowPage");
+		String msg = "삭제 실패", goUrl = "DeleteForm?id="+dto.getId()+"&page="+request.getAttribute("nowPage");
 		
 		if(res>0) {
 			msg = "삭제성공";
-			goUrl = "feedback/home";
+			goUrl = "home";
 		}
 		
 		request.setAttribute("msg", msg);
 		request.setAttribute("goUrl", goUrl);
-		request.setAttribute("mainUrl", "/feedback/alert");
+		request.setAttribute("mainUrl", "alert");
 	}
 }

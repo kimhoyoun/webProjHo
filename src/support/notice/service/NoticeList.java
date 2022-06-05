@@ -38,7 +38,7 @@ public class NoticeList implements SupportService{
 		Object data = dao.list(start, limit);
 		
 		request.setAttribute("mainData", data);
-		request.setAttribute("mainUrl", "/notice/List");
+		request.setAttribute("mainUrl", NOTICE+"List");
 		
 		request.setAttribute("start", start);
 		request.setAttribute("pageTotal", pageTotal);

@@ -38,10 +38,9 @@ public class BasketballController extends HttpServlet {
 				(request.getContextPath()+"/gym/basketball/").length()
 				);
 		
-		System.out.println(serviceStr);
 		
 		if(nonClass.contains(serviceStr)) {
-			request.setAttribute("mainUrl", "basketball/"+serviceStr);
+			request.setAttribute("mainUrl", "gym/basketball/"+serviceStr);
 		}else {
 		
 			try {
