@@ -10,41 +10,41 @@
 <!-- <hr /> -->
 <script>
 	
-	document.addEventListener('DOMContentLoaded', ()=>{
+// 	document.addEventListener('DOMContentLoaded', ()=>{
 	
-		const mainMenu = document.querySelectorAll('#mainmenu_list>li>a')
-		const headerWrap = document.querySelector('#header_wrap')
-		const subMenu = document.querySelectorAll('.submenu_list')
+// 		const mainMenu = document.querySelectorAll('#mainmenu_list>li>a')
+// 		const headerWrap = document.querySelector('#header_wrap')
+// 		const subMenu = document.querySelectorAll('.submenu_list')
 		
-		for(const item of mainMenu){
-			item.addEventListener('mouseenter',mainMenuOver)
-		}
+// 		for(const item of mainMenu){
+// 			item.addEventListener('mouseenter',mainMenuOver)
+// 		}
 		
-		headerWrap.addEventListener('mouseleave',mainMenuLeave)
+// 		headerWrap.addEventListener('mouseleave',mainMenuLeave)
 		
 		
-		function mainMenuOver(){
-			menuActivate()
-		}
+// 		function mainMenuOver(){
+// 			menuActivate()
+// 		}
 		
-		function mainMenuLeave(){
-			menuInActivate()
-		}
+// 		function mainMenuLeave(){
+// 			menuInActivate()
+// 		}
 		
-		function menuActivate(){
-			gsap.to(headerWrap, {height:215, duration : 0.3, ease:'power1.out'})
-			for(const item of subMenu){
-				gsap.set(item, {display:'block'})
-			}
-		}
+// 		function menuActivate(){
+// 			gsap.to(headerWrap, {height:215, duration : 0.3, ease:'power1.out'})
+// 			for(const item of subMenu){
+// 				gsap.set(item, {display:'block'})
+// 			}
+// 		}
 		
-		function menuInActivate(){
-			gsap.to(headerWrap, {height:114, duration : 0.3, ease:'power1.out'})
-			for(const item of subMenu){
-				gsap.set(item, {display:'none'})
-			}
-		}
-	})
+// 		function menuInActivate(){
+// 			gsap.to(headerWrap, {height:114, duration : 0.3, ease:'power1.out'})
+// 			for(const item of subMenu){
+// 				gsap.set(item, {display:'none'})
+// 			}
+// 		}
+// 	})
 	
 
 </script>

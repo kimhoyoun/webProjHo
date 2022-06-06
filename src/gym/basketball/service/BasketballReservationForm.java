@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import gym.GymService;
 import gym.basketball.model.BasketballDAO;
 
-public class BasketballDetail implements GymService{
+public class BasketballReservationForm implements GymService{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
@@ -15,8 +15,11 @@ public class BasketballDetail implements GymService{
 		BasketballDAO dao = new BasketballDAO();
 		
 		Object data = dao.detail(id);
+		
 		request.setAttribute("dto", data);
-		request.setAttribute("mainUrl", BASKETBALL+"Detail");
+		request.setAttribute("totalPrice",request.getParameter("totalPrice"));
+		request.setAttribute("dateSet",request.getParameter("dateSet"));
+		request.setAttribute("mainUrl", BASKETBALL+"ReservationForm");
 	}
 
 }

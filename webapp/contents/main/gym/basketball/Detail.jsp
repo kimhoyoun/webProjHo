@@ -2,11 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ 
+ <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c59b252c5ce6b362867c5d3da3e6369c&libraries=services"></script>
+ 
 <h1>대관 상세</h1>
 
-<table>
+<c:set var = "totalPrice" value="100"/>
+
+<form action="ReservationForm" method="post">
+<input type="hidden" name = "id" value="${dto.id }" />
+<input type="hidden" name = "totalPrice" value="${totalPrice }" />
+<input type="hidden" name = "dateSet" value="${param.dateSet } " />
+<table border ="">
 	<tr>
 		<th>제목</th>
 		<td>${dto.title }</td>
@@ -43,15 +50,97 @@
 	</tr>
 	<tr>
 		<th>주소</th>
-		<td>${dto.location }</td>
+		<td>${dto.location } <br />
+		<a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a>
+		<div id="map" style="width:500px;height:400px;"></div>
+		<script>
+		
+		
+			var lat = 0;
+			var lng = 0;
+			
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			    mapOption = {
+			        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			        level: 3 // 지도의 확대 레벨
+			    };  
+			
+			// 지도를 생성합니다    
+			var map = new kakao.maps.Map(mapContainer, mapOption); 
+			
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
+			
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch('${dto.location}', function(result, status) {
+			
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
+					lat = result[0].y;
+					lng = result[0].x;
+					
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			        // 결과값으로 받은 위치를 마커로 표시합니다
+			        var marker = new kakao.maps.Marker({
+			            map: map,
+			            position: coords
+			        });
+			
+			        // 인포윈도우로 장소에 대한 설명을 표시합니다
+			        var infowindow = new kakao.maps.InfoWindow({
+			            content: '<div style="width:150px;text-align:center;padding:6px 0;">${dto.title}</div>'
+			        });
+			        infowindow.open(map, marker);
+			
+			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			        map.setCenter(coords);
+			    } 
+			});  
+			
+			function setCenter() {            
+			    // 이동할 위도 경도 위치를 생성합니다 
+			    var moveLatLon = new kakao.maps.LatLng(lat, lng);
+			    
+			    // 지도 중심을 이동 시킵니다
+			    map.setCenter(moveLatLon);
+			}
+
+			function panTo() {
+			    // 이동할 위도 경도 위치를 생성합니다 
+			    var moveLatLon = new kakao.maps.LatLng(lat, lng);
+			    
+			    // 지도 중심을 부드럽게 이동시킵니다
+			    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+			    map.panTo(moveLatLon);            
+			} 
+			</script>
+		</td>
 	</tr>
 	<tr>
 		<th>매니저</th>
 		<td>${dto.manager_id }</td>
 	</tr>
 	<tr>
-		<td colspan = "2"><a href="List?page=${nowPage }">목록으로</a>
-		<a href="ModifyForm?id=${dto.id }&page=${nowPage}">수정</a>
-		<a href="DeleteForm?id=${dto.id }&oage=${nowPage}">삭제</a></td>
+		<td colspan = "2" >
+			선택 날짜 : ${param.dateSet } 
+		</td>
+	</tr>
+	<tr>
+		<td colspan = "2" >
+			가격 : ${totalPrice } 원
+		</td>
+	</tr>
+	<tr>
+		<td colspan = "2">
+			<a href="List?page=${nowPage }">목록으로</a>
+			<input type="submit"  value="예약하기"/>
+		</td>
+	</tr>
+	<tr>
+		<td colspan = "2">
+			<a href="ModifyForm?id=${dto.id }&page=${nowPage}">수정</a>
+			<a href="DeleteForm?id=${dto.id }&page=${nowPage}">삭제</a>
+		</td>
 	</tr>
 </table>
+</form>

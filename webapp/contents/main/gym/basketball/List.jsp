@@ -1,10 +1,61 @@
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+/*datepicer 버튼 롤오버 시 손가락 모양 표시*/
+.ui-datepicker-trigger{cursor: pointer;}
+/*datepicer input 롤오버 시 손가락 모양 표시*/
+.hasDatepicker{cursor: pointer;}
+</style>
+
 <h1>농구 대관페이지</h1>
 
-<table> 
+
+
+<div id="calendar_wrap" >
+	<div id = "calendar">
+		<input type="text" name="selectDate" id="selectDate" class="ts" autocomplete="off" value="${dateSet }"/>
+		<script>
+		
+		var setDate=null;
+			$(function(){
+				$('#selectDate').datepicker({
+					lang:'ko',
+					dateFormat: 'yy-mm-dd',
+					monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], //달력의 월 부분 텍스트
+			        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], //달력의 월 부분 Tooltip
+			        dayNamesMin: ['일','월','화','수','목','금','토'], //달력의 요일 텍스트
+			        dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'], //달력의 요일 Tooltip
+			        minDate:0,
+			        maxDate:'+2M',
+			        onSelect: function(dateText, inst){
+			        	
+			        	var arr = dateText.split("/")
+			        	var date = arr[0]
+			        	location.href="List?page=${nowPage}&dateSet="+date;
+			        }
+				});
+// 				var date = ${dateSet}
+// 				if(date != null){
+// 					$('#selectDate').datepicker('setDate', date);
+// 				}else{
+// 				$('#selectDate').datepicker('setDate', 'today');
+// 				}
+			})
+	</script>
+	</div>
+	
+</div>
+
+<div id = "table_wrap">
+
+<table border=""> 
 
 	<tr>
 		<th>이미지</th>
@@ -18,7 +69,7 @@
 	<tr>
 		<td><img src="<c:url value="/uploadFile/gym/basketball/${dto.img }"/>" alt="" /></td>
 		<td>
-			<a href="<c:url value="Detail?id=${dto.id }&page=${nowPage }"/>">${dto.title }</a>
+			<a href="<c:url value="Detail?id=${dto.id }&page=${nowPage }&dateSet=${dateSet }"/>">${dto.title }</a>
 		</td>
 		<td>${dto.manager_id }</td>
 		<td>
@@ -58,3 +109,4 @@
 		</td>
 	</tr>
 </table>
+</div>
