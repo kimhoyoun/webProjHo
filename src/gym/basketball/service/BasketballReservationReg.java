@@ -33,6 +33,7 @@ public class BasketballReservationReg implements GymService{
 			assertNotNull(paymentResponse.getResponse());
             assertEquals(uid, paymentResponse.getResponse().getImpUid());
             
+            // 결제 금액과 비교
             if(paymentResponse.getResponse().getAmount().compareTo(BigDecimal.valueOf(100)) == 0) {
     			System.out.println("검증통과");
     		}

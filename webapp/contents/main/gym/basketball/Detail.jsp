@@ -4,6 +4,48 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  
  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c59b252c5ce6b362867c5d3da3e6369c&libraries=services"></script>
+ <style>
+ ul#resTime_list>li{
+	 width:100px; 
+	 border:solid 1px black; 
+	 margin-right:5px; 
+	 float:left;
+	 background:#eee;
+ }
+ 
+ ul#resTime_list li.selected{
+    background:red;   
+  }  
+  
+ </style>
+<script>
+	document.addEventListener('DOMContentLoaded', ()=>{
+		
+		var total = 0;
+		const priceList = document.querySelectorAll('#resTime_list>li')
+		var div = document.getElementById('pricediv')
+		var selectedList = null
+		
+		
+		for(item of priceList){
+			item.addEventListener('click', selectTime)
+		}
+	 	
+	 function selectTime(){
+		 
+          if(this.classList == ""){
+        	  this.classList.add('selected')
+        	  total += 60000
+        	  div.textContent = total + '원';
+          }else{
+        	  this.classList.remove('selected')
+        	  total -= 60000
+        	  div.textContent = total + '원';
+          }
+	 }
+	})
+	
+</script>
  
 <h1>대관 상세</h1>
 
@@ -11,7 +53,7 @@
 
 <form action="ReservationForm" method="post">
 <input type="hidden" name = "id" value="${dto.id }" />
-<input type="hidden" name = "totalPrice" value="${totalPrice }" />
+<input type="hidden" id = "totalPrice" name = "totalPrice" value="${totalPrice }" />
 <input type="hidden" name = "dateSet" value="${param.dateSet } " />
 <table border ="">
 	<tr>
@@ -54,8 +96,6 @@
 		<a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a>
 		<div id="map" style="width:500px;height:400px;"></div>
 		<script>
-		
-		
 			var lat = 0;
 			var lng = 0;
 			
@@ -127,7 +167,30 @@
 	</tr>
 	<tr>
 		<td colspan = "2" >
-			가격 : ${totalPrice } 원
+			<ul id ="resTime_list" style="list-style: none; ">
+				<li value="0"><span>00시 ~ 02시</span></li>
+				<li value="0"><span>02시 ~ 04시</span></li>
+				<li value="0">04시 ~ 06시</li>
+				<li value="1">06시 ~ 08시</li>
+				<li  value="1">08시 ~ 10시</li>
+				<li  value="1">10시 ~ 12시</li>
+				<li value="1">12시 ~ 14시</li>
+				<li value="1">14시 ~ 16시</li>
+				<li  value="1">16시 ~ 18시</li>
+				<li  value="0">18시 ~ 20시</li>
+				<li  value="0">20시 ~ 22시</li>
+				<li  value="0">22시 ~ 24시</li>
+			</ul>
+		 <script>
+		 
+ 		</script>
+		</td>
+	</tr>
+	<tr>
+		<td colspan = "2" >
+			가격 : <div id ="pricediv">0</div>
+			
+			 
 		</td>
 	</tr>
 	<tr>
