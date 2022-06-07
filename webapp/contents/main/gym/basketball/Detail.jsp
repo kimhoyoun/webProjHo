@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  
- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c59b252c5ce6b362867c5d3da3e6369c&libraries=services"></script>
  <style>
  ul#resTime_list>li{
 	 width:100px; 
@@ -17,31 +16,108 @@
     background:red;   
   }  
   
+/*datepicer 버튼 롤오버 시 손가락 모양 표시*/
+.ui-datepicker-trigger{cursor: pointer;}
+/*datepicer input 롤오버 시 손가락 모양 표시*/
+.hasDatepicker{cursor: pointer;}
+  
  </style>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 	document.addEventListener('DOMContentLoaded', ()=>{
 		
 		var total = 0;
 		const priceList = document.querySelectorAll('#resTime_list>li')
 		var div = document.getElementById('pricediv')
-		var selectedList = null
 		
+		var timeInput = document.getElementById('timeSelect')
 		
+		var selectItemNum = 0
+		
+		var timeSelect = [];
+		
+		var selectedList = null;
+		
+		var date = '${param.dateSet}'
+		var week = new Date(date).getDay();
+		
+		var weekly = 0
+		var nighttime = 0
+		
+		if(week==0||week==6){
+			weekly = ${dto.price_weekend_weekly}
+			nighttime = ${dto.price_weekend_nighttime}
+		}else{
+			weekly = ${dto.price_weekday_weekly}
+			nighttime = ${dto.price_weekday_nighttime}
+		}
+		
+		var str = '${resData}'
+		const arr = str.split(',')
 		for(item of priceList){
 			item.addEventListener('click', selectTime)
 		}
-	 	
+		
+		
+		if(str.length >0){
+			for(var i = 0; i<arr.length; i++){
+				priceList[arr[i]].removeEventListener('click',selectTime)
+				priceList[arr[i]].style.background = 'blue'
+			}		
+		}
+		
+		 function getIndex(checkList){
+	            let selectedIndex = 0;
+	            while((checkList=checkList.previousElementSibling) != null){
+	              selectedIndex++
+	            }
+
+	            return selectedIndex
+	          }
+		
 	 function selectTime(){
-		 
-          if(this.classList == ""){
-        	  this.classList.add('selected')
-        	  total += 60000
-        	  div.textContent = total + '원';
-          }else{
-        	  this.classList.remove('selected')
-        	  total -= 60000
-        	  div.textContent = total + '원';
-          }
+		
+	          if(this.classList == ""){
+	        	  if(selectItemNum<2){
+		        	  this.classList.add('selected')
+		        	  if(this.value == 1){
+		 	       	  	total += weekly
+		        	  }else{
+		        		total += nighttime
+		        	  }
+		        	  if(selectItemNum == 0){
+		        	  	timeSelect[0] = getIndex(this)
+		        	  }else{
+		        		timeSelect[1] = getIndex(this)
+		        	  }
+		        	  selectItemNum++
+	        	  }else{
+	        		  alert('최대 4시간까지 예약 가능합니다.')
+	        	  }
+	          }else{
+	        	  this.classList.remove('selected')
+	        	  if(this.value == 1){
+	   	       	  	total -= weekly
+	          	  }else{
+	          		total -= nighttime
+	          	  }
+	        	  
+	        	  for(let i = 0; i<timeSelect.length; i++){
+	        		  if(timeSelect[i] == getIndex(this)){
+	        			  timeSelect.splice(i,1);
+	        			  i--;
+	        		  }
+	        	  }
+	        	  selectItemNum--;
+	          }
+	        	  div.innerHTML = total+'원'+ '<input type="hidden" id = "totalPrice" name = "totalPrice" value="'+ total+'" />';
+	        	  timeSelect.sort(function(a, b)  {
+	        		  if(a > b) return 1;
+	        		  if(a === b) return 0;
+	        		  if(a < b) return -1;
+	        		});
+	        	  timeInput.setAttribute('value', timeSelect);	
+	
 	 }
 	})
 	
@@ -53,8 +129,7 @@
 
 <form action="ReservationForm" method="post">
 <input type="hidden" name = "id" value="${dto.id }" />
-<input type="hidden" id = "totalPrice" name = "totalPrice" value="${totalPrice }" />
-<input type="hidden" name = "dateSet" value="${param.dateSet } " />
+
 <table border ="">
 	<tr>
 		<th>제목</th>
@@ -62,7 +137,13 @@
 	</tr>
 	<tr>
 		<th>이미지</th>
-		<td><img src="<c:url value="/uploadFile/gym/basketball/${dto.img }"/>" alt="" /></td>
+		<td>
+			<c:forTokens items ="${dto.img }"
+				delims = "," var = "ee" varStatus="no">
+				<img src="<c:url value="/uploadFile/gym/basketball/${ee}"/>" alt="" />
+			</c:forTokens>
+			
+		</td>
 	</tr>
 	<tr>
 		<th>info</th>
@@ -147,7 +228,7 @@
 
 			function panTo() {
 			    // 이동할 위도 경도 위치를 생성합니다 
-			    var moveLatLon = new kakao.maps.LatLng(lat, lng);
+			    var moveLatLon = new kakao.maps.LatLng(lat, lng)
 			    
 			    // 지도 중심을 부드럽게 이동시킵니다
 			    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
@@ -162,14 +243,44 @@
 	</tr>
 	<tr>
 		<td colspan = "2" >
-			선택 날짜 : ${param.dateSet } 
+			선택 날짜 :
+			<input type="text" name="dateSet" id="dateSet" class="ts" autocomplete="off" value="${param.dateSet }"/>
+			
+			<script>
+		
+			var setDate=null;
+			$(function(){
+				$('#dateSet').datepicker({
+					lang:'ko',
+					dateFormat: 'yy-mm-dd',
+					monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], //달력의 월 부분 텍스트
+			        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'], //달력의 월 부분 Tooltip
+			        dayNamesMin: ['일','월','화','수','목','금','토'], //달력의 요일 텍스트
+			        dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'], //달력의 요일 Tooltip
+			        minDate:0,
+			        maxDate:'+2M',
+			        onSelect: function(dateText, inst){
+			        	
+			        	var arr = dateText.split("/")
+			        	var date = arr[0]
+			        	location.href="Detail?id=${dto.id }&page=${nowPage }&dateSet="+date;
+			        }
+				});
+// 				var date = ${param.dateSet}
+// 				if(date != null){
+// 					$('#selectDate').datepicker('setDate', date);
+// 				}else{
+// 				$('#selectDate').datepicker('setDate', 'today');
+// 				}
+			})
+	</script> 
 		</td>
 	</tr>
 	<tr>
 		<td colspan = "2" >
 			<ul id ="resTime_list" style="list-style: none; ">
-				<li value="0"><span>00시 ~ 02시</span></li>
-				<li value="0"><span>02시 ~ 04시</span></li>
+				<li value="0">00시 ~ 02시</li>
+				<li value="0">02시 ~ 04시</li>
 				<li value="0">04시 ~ 06시</li>
 				<li value="1">06시 ~ 08시</li>
 				<li  value="1">08시 ~ 10시</li>
@@ -180,17 +291,14 @@
 				<li  value="0">18시 ~ 20시</li>
 				<li  value="0">20시 ~ 22시</li>
 				<li  value="0">22시 ~ 24시</li>
-			</ul>
-		 <script>
-		 
- 		</script>
+			</ul> 
+			<input type="hidden" name = "timeSelect" id="timeSelect" />
+			
 		</td>
 	</tr>
 	<tr>
 		<td colspan = "2" >
 			가격 : <div id ="pricediv">0</div>
-			
-			 
 		</td>
 	</tr>
 	<tr>

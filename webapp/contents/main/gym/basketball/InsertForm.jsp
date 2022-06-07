@@ -54,7 +54,7 @@
 	</tr>
 	<tr>
 		<th>이미지</th>
-		<td><input type="file" name ="img"/></td>
+		<td><input type="file" name ="img" multiple /></td>
 	</tr>
 	<tr>
 		<td colspan = "2" align = "center">

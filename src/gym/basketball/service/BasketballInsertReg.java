@@ -1,65 +1,98 @@
 package gym.basketball.service;
 
-import java.io.IOException;
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import gym.GymService;
 import gym.basketball.model.BasketballDAO;
 import gym.basketball.model.BasketballDTO;
-import support.SupportService;
-import support.notice.model.NoticeDAO;
-import support.notice.model.NoticeDTO;
 
 public class BasketballInsertReg implements GymService{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		String path = request.getRealPath("basketball");
-		path = "C:\\temp\\jsp_work\\webProjectTest\\webapp\\uploadFile\\gym\\basketball";
+		String realPath = "";
+		String savePath = "C:\\temp\\jsp_work\\webProjectTest\\webapp\\uploadFile\\gym\\basketball";
 		
-		try {
-			MultipartRequest mm = new MultipartRequest(
-					request, 
-					path,
-					10*1024*1024,
-					"UTF-8",
-					new DefaultFileRenamePolicy()
-					);
-		
-		BasketballDTO dto = new BasketballDTO();
-		dto.setId("basketball"+System.currentTimeMillis());
-		dto.setTitle(mm.getParameter("title"));
-		dto.setContents_info(mm.getParameter("contents_info"));
-		dto.setContents_detail(mm.getParameter("contents_detail"));
-		dto.setContents_rule(mm.getParameter("contents_rule"));
-		dto.setContents_refund(mm.getParameter("contents_refund"));
-		dto.setOption1((mm.getParameter("option1")!=null)? Boolean.parseBoolean(mm.getParameter("option1")):false);
-		dto.setOption2((mm.getParameter("option2")!=null)? Boolean.parseBoolean(mm.getParameter("option2")):false);
-		dto.setOption3((mm.getParameter("option3")!=null)? Boolean.parseBoolean(mm.getParameter("option3")):false);
-		dto.setOption4((mm.getParameter("option4")!=null)? Boolean.parseBoolean(mm.getParameter("option4")):false);
-		dto.setOption5((mm.getParameter("option5")!=null)? Boolean.parseBoolean(mm.getParameter("option5")):false);
-		dto.setPrice_weekday_weekly(Integer.parseInt(mm.getParameter("price_weekday_weekly")));
-		dto.setPrice_weekday_nighttime(Integer.parseInt(mm.getParameter("price_weekday_nighttime")));
-		dto.setPrice_weekend_weekly(Integer.parseInt(mm.getParameter("price_weekend_weekly")));
-		dto.setPrice_weekend_nighttime(Integer.parseInt(mm.getParameter("price_weekend_nighttime")));
-		dto.setLocation(mm.getParameter("location"));
-		dto.setImg(mm.getFilesystemName("img"));
-		dto.setManager_id(mm.getParameter("manager_id"));
-		
-		new BasketballDAO().insert(dto);
-		}
-		catch (IOException e) {
+		int maxSize = 10*1024*1024;
+	    String type = "utf-8";
+	    realPath = savePath;
+	    HashMap<String, String> map = new HashMap<String, String>();
+	    String allImg = "";
+	    
+	    try {
+			DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
+			diskFileItemFactory.setRepository(new File(realPath));
+			diskFileItemFactory.setSizeThreshold(maxSize);
+			diskFileItemFactory.setDefaultCharset(type);
+			ServletFileUpload fileUpload = new ServletFileUpload(diskFileItemFactory);
+			
+			
+			
+			List<FileItem> items = fileUpload.parseRequest(request);
+			
+	         for (FileItem item : items) {
+	            if (item.isFormField()) {
+	               map.put(item.getFieldName(), item.getString());
+	            } else {
+	               if (item.getSize() > 0) {
+	                  String separator = File.separator;
+	                  int index = item.getName().lastIndexOf(".");
+	                  String expert = item.getName().substring(index);
+	                  
+	                  String fileName = "img"+System.currentTimeMillis()+expert;
+	                  
+	                  File uploadFile = new File(realPath + separator + fileName);
+	                  allImg += fileName + ",";
+	                  
+	                  item.write(uploadFile);
+	                  
+	               } // if
+	            } // else
+	         } // for 
+	         
+	         BasketballDTO dto = new BasketballDTO();
+	         dto.setId("basketball"+System.currentTimeMillis());
+	         dto.setTitle(map.get("title"));
+	         dto.setContents_info(map.get("contents_info"));
+	         dto.setContents_detail(map.get("contents_detail"));
+	         dto.setContents_rule(map.get("contents_rule"));
+	         dto.setContents_refund(map.get("contents_refund"));
+	         dto.setOption1((map.get("option1")!=null)? Boolean.parseBoolean(map.get("option1")):false);
+	         dto.setOption2((map.get("option2")!=null)? Boolean.parseBoolean(map.get("option2")):false);
+	         dto.setOption3((map.get("option3")!=null)? Boolean.parseBoolean(map.get("option3")):false);
+	         dto.setOption4((map.get("option4")!=null)? Boolean.parseBoolean(map.get("option4")):false);
+	         dto.setOption5((map.get("option5")!=null)? Boolean.parseBoolean(map.get("option5")):false);
+	         dto.setPrice_weekday_weekly(Integer.parseInt(map.get("price_weekday_weekly")));
+	         dto.setPrice_weekday_nighttime(Integer.parseInt(map.get("price_weekday_nighttime")));
+	         dto.setPrice_weekend_weekly(Integer.parseInt(map.get("price_weekend_weekly")));
+	         dto.setPrice_weekend_nighttime(Integer.parseInt(map.get("price_weekend_nighttime")));
+	         dto.setLocation(map.get("location"));
+	         
+	         dto.setImg(allImg);
+	         
+	         dto.setManager_id(map.get("manager_id"));
+	         
+	         new BasketballDAO().insert(dto);
+	         
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+			
+		
 		
 	
 		request.setAttribute("msg", "작성되었습니다.");
 		request.setAttribute("goUrl", "List");
 		request.setAttribute("mainUrl", "alert");
 	}
+
 }

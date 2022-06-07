@@ -3,12 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  
- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c59b252c5ce6b362867c5d3da3e6369c&libraries=services"></script>
- <!-- jQuery -->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-  <!-- iamport.payment.js -->
-  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-  
+ 
 <h1>예약 확인</h1>
 
 <table border ="">
@@ -23,6 +18,20 @@
 	<tr>
 		<th>날짜</th>
 		<td>${dateSet }</td>
+	</tr>
+	<tr>
+		<th>시간</th>
+		<td>${dateSet }</td>
+	</tr>
+	<tr>
+		<th>사용 시간</th>
+		<td>
+			<c:forEach var="time" items="${timeSelect }" varStatus="no">
+			${time*2 }시~${(time+1)*2  }시 <br />
+			</c:forEach>
+		
+			
+		</td>
 	</tr>
 	<tr>
 		<th>price</th>
@@ -50,16 +59,17 @@
 
 <script>
 	var IMP = window.IMP; // 생략 가능
-	IMP.init("imp36141974"); // 예: imp00000000
-
+	IMP.init("imp36141974");
     function requestPay() {
+    	
       // IMP.request_pay(param, callback) 결제창 호출
       IMP.request_pay({ // param
           pg: "html5_inicis",
           pay_method: "card",
-          merchant_uid: "${dto.id}",
+//           merchant_uid: 'merchant_'+new Date().getTime(),
           name: "${dto.title}",
-          amount: ${totalPrice},
+//           amount: ${totalPrice},
+          amount: 100,
           buyer_email: "gildong@gmail.com",
           buyer_name: "홍길동",
           buyer_tel: "010-4242-4242",
@@ -68,7 +78,36 @@
       }, function (rsp) { // callback
           if (rsp.success) {
               alert("결제 성공")
-        	  location.href = "ReservationReg?imp_uid="+ rsp.imp_uid
+//         	  location.href = "ReservationReg?imp_uid="+ rsp.imp_uid+"&id=${dto.id}&price=${totalPrice}&dateSet=${dateSet}&selectTime=${timeSelect}"
+        			  
+        	  var form = document.createElement('form');
+              form.setAttribute('method', 'post');
+              form.setAttribute('action', 'ReservationReg');
+              document.charset = "UTF-8";
+// 			 var key = ['imp_uid','id','price','dateSet','selectTime','user_id']
+// 			 // userid 바꿀것
+// 			 var keyValue = [rsp.imp_uid, , , , ,'hong']
+			 
+			 var params = {
+				 imp_uid : rsp.imp_uid,
+				 id : '${dto.id}',
+				 price : '${totalPrice}',
+				 dateSet : '${dateSet}',
+				 selectTime : '${timeSelect}',
+				 user_id : 'hong'
+			 };
+			 
+              for (var key in params) {
+                var hiddenField = document.createElement('input');
+                hiddenField.setAttribute('type', 'hidden');
+                hiddenField.setAttribute('name', key);
+                hiddenField.setAttribute('value', params[key]);
+                form.appendChild(hiddenField);
+              }
+
+              document.body.appendChild(form);
+              form.submit();
+            
           }
       });
     }

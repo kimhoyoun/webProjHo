@@ -17,6 +17,7 @@ public class BasketballReservationForm implements GymService{
 		Object data = dao.detail(id);
 		
 		request.setAttribute("dto", data);
+		request.setAttribute("timeSelect", request.getParameter("timeSelect"));
 		request.setAttribute("totalPrice",request.getParameter("totalPrice"));
 		request.setAttribute("dateSet",request.getParameter("dateSet"));
 		request.setAttribute("mainUrl", BASKETBALL+"ReservationForm");

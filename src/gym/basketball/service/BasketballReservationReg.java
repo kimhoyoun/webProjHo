@@ -18,6 +18,8 @@ import com.siot.IamportRestClient.response.Payment;
 
 import gym.GymService;
 import gym.basketball.model.BasketballDAO;
+import payment.model.PaymentDAO;
+import payment.model.PaymentDTO;
 
 public class BasketballReservationReg implements GymService{
 	private IamportClient client;
@@ -36,6 +38,31 @@ public class BasketballReservationReg implements GymService{
             // 결제 금액과 비교
             if(paymentResponse.getResponse().getAmount().compareTo(BigDecimal.valueOf(100)) == 0) {
     			System.out.println("검증통과");
+    			
+    			PaymentDTO paymentDTO = new PaymentDTO();
+    			
+    			paymentDTO.setImp_uid(paymentResponse.getResponse().getImpUid());
+    			paymentDTO.setAmount(paymentResponse.getResponse().getAmount().toString());
+    			paymentDTO.setBuyer_name(paymentResponse.getResponse().getBuyerName());
+    			paymentDTO.setMerchant_uid(paymentResponse.getResponse().getMerchantUid());
+    			paymentDTO.setId(request.getParameter("id"));
+    			paymentDTO.setResDate(request.getParameter("dateSet"));
+    			paymentDTO.setResTime(request.getParameter("selectTime"));
+    			paymentDTO.setUser_id(request.getParameter("user_id"));
+    			
+    			System.out.println("imp_uid: "+paymentResponse.getResponse().getImpUid());
+    			System.out.println("Amount: "+paymentResponse.getResponse().getAmount());
+    			System.out.println("getBuyerName: "+paymentResponse.getResponse().getBuyerName());
+    			System.out.println("getMerchantUid: "+paymentResponse.getResponse().getMerchantUid());
+    			System.out.println("id: "+request.getParameter("id"));
+    			System.out.println("날짜 : "+request.getParameter("dateSet"));
+    			System.out.println("시간 : "+request.getParameter("selectTime"));
+    			System.out.println("user : "+request.getParameter("user_id"));
+    			
+    			
+    			new PaymentDAO().insert(paymentDTO);
+    			
+    			request.setAttribute("paymentResult", paymentDTO);
     		}
             System.out.println(paymentResponse.getResponse());
 			//TODO : 처리 로직
@@ -57,8 +84,6 @@ public class BasketballReservationReg implements GymService{
 			//서버 연결 실패
 			e.printStackTrace();
 		}
-		
-		
 		
 		request.getParameter("data");
 		request.setAttribute("mainUrl", BASKETBALL+"ReservationReg");

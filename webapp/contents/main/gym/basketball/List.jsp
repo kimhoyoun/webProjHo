@@ -3,8 +3,9 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
@@ -62,12 +63,13 @@
 		<th>제목</th>
 		<th>매니저</th>
 		<th>작성일</th>
-		
 	</tr>
 	<c:forEach var="dto" items="${mainData }" varStatus="no">
 		
 	<tr>
-		<td><img src="<c:url value="/uploadFile/gym/basketball/${dto.img }"/>" alt="" /></td>
+		<td>
+			<img src="<c:url value="/uploadFile/gym/basketball/${fn:split(dto.img, ',')[0]}"/>" alt="" />
+		</td>
 		<td>
 			<a href="<c:url value="Detail?id=${dto.id }&page=${nowPage }&dateSet=${dateSet }"/>">${dto.title }</a>
 		</td>
