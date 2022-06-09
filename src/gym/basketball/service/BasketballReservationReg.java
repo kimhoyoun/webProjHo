@@ -46,19 +46,22 @@ public class BasketballReservationReg implements GymService{
     			paymentDTO.setBuyer_name(paymentResponse.getResponse().getBuyerName());
     			paymentDTO.setMerchant_uid(paymentResponse.getResponse().getMerchantUid());
     			paymentDTO.setId(request.getParameter("id"));
+    			paymentDTO.setSname(request.getParameter("sname"));
     			paymentDTO.setResDate(request.getParameter("dateSet"));
     			paymentDTO.setResTime(request.getParameter("selectTime"));
     			paymentDTO.setUser_id(request.getParameter("user_id"));
+    			paymentDTO.setManager_id(request.getParameter("manager_id"));
     			
     			System.out.println("imp_uid: "+paymentResponse.getResponse().getImpUid());
     			System.out.println("Amount: "+paymentResponse.getResponse().getAmount());
     			System.out.println("getBuyerName: "+paymentResponse.getResponse().getBuyerName());
     			System.out.println("getMerchantUid: "+paymentResponse.getResponse().getMerchantUid());
     			System.out.println("id: "+request.getParameter("id"));
+    			System.out.println("경기장 : "+request.getParameter("sname"));
     			System.out.println("날짜 : "+request.getParameter("dateSet"));
     			System.out.println("시간 : "+request.getParameter("selectTime"));
     			System.out.println("user : "+request.getParameter("user_id"));
-    			
+    			System.out.println("manager_id : "+request.getParameter("manager_id"));
     			
     			new PaymentDAO().insert(paymentDTO);
     			
@@ -85,7 +88,6 @@ public class BasketballReservationReg implements GymService{
 			e.printStackTrace();
 		}
 		
-		request.getParameter("data");
 		request.setAttribute("mainUrl", BASKETBALL+"ReservationReg");
 	}
 

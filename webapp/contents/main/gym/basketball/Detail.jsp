@@ -132,15 +132,15 @@
 
 <table border ="">
 	<tr>
-		<th>제목</th>
-		<td>${dto.title }</td>
+		<th>경기장</th>
+		<td>${dto.sname }</td>
 	</tr>
 	<tr>
 		<th>이미지</th>
 		<td>
 			<c:forTokens items ="${dto.img }"
-				delims = "," var = "ee" varStatus="no">
-				<img src="<c:url value="/uploadFile/gym/basketball/${ee}"/>" alt="" />
+				delims = "," var = "imagedata" varStatus="no">
+				<img src="<c:url value="/uploadFile/gym/basketball/${imagedata}"/>" alt="" />
 			</c:forTokens>
 			
 		</td>
@@ -174,7 +174,7 @@
 	<tr>
 		<th>주소</th>
 		<td>${dto.location } <br />
-		<a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a>
+		<a href="https://map.kakao.com/link/to/${dto.sname},33.450701,126.570667" style="color:blue" target="_blank">길찾기</a>
 		<div id="map" style="width:500px;height:400px;"></div>
 		<script>
 			var lat = 0;
@@ -209,7 +209,7 @@
 			
 			        // 인포윈도우로 장소에 대한 설명을 표시합니다
 			        var infowindow = new kakao.maps.InfoWindow({
-			            content: '<div style="width:150px;text-align:center;padding:6px 0;">${dto.title}</div>'
+			            content: '<div style="width:150px;text-align:center;padding:6px 0;">${dto.sname}</div>'
 			        });
 			        infowindow.open(map, marker);
 			

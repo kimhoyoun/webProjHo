@@ -3,7 +3,7 @@ package payment.model;
 import java.util.Date;
 
 public class PaymentDTO {
-	String imp_uid, buyer_name, merchant_uid, id, resDate, resTime, user_id;
+	String imp_uid, buyer_name, merchant_uid, id, sname, resDate, resTime, user_id, manager_id;
 	int amount;
 	boolean refund_reg;
 	Date reg_date;
@@ -32,6 +32,19 @@ public class PaymentDTO {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public String getManager_id() {
+		return manager_id;
+	}
+	public void setManager_id(String manager_id) {
+		this.manager_id = manager_id;
+	}
+	public String getSname() {
+		return sname;
+	}
+	public void setSname(String sname) {
+		this.sname = sname;
 	}
 	public String getResDate() {
 		return resDate;
@@ -88,13 +101,21 @@ public class PaymentDTO {
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
-	
 	@Override
 	public String toString() {
-		return "PaymentDTO [imp_uid=" + imp_uid + ", buyerName=" + buyer_name + ", merchantUid=" + merchant_uid + ", id="
-				+ id + ", resDate=" + resDate + ", resTime=" + resTime + ", user_id=" + user_id + ", amount=" + amount
-				+ ", refund_reg=" + refund_reg + "]";
+		return "PaymentDTO [imp_uid=" + imp_uid + ", buyer_name=" + buyer_name + ", merchant_uid=" + merchant_uid
+				+ ", id=" + id + ", sname=" + sname + ", resDate=" + resDate + ", resTime=" + resTime + ", user_id="
+				+ user_id + ", manager_id=" + manager_id + ", amount=" + amount + ", refund_reg=" + refund_reg
+				+ ", reg_date=" + reg_date + "]";
 	}
+	
+//	@Override
+//	public String toString() {
+//		return "{imp_uid:'" + imp_uid + "', buyer_name:'" + buyer_name + "', merchant_uid:'" + merchant_uid
+//				+ "', id:'" + id + "', manager_id:'" + manager_id+"', sname:'" + sname + "', resDate:'" + resDate + "', resTime:'" + resTime + "', user_id:'"
+//				+ user_id + "', amount:'" + amount + "', refund_reg:'" + refund_reg + "', reg_date:'" + reg_date + "'}";
+//	}
+	
 	
 	
 

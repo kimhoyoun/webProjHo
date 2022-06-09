@@ -20,7 +20,7 @@ public class BasketballModifyReg implements GymService{
 			
 		BasketballDTO dto = new BasketballDTO();
 		dto.setId(request.getParameter("id"));
-		dto.setTitle(request.getParameter("title"));
+		dto.setSname(request.getParameter("title"));
 		dto.setContents_info(request.getParameter("contents_info"));
 		dto.setContents_detail(request.getParameter("contents_detail"));
 		dto.setContents_rule(request.getParameter("contents_rule"));

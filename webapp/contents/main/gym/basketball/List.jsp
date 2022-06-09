@@ -60,7 +60,7 @@
 
 	<tr>
 		<th>이미지</th>
-		<th>제목</th>
+		<th>경기장</th>
 		<th>매니저</th>
 		<th>작성일</th>
 	</tr>
@@ -71,7 +71,7 @@
 			<img src="<c:url value="/uploadFile/gym/basketball/${fn:split(dto.img, ',')[0]}"/>" alt="" />
 		</td>
 		<td>
-			<a href="<c:url value="Detail?id=${dto.id }&page=${nowPage }&dateSet=${dateSet }"/>">${dto.title }</a>
+			<a href="<c:url value="Detail?id=${dto.id }&page=${nowPage }&dateSet=${dateSet }"/>">${dto.sname }</a>
 		</td>
 		<td>${dto.manager_id }</td>
 		<td>

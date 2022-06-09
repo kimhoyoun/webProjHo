@@ -10,7 +10,7 @@
 <table>
 	<tr>
 		<th>제목</th>
-		<td><input type="text" name="title"/></td>
+		<td><input type="text" name="sname"/></td>
 	</tr>
 	<tr>
 		<th>contents_info</th>

@@ -25,13 +25,14 @@
 <body>
 <jsp:include page= "top.jsp"/>
 <hr />
-<div id = "contents_wrap">
-	<section id="contents">
+<!-- <div id = "contents_wrap"> -->
+<!-- 	<section id="contents"> -->
 		<jsp:include page= "main/${mainUrl }.jsp"/>
-	</section>
-</div>
+<!-- 	</section> -->
+<!-- </div> -->
 
+<div>
 <jsp:include page= "bottom.jsp"/>
-
+</div>
 </body>
 </html>

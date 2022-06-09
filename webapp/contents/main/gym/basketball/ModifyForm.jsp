@@ -10,8 +10,8 @@
 
 <table>
 	<tr>
-		<th>제목</th>
-		<td><input type="text" name="title" value="${dto.title }"/></td>
+		<th>경기장</th>
+		<td><input type="text" name="title" value="${dto.sname }"/></td>
 	</tr>
 	<tr>
 		<th>contents_info</th>

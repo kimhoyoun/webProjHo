@@ -82,7 +82,7 @@ public class BasketballDAO {
 					BasketballDTO dto = new BasketballDTO();
 					// 필요한것만 보이기
 					dto.setId(rs.getString("id"));
-					dto.setTitle(rs.getString("title"));
+					dto.setSname(rs.getString("sname"));
 					dto.setContents_info(rs.getString("contents_info"));
 					dto.setContents_detail(rs.getString("contents_detail"));
 					dto.setContents_rule(rs.getString("contents_rule"));
@@ -163,7 +163,7 @@ public class BasketballDAO {
 					dto = new BasketballDTO();
 					
 					dto.setId(rs.getString("id"));
-					dto.setTitle(rs.getString("title"));
+					dto.setSname(rs.getString("sname"));
 					dto.setContents_info(rs.getString("contents_info"));
 					dto.setContents_detail(rs.getString("contents_detail"));
 					dto.setContents_rule(rs.getString("contents_rule"));
@@ -194,7 +194,7 @@ public class BasketballDAO {
 		
 		public void insert(BasketballDTO dto){
 			
-			sql = "INSERT INTO gym_basketball (id, title, contents_info, contents_detail, contents_rule,"
+			sql = "INSERT INTO gym_basketball (id, sname, contents_info, contents_detail, contents_rule,"
 					+ "contents_refund, location, price_weekday_weekly, price_weekday_nighttime, price_weekend_weekly,"
 					+ "price_weekend_nighttime, option1, option2, option3, option4, option5, img, manager_id, reg_date)"
 					+ "values (? , ? , ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate())";
@@ -202,7 +202,7 @@ public class BasketballDAO {
 			try {
 				ptmt = con.prepareStatement(sql);
 				ptmt.setString(1, dto.getId());
-				ptmt.setString(2, dto.getTitle());
+				ptmt.setString(2, dto.getSname());
 				ptmt.setString(3, dto.getContents_info());
 				ptmt.setString(4, dto.getContents_detail());
 				ptmt.setString(5, dto.getContents_rule());
@@ -234,13 +234,13 @@ public class BasketballDAO {
 	public int modify(BasketballDTO dto){
 			int res = 0;
 			
-			sql = "update gym_basketball set title = ?, contents_info = ?, contents_detail = ?, contents_rule = ?, contents_refund = ?, "
+			sql = "update gym_basketball set sname = ?, contents_info = ?, contents_detail = ?, contents_rule = ?, contents_refund = ?, "
 					+"location = ?, price_weekday_weekly = ?, price_weekday_nighttime = ?, price_weekend_weekly = ?, price_weekend_nighttime = ?,"
 					+ "option1 = ?, option2 = ?, option3 = ?, option4 = ?, option5 = ? "
 					+ "where id = ?";
 			try {
 				ptmt = con.prepareStatement(sql);
-				ptmt.setString(1, dto.getTitle());
+				ptmt.setString(1, dto.getSname());
 				ptmt.setString(2, dto.getContents_info());
 				ptmt.setString(3, dto.getContents_detail());
 				ptmt.setString(4, dto.getContents_rule());

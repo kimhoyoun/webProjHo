@@ -3,7 +3,7 @@ package gym.basketball.model;
 import java.util.Date;
 
 public class BasketballDTO {
-	String id, title, contents_info, contents_detail, contents_rule, contents_refund,
+	String id, sname, contents_info, contents_detail, contents_rule, contents_refund,
 		location, img, manager_id;
 	int price_weekday_weekly, price_weekday_nighttime, price_weekend_weekly, price_weekend_nighttime;
 	
@@ -19,12 +19,12 @@ public class BasketballDTO {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getSname() {
+		return sname;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setSname(String sname) {
+		this.sname = sname;
 	}
 
 	public String getContents_info() {
@@ -230,7 +230,7 @@ public class BasketballDTO {
 
 	@Override
 	public String toString() {
-		return "BasketballDTO [id=" + id + ", title=" + title + ", location=" + location + ", img=" + img
+		return "BasketballDTO [id=" + id + ", sname=" + sname + ", location=" + location + ", img=" + img
 				+ ", price_weekday_weekly=" + price_weekday_weekly + "]";
 	}
 	

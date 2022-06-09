@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -66,15 +68,110 @@ public class PaymentDAO {
 			return 0;
 		}
 		
-		public ArrayList<PaymentDTO> list(int start, int limit){
-			ArrayList<PaymentDTO> res = new ArrayList<>();
-			
-			sql = "select * from payment order by no desc limit ?, ?";
+//		public ArrayList<PaymentDTO> list(int start, int limit){
+//			ArrayList<PaymentDTO> res = new ArrayList<>();
+//			
+//			sql = "select * from payment order by no desc limit ?, ?";
+//			
+//			try {
+//				ptmt = con.prepareStatement(sql);
+//				ptmt.setInt(1,start);
+//				ptmt.setInt(2, limit);
+//				rs = ptmt.executeQuery();
+//				
+//				while(rs.next()) {
+//					PaymentDTO dto = new PaymentDTO();
+//					// 필요한것만 보이기
+//					dto.setImp_uid(rs.getString("imp_uid"));
+//					dto.setBuyer_name(rs.getString("buyer_name"));
+//					dto.setMerchant_uid(rs.getString("merchant_uid"));
+//					dto.setId(rs.getString("id"));
+//					dto.setSname(rs.getString("sname"));
+//					dto.setResDate(rs.getString("resdate"));
+//					dto.setResTime(rs.getString("restime"));
+//					dto.setUser_id(rs.getString("user_id"));
+//					dto.setAmount(rs.getInt("amount"));
+//					dto.setIntRefund_reg(rs.getInt("refunt_reg"));
+//					dto.setReg_date(rs.getTimestamp("reg_date"));
+//					
+//					res.add(dto);
+//				}
+//			}catch(Exception e) {
+//				e.printStackTrace();
+//			}finally {
+//				close();
+//			}
+//			
+//			return res;
+//		}
+		
+		public HashMap<String, Integer> managerTotal(String year){
+			HashMap<String, Integer> map = new HashMap<>();
+			sql = "SELECT DISTINCT manager_id, SUM(amount) sum FROM payment WHERE resDate like ? GROUP BY manager_id;";
 			
 			try {
 				ptmt = con.prepareStatement(sql);
-				ptmt.setInt(1,start);
-				ptmt.setInt(2, limit);
+				ptmt.setString(1,year+"%");
+				rs = ptmt.executeQuery();
+				
+				while(rs.next()) {
+					map.put(rs.getString("manager_id"),rs.getInt("sum"));
+				}
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return map;
+		}
+		
+		public HashMap<String, Integer> refundMoney(String year){
+			HashMap<String, Integer> map = new HashMap<>();
+			sql = "SELECT DISTINCT manager_id, SUM(amount) sum FROM payment WHERE refund_reg = 1 and resDate like ? GROUP BY manager_id ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,year+"%");
+				rs = ptmt.executeQuery();
+				
+				while(rs.next()) {
+					map.put(rs.getString("manager_id"),rs.getInt("sum"));
+				}
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return map;
+		}
+		
+		public ArrayList<String> managerList(){
+			ArrayList<String> list = new ArrayList<>();
+			sql = "SELECT DISTINCT manager_id FROM payment";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				rs = ptmt.executeQuery();
+				
+				while(rs.next()) {
+					list.add(rs.getString("manager_id"));
+				}
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return list;
+		}
+		
+		public ArrayList<PaymentDTO> list(String year){
+			ArrayList<PaymentDTO> res = new ArrayList<>();
+			
+			sql = "select * from payment where resdate like ? ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,year+"%");
 				rs = ptmt.executeQuery();
 				
 				while(rs.next()) {
@@ -84,11 +181,89 @@ public class PaymentDAO {
 					dto.setBuyer_name(rs.getString("buyer_name"));
 					dto.setMerchant_uid(rs.getString("merchant_uid"));
 					dto.setId(rs.getString("id"));
+					dto.setSname(rs.getString("sname"));
 					dto.setResDate(rs.getString("resdate"));
 					dto.setResTime(rs.getString("restime"));
 					dto.setUser_id(rs.getString("user_id"));
+					dto.setManager_id(rs.getString("manager_id"));
 					dto.setAmount(rs.getInt("amount"));
-					dto.setIntRefund_reg(rs.getInt("refunt_reg"));
+					dto.setIntRefund_reg(rs.getInt("refund_reg"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
+					
+					res.add(dto);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			
+			return res;
+		}
+		
+		public ArrayList<PaymentDTO> searchDateList(String searchDate){
+			ArrayList<PaymentDTO> res = new ArrayList<>();
+			
+			sql = "select * from payment where resdate like ? ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,searchDate+"%");
+				rs = ptmt.executeQuery();
+				
+				while(rs.next()) {
+					PaymentDTO dto = new PaymentDTO();
+					// 필요한것만 보이기
+					dto.setImp_uid(rs.getString("imp_uid"));
+					dto.setBuyer_name(rs.getString("buyer_name"));
+					dto.setMerchant_uid(rs.getString("merchant_uid"));
+					dto.setId(rs.getString("id"));
+					dto.setSname(rs.getString("sname"));
+					dto.setResDate(rs.getString("resdate"));
+					dto.setResTime(rs.getString("restime"));
+					dto.setUser_id(rs.getString("user_id"));
+					dto.setManager_id(rs.getString("manager_id"));
+					dto.setAmount(rs.getInt("amount"));
+					dto.setIntRefund_reg(rs.getInt("refund_reg"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
+					
+					res.add(dto);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			
+			return res;
+		}
+		
+		public ArrayList<PaymentDTO> adjustmentList(String searchDate, String manager){
+			ArrayList<PaymentDTO> res = new ArrayList<>();
+			
+			sql = "select * from payment where manager_id = ? and resdate like ? ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				
+				ptmt.setString(1,manager);
+				ptmt.setString(2,searchDate+"%");
+				rs = ptmt.executeQuery();
+				
+				while(rs.next()) {
+					PaymentDTO dto = new PaymentDTO();
+					// 필요한것만 보이기
+					dto.setImp_uid(rs.getString("imp_uid"));
+					dto.setBuyer_name(rs.getString("buyer_name"));
+					dto.setMerchant_uid(rs.getString("merchant_uid"));
+					dto.setId(rs.getString("id"));
+					dto.setSname(rs.getString("sname"));
+					dto.setResDate(rs.getString("resdate"));
+					dto.setResTime(rs.getString("restime"));
+					dto.setUser_id(rs.getString("user_id"));
+					dto.setManager_id(rs.getString("manager_id"));
+					dto.setAmount(rs.getInt("amount"));
+					dto.setIntRefund_reg(rs.getInt("refund_reg"));
 					dto.setReg_date(rs.getTimestamp("reg_date"));
 					
 					res.add(dto);
@@ -119,6 +294,7 @@ public class PaymentDAO {
 					dto.setBuyer_name(rs.getString("buyer_name"));
 					dto.setMerchant_uid(rs.getString("merchant_uid"));
 					dto.setId(rs.getString("id"));
+					dto.setSname(rs.getString("sname"));
 					dto.setResDate(rs.getString("resdate"));
 					dto.setResTime(rs.getString("restime"));
 					dto.setUser_id(rs.getString("user_id"));
@@ -155,6 +331,7 @@ public class PaymentDAO {
 					dto.setBuyer_name(rs.getString("buyer_name"));
 					dto.setMerchant_uid(rs.getString("merchant_uid"));
 					dto.setId(rs.getString("id"));
+					dto.setSname(rs.getString("sname"));
 					dto.setResDate(rs.getString("resdate"));
 					dto.setResTime(rs.getString("restime"));
 					dto.setUser_id(rs.getString("user_id"));
@@ -204,8 +381,8 @@ public class PaymentDAO {
 		
 		public void insert(PaymentDTO dto){
 			
-			sql = "insert into payment(imp_uid, amount, buyer_name, merchant_uid, id, resdate, restime, user_id, refund_reg, reg_date ) "
-					+ "values (? , ? , ? , ?, ?, ?, ?, ?, ?, sysdate())";
+			sql = "insert into payment(imp_uid, amount, buyer_name, merchant_uid, id, sname, resdate, restime, user_id, refund_reg, reg_date ) "
+					+ "values (? , ? , ? , ?, ?, ?, ?, ?, ?, ?, sysdate())";
 			
 			try {
 				ptmt = con.prepareStatement(sql);
@@ -214,10 +391,11 @@ public class PaymentDAO {
 				ptmt.setString(3, dto.getBuyer_name());
 				ptmt.setString(4, dto.getMerchant_uid());
 				ptmt.setString(5, dto.getId());
-				ptmt.setString(6, dto.getResDate());
-				ptmt.setString(7, dto.getResTime());
-				ptmt.setString(8, dto.getUser_id());
-				ptmt.setInt(9, dto.getIntRefund_reg());
+				ptmt.setString(6, dto.getSname());
+				ptmt.setString(7, dto.getResDate());
+				ptmt.setString(8, dto.getResTime());
+				ptmt.setString(9, dto.getUser_id());
+				ptmt.setInt(10, dto.getIntRefund_reg());
 				ptmt.executeUpdate();
 				
 			}catch(Exception e) {
