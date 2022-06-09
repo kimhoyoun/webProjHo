@@ -24,7 +24,7 @@
 	<tr>
 		<td>${start + no.index }</td>
 		<td>${dto.category }</td>
-		<td><img src="<c:url value="/uploadFile/lesson_bas/${fn:split(dto.img, ',')[0]}"/>" alt="" /> </td>
+		<td><img src="<c:url value="/uploadFile/lesson/bas/${fn:split(dto.img, ',')[0]}"/>" alt="" /> </td>
 		<td><a href="<c:url value="Detail?post_id=${dto.post_id }&page=${nowPage }"/>">${dto.sname }</a></td>
 		<td>${dto.lesson_time }</td>
 		<td>${dto.manager_id }</td>

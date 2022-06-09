@@ -6,8 +6,18 @@
     
 <form action="InsertReg" method="post" enctype="multipart/form-data">
 
-<input type="hidden" name="manager_id" value="manager32" />
+
 <table>
+	<tr>
+		<td>
+			<select name="manager_id" id="">
+				<option value="none">===매니저===</option>
+				<c:forEach var="mem" items="${mainData }">
+					<option value="${mem }">${mem }</option>
+				</c:forEach>
+			</select>
+		</td>
+	</tr>
 	<tr>
 		<th>제목</th>
 		<td><input type="text" name="sname"/></td>
@@ -63,6 +73,7 @@
 		<input type="reset" value="취소" />
 		</td>
 	</tr>
+	
 </table>		
 </form>		
 

@@ -48,12 +48,31 @@ public class NoticeDAO {
 		
 		public int totalCntSearch(String filter, String keyword){
 			
-			sql = "select count(*) from notice where notice_filter = ? and INSTR(notice_title, ?) > 0";
+			sql = "select count(*) from notice where filter = ? and title like ? ";
 			
 			try {
 				ptmt = con.prepareStatement(sql);
 				ptmt.setString(1,filter);
-				ptmt.setString(2,keyword);
+				ptmt.setString(2,"%"+keyword+"%");
+				rs = ptmt.executeQuery();
+				
+				rs.next();
+				
+				return rs.getInt(1);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return 0;
+		}
+		
+		public int totalCntSearch(String keyword){
+			
+			sql = "select count(*) from notice where title like ? ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,"%"+keyword+"%");
 				rs = ptmt.executeQuery();
 				
 				rs.next();
@@ -102,7 +121,7 @@ public class NoticeDAO {
 		public ArrayList<NoticeDTO> search(int start, int limit, String filter, String keyword){
 			ArrayList<NoticeDTO> res = new ArrayList<>();
 			
-			sql = "select * from notice where filter = ? and INSTR(title, ?) > 0 order by no desc limit ?, ?";
+			sql = "select * from notice where filter = ? and title like ? order by no desc limit ?, ?";
 			
 			try {
 				ptmt = con.prepareStatement(sql);
@@ -110,6 +129,38 @@ public class NoticeDAO {
 				ptmt.setString(2,keyword);
 				ptmt.setInt(3,start);
 				ptmt.setInt(4, limit);
+				rs = ptmt.executeQuery();
+				
+				while(rs.next()) {
+					NoticeDTO dto = new NoticeDTO();
+					// 필요한것만 보이기
+					dto.setId(rs.getString("id"));
+					dto.setTitle(rs.getString("title"));
+					dto.setContent(rs.getString("content"));
+					dto.setFilter(rs.getString("filter"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
+					
+					
+					res.add(dto);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			
+			return res;
+		}
+		
+		public ArrayList<NoticeDTO> search(int start, int limit, String keyword){
+			ArrayList<NoticeDTO> res = new ArrayList<>();
+			sql = "select * from notice where title like ? order by no desc limit ?, ?";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1, "%"+keyword+"%");
+				ptmt.setInt(2,start);
+				ptmt.setInt(3, limit);
 				rs = ptmt.executeQuery();
 				
 				while(rs.next()) {

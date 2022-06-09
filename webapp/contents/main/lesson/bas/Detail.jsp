@@ -23,8 +23,8 @@
 		<td>이미지</td>
 		<td>
 			<c:forTokens items ="${dto.img }"
-				delims = "," var = "ee" varStatus="no">
-				<img src="<c:url value="/uploadFile/lesson_bas/${ee}"/>" alt="" />
+				delims = "," var = "image" varStatus="no">
+				<img src="<c:url value="/uploadFile/lesson/bas/${image}"/>" alt="" />
 			</c:forTokens>
 		</td>
 	</tr>
@@ -133,7 +133,7 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<a href="<c:url value="/lesson_bas/List?page=${nowPage }"/>">목록으로</a>
+			<a href="<c:url value="/lesson/bas/List?page=${nowPage }"/>">목록으로</a>
 			<input type="submit"  value="레슨 신청"/>
 		</td>
 	</tr>

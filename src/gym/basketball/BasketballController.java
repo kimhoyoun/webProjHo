@@ -19,7 +19,6 @@ public class BasketballController extends HttpServlet {
     public BasketballController() {
         super();
         nonClass = new ArrayList<>();
-        nonClass.add("InsertForm");
         nonClass.add("DeleteForm");
     }
 

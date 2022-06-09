@@ -14,9 +14,9 @@
 			<td>
 				<select name="category" id="">
 					<option value="none">===선택===</option>
-					<option value="슛팅">슛팅</option>
-					<option value="드리블">드리블</option>
-					<option value="기타">기타</option>
+					<option value="슛팅" <c:if test="${dto.category == \"슛팅\"}">selected</c:if>>슛팅</option>
+					<option value="드리블" <c:if test="${dto.category == \"드리블\"}">selected</c:if>>드리블</option>
+					<option value="기타" <c:if test="${dto.category == \"기타\"}">selected</c:if>>기타</option>
 				</select>
 			</td>
 		</tr>

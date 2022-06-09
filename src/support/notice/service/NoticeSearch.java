@@ -12,6 +12,7 @@ public class NoticeSearch implements SupportService{
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		String filter = request.getParameter("filter");
+		
 		String keyword = request.getParameter("keyword");
 		
 		int page = (int)request.getAttribute("nowPage");
@@ -22,7 +23,13 @@ public class NoticeSearch implements SupportService{
 		
 		NoticeDAO dao = new NoticeDAO();
 		
-		int total = dao.totalCntSearch(filter, keyword);
+		int total = 0; 
+		
+		if(filter.equals("전체")) {
+			total = dao.totalCntSearch(keyword);
+		}else {
+			total = dao.totalCntSearch(filter, keyword);
+		}
 		
 		int pageTotal = total/limit;
 		
@@ -39,10 +46,16 @@ public class NoticeSearch implements SupportService{
 			pageEnd = pageTotal;
 		}
 		
-		Object data = dao.search(start, limit, filter, keyword);
+		Object data = null;
+		if(filter.equals("전체")) {
+			data = dao.search(start, limit, keyword);
+		}else {
+			data = dao.search(start, limit, filter, keyword);
+		}
+		
 		
 		request.setAttribute("mainData", data);
-		request.setAttribute("mainUrl", "/notice/Search");
+		request.setAttribute("mainUrl", NOTICE+"Search");
 		
 		request.setAttribute("start", start);
 		request.setAttribute("pageTotal", pageTotal);

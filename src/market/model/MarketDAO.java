@@ -172,6 +172,24 @@ public class MarketDAO {
 		return 0;
 	}
 	
+	public int myTotalCnt(String user_id){		
+		sql = "select count(*) from postlist_market where user_id = ? ";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			rs = pstmt.executeQuery();
+	
+			// 1개만 찾으면 되니까 if문으로
+			if(rs.next()) {				
+				return rs.getInt(1);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
 	public ArrayList<MarketDTO> list(int start, int limit){
 		ArrayList<MarketDTO> res = new ArrayList<MarketDTO>();
 		sql = "select * from postlist_market order by post_id desc limit ?, ?";
@@ -180,6 +198,46 @@ public class MarketDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, limit);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				MarketDTO dto = new MarketDTO();
+
+				dto.setPost_id(rs.getString("post_id"));
+				dto.setUser_id(rs.getString("user_id"));
+				dto.setUser_email(rs.getString("user_email"));
+				dto.setUser_num(rs.getInt("user_num"));
+				dto.setTitle(rs.getString("title"));
+				dto.setCheck_quality(rs.getString("check_quality"));
+				dto.setL_category(rs.getString("l_category"));
+				dto.setS_category(rs.getString("s_category"));
+				dto.setDelivery(rs.getString("delivery"));
+				dto.setPrice(rs.getInt("price"));
+				dto.setContent(rs.getString("content"));
+				dto.setReg_date(rs.getTimestamp("reg_date"));
+				dto.setCnt(rs.getInt("cnt"));
+				
+				res.add(dto);
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return res;
+	}
+	
+	
+	public ArrayList<MarketDTO> userList(String user_id, int start, int limit ){
+		ArrayList<MarketDTO> res = new ArrayList<MarketDTO>();
+		sql = "select * from postlist_market where user_id = ? order by post_id desc limit ?, ? ";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, limit);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

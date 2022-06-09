@@ -22,7 +22,7 @@ public class LessonModifyReg implements LessonService{
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 			
 		String realPath = "";
-		String savePath = "/Users/minsookim/Desktop/프로젝트/04_proj/proj_04_minsoo/proj_04_minsoo/src/main/webapp/uploadFile/lesson_bas";
+		String savePath = "C:\\temp\\jsp_work\\webProjectTest\\webapp\\uploadFile\\lesson\\bas";
 	    int maxSize = 10*1024*1024;
 	    String type = "utf-8";
 	    realPath = savePath;

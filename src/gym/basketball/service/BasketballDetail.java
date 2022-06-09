@@ -16,6 +16,7 @@ public class BasketballDetail implements GymService{
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		String id = request.getParameter("id");
+		
 		String resDate = request.getParameter("dateSet");
 		BasketballDAO dao = new BasketballDAO();
 		

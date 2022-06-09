@@ -7,7 +7,7 @@
 <h1>공지사항</h1>
 
 
-<form action="">
+<form action="Search">
 	<select name="filter" id="">
         <option value="전체">전체</option>
         <option value="서버">서버</option>

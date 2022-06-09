@@ -27,12 +27,15 @@ public class LessonDeleteReg implements LessonService{
 		String post_id = request.getParameter("post_id");
 		dto.setPost_id(post_id);
 
-		// ****** 삭제 매니저 아이디로 했음;; ******** 
-		dto.setManager_id(request.getParameter("manager_id"));
+		String deleteCheck = request.getParameter("deleteCheck");
 		
 		LessonDTO delDTO = new LessonDAO().detail(post_id);
 		
-		int res = new LessonDAO().delete(dto);
+		int res =0;
+		if(deleteCheck.equals("삭제")) {
+			res = new LessonDAO().delete(dto);
+		}
+		
 		
 		String msg = "삭제 실패", 
 				goUrl = "DeleteForm?post_id=" + dto.getPost_id();
@@ -43,16 +46,23 @@ public class LessonDeleteReg implements LessonService{
 			msg = "삭제 성공";
 			goUrl = "List" + "?page=" + request.getParameter("nowPage");
 			
-			if (delDTO.getImg() == null) {
+			if (delDTO.getImg() != null) {
+				String images = delDTO.getImg();
+				String[] tokens = images.split(",");
+				
 				String path = request.getRealPath("board");
-				path = "/Users/minsookim/Desktop/프로젝트/04_proj/proj_04_minsoo/proj_04_minsoo/src/main/webapp/uploadFile/lesson_bas";
-				new File(path + "/" + delDTO.getImg()).delete();
+				path = "C:\\temp\\jsp_work\\webProjectTest\\webapp\\uploadFile\\lesson\\bas";
+				
+				for(int i =0; i<tokens.length; i++) {
+					System.out.println(path + "\\" + tokens[i]);
+					new File(path + "\\" + tokens[i]).delete();
+				}
 			}
 		}
 
 		request.setAttribute("msg", msg);
 		request.setAttribute("goUrl", goUrl);
-		request.setAttribute("mainUrl", "lesson_bas/alert");
+		request.setAttribute("mainUrl", "alert");
 		System.out.println("Lesson_bas/DeleteReg execute() 실행");
 		
 	}

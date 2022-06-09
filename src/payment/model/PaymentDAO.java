@@ -48,6 +48,44 @@ public class PaymentDAO {
 		return 0;
 	}
 		
+		public int myTotalCnt(String user_id){
+			
+			sql = "select count(*) from payment where user_id = ? ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,user_id);
+				rs = ptmt.executeQuery();
+				
+				rs.next();
+				
+				return rs.getInt(1);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return 0;
+		}
+		
+		public int corpTotalCnt(String manager_id){
+			
+			sql = "select count(*) from payment where manager_id = ? ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,manager_id);
+				rs = ptmt.executeQuery();
+				
+				rs.next();
+				
+				return rs.getInt(1);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return 0;
+		}
+		
 		public int totalCntSearch(String filter, String keyword){
 			
 			sql = "select count(*) from payment where notice_filter = ? and INSTR(notice_title, ?) > 0";
@@ -201,6 +239,7 @@ public class PaymentDAO {
 			return res;
 		}
 		
+		
 		public ArrayList<PaymentDTO> searchDateList(String searchDate){
 			ArrayList<PaymentDTO> res = new ArrayList<>();
 			
@@ -350,6 +389,85 @@ public class PaymentDAO {
 			return res;
 		}
 		
+		public ArrayList<PaymentDTO> userList(String user_id, int start, int limit){
+			ArrayList<PaymentDTO> res = new ArrayList<>();
+			
+			sql = "select * from payment where user_id = ? order by no desc limit ?, ? ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,user_id);
+				ptmt.setInt(2,start);
+				ptmt.setInt(3,limit);
+				
+				rs = ptmt.executeQuery();
+				
+				while(rs.next()) {
+					PaymentDTO dto = new PaymentDTO();
+					// 필요한것만 보이기
+					dto.setImp_uid(rs.getString("imp_uid"));
+					dto.setBuyer_name(rs.getString("buyer_name"));
+					dto.setMerchant_uid(rs.getString("merchant_uid"));
+					dto.setId(rs.getString("id"));
+					dto.setSname(rs.getString("sname"));
+					dto.setResDate(rs.getString("resdate"));
+					dto.setResTime(rs.getString("restime"));
+					dto.setUser_id(rs.getString("user_id"));
+					dto.setManager_id(rs.getString("manager_id"));
+					dto.setAmount(rs.getInt("amount"));
+					dto.setIntRefund_reg(rs.getInt("refund_reg"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
+					
+					res.add(dto);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			
+			return res;
+		}
+		
+		public ArrayList<PaymentDTO> corpList(String manager_id, int start, int limit){
+			ArrayList<PaymentDTO> res = new ArrayList<>();
+			
+			sql = "select * from payment where manager_id = ? order by no desc limit ?, ? ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,manager_id);
+				ptmt.setInt(2,start);
+				ptmt.setInt(3,limit);
+				
+				rs = ptmt.executeQuery();
+				
+				while(rs.next()) {
+					PaymentDTO dto = new PaymentDTO();
+					// 필요한것만 보이기
+					dto.setImp_uid(rs.getString("imp_uid"));
+					dto.setBuyer_name(rs.getString("buyer_name"));
+					dto.setMerchant_uid(rs.getString("merchant_uid"));
+					dto.setId(rs.getString("id"));
+					dto.setSname(rs.getString("sname"));
+					dto.setResDate(rs.getString("resdate"));
+					dto.setResTime(rs.getString("restime"));
+					dto.setUser_id(rs.getString("user_id"));
+					dto.setManager_id(rs.getString("manager_id"));
+					dto.setAmount(rs.getInt("amount"));
+					dto.setIntRefund_reg(rs.getInt("refund_reg"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
+					
+					res.add(dto);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			
+			return res;
+		}
 //		
 //		public PaymentDTO detail(String notice_id){
 //			PaymentDTO dto = null;

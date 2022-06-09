@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -94,6 +95,29 @@ public class CorpMemberDAO {
 			close();
 		}
 		return res;
+	}
+	
+	public ArrayList<String> memList(){
+		ArrayList<String> list = new ArrayList<>();
+		
+		sql = "select pid from corpmemlist";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				String mem = rs.getString("pid");
+				
+				list.add(mem);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
 	}
 	
 	public CorpMemberDTO findId(String corp_email) {

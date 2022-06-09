@@ -56,7 +56,7 @@
 				</c:when>
 				<c:otherwise>
 					<li><a href="<c:url value="/member/Logout"/>">LOGOUT</a></li>
-					<li><a href="<c:url value="/member/Login"/>">MYPAGE</a></li>
+					<li><a href="<c:url value="/mypage/info/InputPass"/>">MYPAGE</a></li>
 				</c:otherwise>
 			</c:choose>
             
@@ -82,18 +82,18 @@
                 </ul>
               </li>
               <li>
-                <a href="#">농구게시판</a>
+                <a href="<c:url value="/commu_bas/board/List"/>">농구게시판</a>
                 <ul class="submenu_list">
+                  <li><a href="<c:url value="/commu_bas/board/List"/>">자유게시판</a></li>
                   <li><a href="#">대회정보</a></li>
-                  <li><a href="#">자유게시판</a></li>
                   <li><a href="#">용병</a></li>
                 </ul>
               </li>
               <li>
                 <a href="#">축구게시판</a>
                 <ul class="submenu_list">
-                  <li><a href="#">대회정보</a></li>
                   <li><a href="#">자유게시판</a></li>
+                  <li><a href="#">대회정보</a></li>
                   <li><a href="#">용병</a></li>
                 </ul>
               </li>
