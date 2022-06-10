@@ -2,6 +2,23 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+   
+   
+<form name="category_select" action="PostSearchList" method="post">
+	<select name="l_field">
+		<option value="list">전체</option>
+		<option value="농구용품">농구용품</option>
+		<option value="축구용품">축구용품</option>
+	</select> <select name="s_field">
+		<option value="list">전체</option>
+		<option value="신발">신발</option>
+		<option value="의류">의류</option>
+		<option value="기타용품">기타용품</option>
+	</select> <input type="text" name="search" value="${param.search }" /> <input type="submit" value="검색" />
+</form> 
+   
+   
+   
    <table border="">
 	<tr>
 		<td>번호</td>

@@ -4,5 +4,12 @@
 <!DOCTYPE html>
 <script>
 alert("${msg}")
+
+var nextUrl = '${goUrl}'
+if(nextUrl == 'back'){
+	history.back()
+}else{
 location.href="<c:url value="${goUrl }"/>";
+}
+
 </script>

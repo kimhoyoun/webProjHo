@@ -7,7 +7,7 @@
 
 <h2>레슨 상세보기</h2>
 
-<form action="RegisterForm" method="post">
+<form action="ReservationForm" method="post">
 <input type="hidden" name = "post_id" value="${dto.post_id }" />
 <table border="">
 

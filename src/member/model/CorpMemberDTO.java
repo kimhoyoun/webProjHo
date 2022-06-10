@@ -2,7 +2,7 @@ package member.model;
 
 public class CorpMemberDTO {
 	
-	private String pid, pw, nick_name, corp_name, email, corp_address, manager_name;
+	private String pid, pw, nick_name, corp_name, email, corp_address, manager_name, detailAddress;
 	private int manager_num, grade;
 	private Long corp_regnum;
 	
@@ -47,6 +47,20 @@ public class CorpMemberDTO {
 	}
 	public void setCorp_address(String corp_address) {
 		this.corp_address = corp_address;
+	}
+	
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getDetailAddress() {
+		return detailAddress;
+	}
+	public void setDetailAddress(String detailAddress) {
+		this.detailAddress = detailAddress;
 	}
 	public String getManager_name() {
 		return manager_name;

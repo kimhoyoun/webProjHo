@@ -58,7 +58,7 @@
  	<tr>
       <td colspan="4" align="center">
          <textarea name="comment_input" id="" cols="90" rows="5" style="resize:none;"></textarea>
-         <button onclick="commentInsert()">댓글입력</button>
+         <button type = "button" onclick="commentInsert()">댓글입력</button>
          <input type="hidden" name="post_id" value="${dto.post_id }" />
       </td>
    </tr>
@@ -71,7 +71,7 @@
       <textarea name="commentList" id="input_${comment_dto.comment_id}" cols="80" rows="3" style="resize:none;" disabled>${comment_dto.content}</textarea>
       </td>
       <td>${comment_dto.comment_writer } <input type="hidden" id="writer_${comment_dto.comment_id }" value="${comment_dto.comment_writer }" /></td>
-      <td><button name="commentEdit" idx_data="${comment_dto.comment_id}" onclick="commentModify(this)">수정</button></td>
+      <td><button type = "button" name="commentEdit" idx_data="${comment_dto.comment_id}" onclick="commentModify(this)">수정</button></td>
    </tr>
    <tr>
       <td>
@@ -79,7 +79,7 @@
          <input type="hidden" id="reg_date_${comment_dto.comment_id }" value="${comment_dto.reg_date }" />
       </td>
       <td>
-         <button idx_data="${comment_dto.comment_id}" onclick="commentDelete(this)">삭제</button>
+         <button type = "button" idx_data="${comment_dto.comment_id}" onclick="commentDelete(this)">삭제</button>
       </td>
    </tr>
    </c:forEach>
@@ -92,7 +92,7 @@
 function commentInsert(){
 	var urlComment = '<c:url value="/comment"/>'
    var comment = document.getElementsByName("comment_input")[0].value;
-   location.href= urlComment + '/Insert?post_id=${dto.post_id }&page=${nowPage }&user_id=${dto.user_id}&comment='+comment;
+   location.href= urlComment+'/Insert?post_id=${dto.post_id }&page=${nowPage }&user_id=${dto.user_id}&comment='+comment;
 }
 
 function commentModify(me){

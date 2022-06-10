@@ -23,13 +23,14 @@ public class BasketballDetail implements GymService{
 		Object data = dao.detail(id);
 		
 		ArrayList<PaymentDTO> resData = new PaymentDAO().myList(id, resDate);
-		ArrayList<String> str = new ArrayList<>();
 		String resTime = "";
 		
 		
 		if(resData != null) {
 			for(int i =0; i<resData.size(); i++) {
-				resTime += resData.get(i).getResTime();
+				if(!resData.get(i).isRefund_reg()) {
+					resTime += resData.get(i).getResTime();
+				}
 				
 				if(i != resData.size()-1) {
 					resTime += ",";

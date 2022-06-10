@@ -29,6 +29,7 @@ public class MemberInsertReg implements MemberService{
 			dto.setTelecom(request.getParameter("telecom"));
 			dto.setPhoneNum(phonenum);
 			dto.setAddress(request.getParameter("address"));
+			dto.setDetailAddress(request.getParameter("detailAddress"));
 			dto.setGrade(grade);
 			
 			new MemberDAO().insert(dto);

@@ -51,10 +51,12 @@
           <ul id="topmenu_list">
 			<c:choose>
 				<c:when test="${User==null }">
+				<li>${User.pid }</li>
 					 <li><a href="<c:url value="/member/Login"/>">LOGIN</a></li>
             		<li><a href="<c:url value="/member/TypeSelect"/>">JOIN</a></li>
 				</c:when>
 				<c:otherwise>
+				<li>${User.pid }</li>
 					<li><a href="<c:url value="/member/Logout"/>">LOGOUT</a></li>
 					<li><a href="<c:url value="/mypage/info/InputPass"/>">MYPAGE</a></li>
 				</c:otherwise>

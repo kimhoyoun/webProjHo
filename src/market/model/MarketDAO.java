@@ -39,7 +39,7 @@ public class MarketDAO {
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getUser_email());
-			pstmt.setInt(2,dto.getUser_num());
+			pstmt.setString(2,dto.getUser_num());
 			pstmt.setString(3, dto.getTitle());
 			pstmt.setString(4, dto.getCheck_quality());
 			pstmt.setString(5, dto.getL_category());
@@ -106,7 +106,7 @@ public class MarketDAO {
 				dto.setPost_id(rs.getString("post_id"));
 				dto.setUser_id(rs.getString("user_id"));
 				dto.setUser_email(rs.getString("user_email"));
-				dto.setUser_num(rs.getInt("user_num"));
+				dto.setUser_num(rs.getString("user_num"));
 				dto.setTitle(rs.getString("title"));
 				dto.setCheck_quality(rs.getString("check_quality"));
 				dto.setL_category(rs.getString("l_category"));
@@ -138,7 +138,7 @@ public class MarketDAO {
 			pstmt.setString(1,dto.getPost_id());
 			pstmt.setString(2,dto.getUser_id());
 			pstmt.setString(3,dto.getUser_email());
-			pstmt.setInt(4,dto.getUser_num());
+			pstmt.setString(4,dto.getUser_num());
 			pstmt.setString(5,dto.getTitle());
 			pstmt.setString(6,dto.getCheck_quality());
 			pstmt.setString(7,dto.getL_category());
@@ -171,6 +171,71 @@ public class MarketDAO {
 		}
 		return 0;
 	}
+	
+	public int totalCntSearch(String search) {
+
+	      sql = "select count(*) from postlist_market where title like ? ";
+
+	      try {
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, "%" + search + "%");
+	         rs = pstmt.executeQuery();
+
+	         rs.next();
+
+	         return rs.getInt(1);
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+
+	      return 0;
+	   }
+
+	   public int totalCntSearch(int divide, String field, String search) {
+	      if (divide == 1) {
+	         sql = "select count(*) from postlist_market where l_category = ? and title like ? ";
+	      } else {
+	         sql = "select count(*) from postlist_market where s_category = ? and title like ? ";
+	      }
+
+	      try {
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, field);
+	         pstmt.setString(2, "%" + search + "%");
+	         rs = pstmt.executeQuery();
+
+	         rs.next();
+
+	         return rs.getInt(1);
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+
+	      return 0;
+	   }
+
+	   public int totalCntSearch(String l_field, String s_field, String search) {
+
+	      sql = "select count(*) from postlist_market where l_category = ? AND s_category = ? AND title Like ?";
+
+	      try {
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, l_field);
+	         pstmt.setString(2, s_field);
+	         pstmt.setString(3, "%" + search + "%");
+	         rs = pstmt.executeQuery();
+
+	         rs.next();
+
+	         return rs.getInt(1);
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+
+	      return 0;
+	   }
+
+	
 	
 	public int myTotalCnt(String user_id){		
 		sql = "select count(*) from postlist_market where user_id = ? ";
@@ -206,7 +271,7 @@ public class MarketDAO {
 				dto.setPost_id(rs.getString("post_id"));
 				dto.setUser_id(rs.getString("user_id"));
 				dto.setUser_email(rs.getString("user_email"));
-				dto.setUser_num(rs.getInt("user_num"));
+				dto.setUser_num(rs.getString("user_num"));
 				dto.setTitle(rs.getString("title"));
 				dto.setCheck_quality(rs.getString("check_quality"));
 				dto.setL_category(rs.getString("l_category"));
@@ -228,6 +293,147 @@ public class MarketDAO {
 		return res;
 	}
 	
+	 public ArrayList<MarketDTO> list(int start, int limit, String l_field, String s_field, String search) {
+	      ArrayList<MarketDTO> res = new ArrayList<MarketDTO>();
+	      sql = "select * from postlist_market where l_category = ? AND s_category = ? AND title Like ? order by post_id desc limit ?, ? ";
+
+	      try {
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, l_field);
+	         pstmt.setString(2, s_field);
+	         pstmt.setString(3, "%" + search + "%");
+	         pstmt.setInt(4, start);
+	         pstmt.setInt(5, limit);
+	         rs = pstmt.executeQuery();
+
+	         while (rs.next()) {
+	            MarketDTO dto = new MarketDTO();
+
+	            dto.setPost_id(rs.getString("post_id"));
+	            dto.setUser_id(rs.getString("user_id"));
+	            dto.setUser_email(rs.getString("user_email"));
+	            dto.setUser_num(rs.getString("user_num"));
+	            dto.setTitle(rs.getString("title"));
+	            dto.setCheck_quality(rs.getString("check_quality"));
+	            dto.setL_category(rs.getString("l_category"));
+	            dto.setS_category(rs.getString("s_category"));
+	            dto.setDelivery(rs.getString("delivery"));
+	            dto.setPrice(rs.getInt("price"));
+	            dto.setContent(rs.getString("content"));
+	            dto.setReg_date(rs.getTimestamp("reg_date"));
+	            dto.setCnt(rs.getInt("cnt"));
+
+	            res.add(dto);
+	         }
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         close();
+	      }
+	      return res;
+	   }
+
+	   public ArrayList<MarketDTO> list(int start, int limit, int divide, String field, String search) {
+	      ArrayList<MarketDTO> res = new ArrayList<MarketDTO>();
+	      if (divide == 1) {
+	         sql = "select * from postlist_market where l_category = ? AND title Like ? order by post_id desc limit ?, ? ";
+	      } else {
+	         sql = "select * from postlist_market where s_category = ? AND title Like ? order by post_id desc limit ?, ? ";
+	      }
+
+	      try {
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, field);
+	         pstmt.setString(2, "%" + search + "%");
+	         pstmt.setInt(3, start);
+	         pstmt.setInt(4, limit);
+	         rs = pstmt.executeQuery();
+
+	         while (rs.next()) {
+	            MarketDTO dto = new MarketDTO();
+
+	            dto.setPost_id(rs.getString("post_id"));
+	            dto.setUser_id(rs.getString("user_id"));
+	            dto.setUser_email(rs.getString("user_email"));
+	            dto.setUser_num(rs.getString("user_num"));
+	            dto.setTitle(rs.getString("title"));
+	            dto.setCheck_quality(rs.getString("check_quality"));
+	            dto.setL_category(rs.getString("l_category"));
+	            dto.setS_category(rs.getString("s_category"));
+	            dto.setDelivery(rs.getString("delivery"));
+	            dto.setPrice(rs.getInt("price"));
+	            dto.setContent(rs.getString("content"));
+	            dto.setReg_date(rs.getTimestamp("reg_date"));
+	            dto.setCnt(rs.getInt("cnt"));
+
+	            res.add(dto);
+	         }
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         close();
+	      }
+	      return res;
+	   }
+
+	   public ArrayList<MarketDTO> list(int start, int limit, String search) {
+	      ArrayList<MarketDTO> res = new ArrayList<MarketDTO>();
+	      sql = "select * from postlist_market " + "where title like ? order by post_id desc limit ?, ?";
+
+	      try {
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, "%" + search + "%");
+	         pstmt.setInt(2, start);
+	         pstmt.setInt(3, limit);
+	         rs = pstmt.executeQuery();
+
+	         while (rs.next()) {
+	            MarketDTO dto = new MarketDTO();
+
+	            dto.setPost_id(rs.getString("post_id"));
+	            dto.setUser_id(rs.getString("user_id"));
+	            dto.setUser_email(rs.getString("user_email"));
+	            dto.setUser_num(rs.getString("user_num"));
+	            dto.setTitle(rs.getString("title"));
+	            dto.setCheck_quality(rs.getString("check_quality"));
+	            dto.setL_category(rs.getString("l_category"));
+	            dto.setS_category(rs.getString("s_category"));
+	            dto.setDelivery(rs.getString("delivery"));
+	            dto.setPrice(rs.getInt("price"));
+	            dto.setContent(rs.getString("content"));
+	            dto.setReg_date(rs.getTimestamp("reg_date"));
+	            dto.setCnt(rs.getInt("cnt"));
+
+	            res.add(dto);
+	         }
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         close();
+	      }
+	      return res;
+	   }
+	   
+	   public int modifyFile(String post_id) {
+	      int res = 0;
+	      sql = "update postlist_market set img =? where post_id = ?";
+	      
+
+	      try {
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, "");
+	         pstmt.setString(2, post_id);
+
+	         res = pstmt.executeUpdate();
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         close();
+	      }
+	      return res;
+	   }
+
+	
 	
 	public ArrayList<MarketDTO> userList(String user_id, int start, int limit ){
 		ArrayList<MarketDTO> res = new ArrayList<MarketDTO>();
@@ -246,7 +452,7 @@ public class MarketDAO {
 				dto.setPost_id(rs.getString("post_id"));
 				dto.setUser_id(rs.getString("user_id"));
 				dto.setUser_email(rs.getString("user_email"));
-				dto.setUser_num(rs.getInt("user_num"));
+				dto.setUser_num(rs.getString("user_num"));
 				dto.setTitle(rs.getString("title"));
 				dto.setCheck_quality(rs.getString("check_quality"));
 				dto.setL_category(rs.getString("l_category"));

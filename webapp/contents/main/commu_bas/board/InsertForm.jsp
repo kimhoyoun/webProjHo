@@ -11,13 +11,6 @@
 	<input type="hidden" name = "user_id" value="${User.pid }"/>
 	<table border="">
 		<tr>
-			<td rowspan="2">
-				<select name="head" id="">
-					<option value="none">=== 선택 ===</option>
-					<option value="want_human">용병 구인</option>
-					<option value="want_team">용병 구팀</option>
-				</select>
-			</td>
 			<td rowspan="2"><input type="text" name="title" placeholder="제목" /></td>
 		</tr>
 		<tr>

@@ -16,7 +16,7 @@ public class MarketPostModify_Reg implements Market_Service{
 		
 		MarketDTO dto = new MarketDTO();
 		dto.setPost_id(request.getParameter("post_id"));
-		dto.setUser_num(Integer.parseInt(request.getParameter("user_num")));
+		dto.setUser_num(request.getParameter("user_num"));
 		dto.setUser_email(request.getParameter("user_email"));
 		dto.setTitle(request.getParameter("title"));
 		dto.setCheck_quality(request.getParameter("check_quality"));

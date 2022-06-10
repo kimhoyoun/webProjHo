@@ -65,7 +65,10 @@ public class FeedbackDAO {
 					dto.setFilter(rs.getString("filter"));
 					dto.setUser_id(rs.getString("user_id"));
 					dto.setReg_date(rs.getTimestamp("reg_date"));
-					
+					if(rs.getString("answer")!=null) {
+						dto.setAnswer(rs.getString("answer"));
+						dto.setReg_date_answer(rs.getTimestamp("reg_date_answer"));
+					}
 					
 					res.add(dto);
 				}

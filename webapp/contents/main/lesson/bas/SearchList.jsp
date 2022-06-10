@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
-<h2>농구 레슨 리스트</h2>
+<h2>농구 레슨 검색 리스트</h2>
 
 <form action="SearchList" method="post">
 	<select name="field" id="">
@@ -37,7 +37,7 @@
 		<td>${start + no.index }</td>
 		<td>${dto.category }</td>
 		<td><img src="<c:url value="/uploadFile/lesson/bas/${fn:split(dto.img, ',')[0]}"/>" alt="" /> </td>
-		<td><a href="<c:url value="Detail?post_id=${dto.post_id }&page=${nowPage }"/>">${dto.sname }</a></td>
+		<td><a href="<c:url value="/lesson/bas/Detail?post_id=${dto.post_id }&page=${nowPage }"/>">${dto.sname }</a></td>
 		<td>${dto.lesson_time }</td>
 		<td>${dto.manager_id }</td>
 		<td>${dto.price }</td>
@@ -45,11 +45,10 @@
 	</tr>
 	</c:forEach>
 	
-	
 	<tr>
 		<td colspan="8" align="center">
 			<c:if test="${pageStart > 1 }">
-				<a href="<c:url value="/lesson_bas/List?page=${pageStart - 1 }"/>">[이전]</a>
+				<a href="<c:url value="/lesson/bas/SearchList?page=${pageStart - 1 }&field=${param.field }&search=${param.search }"/>">[이전]</a>
 			</c:if>		
 			<c:forEach var="i" begin="${pageStart }" end="${pageEnd }" step="1">
 				<c:choose>
@@ -57,18 +56,18 @@
 						[${i }]
 					</c:when>
 					<c:otherwise>
-						<a href="<c:url value="/lesson_bas/List?page=${i }"/>">${i }</a>		
+						<a href="<c:url value="/lesson/bas/SearchList?page=${i }&field=${param.field }&search=${param.search }"/>">${i }</a>		
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:if test="${pageEnd<pageTotal }">
-				<a href="<c:url value="/lesson_bas/List?page=${pageEnd + 1 }"/>">[다음]</a>
+				<a href="<c:url value="/lesson/bas/SearchList?page=${pageEnd + 1 }&field=${param.field }&search=${param.search }"/>">[다음]</a>
 			</c:if>		
 		</td>
 	</tr>
 	
 	<tr>
 		<td colspan="8" align="right">
-		<a href="<c:url value="InsertForm?page=${nowPage }"/>">글 작성</a>
+		<a href="<c:url value="/lesson/bas/InsertForm?page=${nowPage }"/>">글 작성</a>
 	</tr>
 </table>

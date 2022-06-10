@@ -126,7 +126,7 @@ public class NoticeDAO {
 			try {
 				ptmt = con.prepareStatement(sql);
 				ptmt.setString(1,filter);
-				ptmt.setString(2,keyword);
+				ptmt.setString(2, "%"+keyword+"%");
 				ptmt.setInt(3,start);
 				ptmt.setInt(4, limit);
 				rs = ptmt.executeQuery();

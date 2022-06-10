@@ -70,11 +70,10 @@
           name: "${dto.sname}",
 //           amount: ${totalPrice},
           amount: 100,
-          buyer_email: "gildong@gmail.com",
-          buyer_name: "홍길동",
-          buyer_tel: "010-4242-4242",
-          buyer_addr: "서울특별시 강남구 신사동",
-          buyer_postcode: "01181"
+          buyer_email: "${User.email}",
+          buyer_name: "${User.pName}",
+          buyer_tel: "${User.phoneNum}",
+          buyer_addr: "${User.address}"
       }, function (rsp) { // callback
           if (rsp.success) {
               alert("결제 성공")
@@ -90,8 +89,8 @@
 				 price : '${totalPrice}',
 				 dateSet : '${dateSet}',
 				 selectTime : '${timeSelect}',
-				 user_id : 'hong',
-				 sname : '${dto.sname}'
+				 user_id : '${User.pid}',
+				 sname : '${dto.sname}',
 				 manager_id : '${dto.manager_id}'
 			 };
 			 

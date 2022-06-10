@@ -12,6 +12,7 @@
 		<th>제목</th>
 		<th>작성자</th>
 		<th>작성일</th>
+		<th>상태</th>
 	</tr>
 	
 	<c:forEach var="dto" items="${mainData }" varStatus="no">
@@ -27,6 +28,14 @@
 		</td>
 		<td  class = "notice_date">
 		<fmt:formatDate value="${dto.reg_date }" pattern="yy-MM-dd"/>
+		</td>
+		<td>
+			<c:choose>
+			<c:when test="${dto.answer != null }"> 답변완료</c:when>
+			<c:otherwise>
+				미답변
+			</c:otherwise>
+			</c:choose>
 		</td>
 	</tr>
 	

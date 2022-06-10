@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <h1>결제 완료</h1>
 
 <table>
@@ -29,7 +30,11 @@
 	</tr>
 	<tr>
 		<td>예약 시간</td>
-		<td>${paymentResult.resTime*2 }시 ~ ${(paymentResult.resTime+1)*2 }시</td>
+		<td>
+		<c:forTokens items ="${paymentResult.resTime }"	delims = "," var = "time" varStatus="no">
+				${time*2 }시~${(time+1)*2  }시 
+		</c:forTokens>
+		</td>
 	</tr>
 	<tr>
 		<td>유저 아이디</td>

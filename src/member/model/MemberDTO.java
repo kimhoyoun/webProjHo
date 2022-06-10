@@ -2,7 +2,7 @@ package member.model;
 
 public class MemberDTO {
 
-	private String pid, pName, nick_name, gender, address, email, pw, telecom, phoneNum;
+	private String pid, pName, nick_name, gender, address, email, pw, telecom, phoneNum, detailAddress;
 	private int grade;
 	
 	
@@ -53,6 +53,14 @@ public class MemberDTO {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	
+	
+	public String getDetailAddress() {
+		return detailAddress;
+	}
+	public void setDetailAddress(String detailAddress) {
+		this.detailAddress = detailAddress;
 	}
 	public String getEmail() {
 		return email;

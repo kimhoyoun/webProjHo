@@ -72,7 +72,7 @@ public class BoardDAO {
 	
 	public int totalCntSearch(String field, String search){
 			
-			sql = "select count(*) from commu_bas_board where " + field + " and title like ? ";
+		sql = "select count(*) from commu_bas_board where " + field + " like ? ";
 			
 			try {
 				ptmt = con.prepareStatement(sql);

@@ -46,7 +46,7 @@ public class NoticeSearch implements SupportService{
 			pageEnd = pageTotal;
 		}
 		
-		Object data = null;
+		Object data;
 		if(filter.equals("전체")) {
 			data = dao.search(start, limit, keyword);
 		}else {

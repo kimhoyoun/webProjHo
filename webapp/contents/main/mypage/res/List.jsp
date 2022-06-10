@@ -56,6 +56,9 @@
 		<td>
 			사용
 		</td>
+		<td>
+			<button onclick="paymentCancelled('${dto.imp_uid}')">환불하기</button>
+		</td>
 	</tr>
 	
 	</c:forEach>
@@ -85,3 +88,10 @@
 		</td>
 	</tr>
 </table>
+
+<script>
+	function paymentCancelled(uid){
+		alert(uid+'환불페이지로 이동합니다.')
+		location.href = "../../payment/Cancelled?imp_uid="+uid
+	}
+</script>

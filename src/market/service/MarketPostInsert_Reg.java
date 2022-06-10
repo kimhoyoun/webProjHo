@@ -64,7 +64,7 @@ public class MarketPostInsert_Reg implements Market_Service {
 			MarketDTO dto = new MarketDTO();
 			dto.setPost_id("market" + System.currentTimeMillis());
 			dto.setUser_id(map.get("userId"));
-			dto.setUser_num(Integer.parseInt(map.get("userNum")));
+			dto.setUser_num(map.get("userNum"));
 			dto.setUser_email(map.get("userEmail"));
 			dto.setTitle(map.get("title"));
 			dto.setCheck_quality(map.get("check_quality"));

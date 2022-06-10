@@ -23,7 +23,8 @@ public class MemberCorpInsertReg implements MemberService{
 		dto.setCorp_name(request.getParameter("corp_name"));
 		dto.setCorp_regnum(Long.parseLong(request.getParameter("corp_regnum")));
 		dto.setCorp_email(email);
-		dto.setCorp_address(request.getParameter("corp_address"));
+		dto.setCorp_address(request.getParameter("address"));
+		dto.setDetailAddress(request.getParameter("detailAddress"));
 		dto.setManager_name(request.getParameter("manager_name"));
 		dto.setManager_num(Integer.parseInt(request.getParameter("manager_num")));
 		dto.setGrade(grade);

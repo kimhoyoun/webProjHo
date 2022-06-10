@@ -202,6 +202,39 @@ public class PaymentDAO {
 			return list;
 		}
 		
+		public PaymentDTO detail(String imp_uid){
+			PaymentDTO dto = null;
+			sql = "select * from payment where imp_uid = ? ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,imp_uid);
+				rs = ptmt.executeQuery();
+				
+				if(rs.next()) {
+					// 필요한것만 보이기
+					dto = new PaymentDTO();
+					dto.setImp_uid(rs.getString("imp_uid"));
+					dto.setBuyer_name(rs.getString("buyer_name"));
+					dto.setMerchant_uid(rs.getString("merchant_uid"));
+					dto.setId(rs.getString("id"));
+					dto.setSname(rs.getString("sname"));
+					dto.setResDate(rs.getString("resdate"));
+					dto.setResTime(rs.getString("restime"));
+					dto.setUser_id(rs.getString("user_id"));
+					dto.setManager_id(rs.getString("manager_id"));
+					dto.setAmount(rs.getInt("amount"));
+					dto.setIntRefund_reg(rs.getInt("refund_reg"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return dto;
+		}
+		
+		
 		public ArrayList<PaymentDTO> list(String year){
 			ArrayList<PaymentDTO> res = new ArrayList<>();
 			
@@ -499,8 +532,8 @@ public class PaymentDAO {
 		
 		public void insert(PaymentDTO dto){
 			
-			sql = "insert into payment(imp_uid, amount, buyer_name, merchant_uid, id, sname, resdate, restime, user_id, refund_reg, reg_date ) "
-					+ "values (? , ? , ? , ?, ?, ?, ?, ?, ?, ?, sysdate())";
+			sql = "insert into payment(imp_uid, amount, buyer_name, merchant_uid, id, sname, resdate, restime, user_id, manager_id, refund_reg, reg_date ) "
+					+ "values (? , ? , ? , ?, ?, ?, ?, ?, ?, ?, ?, sysdate())";
 			
 			try {
 				ptmt = con.prepareStatement(sql);
@@ -513,7 +546,8 @@ public class PaymentDAO {
 				ptmt.setString(7, dto.getResDate());
 				ptmt.setString(8, dto.getResTime());
 				ptmt.setString(9, dto.getUser_id());
-				ptmt.setInt(10, dto.getIntRefund_reg());
+				ptmt.setString(10, dto.getManager_id());
+				ptmt.setInt(11, dto.getIntRefund_reg());
 				ptmt.executeUpdate();
 				
 			}catch(Exception e) {
@@ -529,12 +563,11 @@ public class PaymentDAO {
 			int res = 0;
 			
 			sql = "update payment set refund_reg = ? "
-					+ "where imp_id = ? and merchant_id = ? ";
+					+ "where imp_uid = ? ";
 			try {
 				ptmt = con.prepareStatement(sql);
 				ptmt.setInt(1, dto.getIntRefund_reg());
 				ptmt.setString(2, dto.getImp_uid());
-				ptmt.setString(3, dto.getMerchant_uid());
 				res = ptmt.executeUpdate();
 				
 			}catch(Exception e) {
