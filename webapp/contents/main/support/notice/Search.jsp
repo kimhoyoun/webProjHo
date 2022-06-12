@@ -4,69 +4,134 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
-<h1>공지사항</h1>
-
-
-<form action="">
-	<select name="filter" id="">
-        <option value="전체" <c:if test = "${param.filter == \"전체\" }">selected</c:if>  >전체</option>
-        <option value="서버" <c:if test = "${param.filter == \"서버\" }">selected</c:if>  >서버</option>
-        <option value="대관" <c:if test = "${param.filter == \"대관\" }">selected</c:if>  >대관</option>
-        <option value="수강" <c:if test = "${param.filter == \"수강\" }">selected</c:if>  >수강</option>
-        <option value="게시판" <c:if test = "${param.filter == \"게시판\" }">selected</c:if>  >게시판</option>
-        <option value="공지" <c:if test = "${param.filter == \"공지\" }">selected</c:if>  >공지</option>
-      </select> 
-	
-		<input type="text" name = "keyword" value = "${param.keyword }"/>
-	
-	<input type="submit"  value="검색"/>
-</form>
-
-<table border =""> 
-
-	
-	<c:forEach var="dto" items="${mainData }" varStatus="no">
+<div id="main_wrap">
+        <div><h2 id="main_title">공지사항</h2></div>
+        <hr>
+        
+        <div id="Search">
+            <form action="Search">
+                <select name="filter" id="">
+                    <option value="전체" <c:if test = "${param.filter == \"전체\" }">selected</c:if>  >전체</option>
+			        <option value="서버" <c:if test = "${param.filter == \"서버\" }">selected</c:if>  >서버</option>
+			        <option value="대관" <c:if test = "${param.filter == \"대관\" }">selected</c:if>  >대관</option>
+			        <option value="수강" <c:if test = "${param.filter == \"수강\" }">selected</c:if>  >수강</option>
+			        <option value="게시판" <c:if test = "${param.filter == \"게시판\" }">selected</c:if>  >게시판</option>
+			        <option value="공지" <c:if test = "${param.filter == \"공지\" }">selected</c:if>  >공지</option>
+                </select>
+                <input type="text" name = "keyword" value = "${param.keyword }"/>
+	            <input type="submit"  value="검색"/>
+            </form>  
+        </div>
+        
+        <div id="notice">
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th class="num" scope="col">번호</th>
+                    <th class="title" scope="col">제목</th>
+                    <th class="user_id" scope="col">분류</th>
+                    <th class="reg_date" scope="col">작성일</th>
+                  </tr>
+                </thead>
+                <tbody>
+                	<c:forEach var="dto" items="${mainData }" varStatus="no">
 		
-	<tr>
-<%-- 		<td>${ start + no.index+1}</td> --%>
-		<td>
-			<a href="<c:url value="Detail?id=${dto.id }&page=${nowPage }"/>">${dto.title }</a>
-		</td>
-		<td>${dto.filter }</td>
-		<td>
-		<fmt:formatDate value="${dto.reg_date }" pattern="yy-MM-dd"/>
-		</td>
-	</tr>
+						<tr>
+							<td class="num" scope="row" >${ start + no.index+1}</td>
+							<td class = "title">
+								<a href="<c:url value="Detail?id=${dto.id }&page=${nowPage }"/>">${dto.title }</a>
+							</td>
+							<td class = "user_id">${dto.filter }</td>
+							<td  class = "reg_date" scope="col">
+								<fmt:formatDate value="${dto.reg_date }" pattern="yy-MM-dd"/>
+							</td>
+						</tr>
+						</c:forEach>
+                </tbody>
+                <tfoot>
+                    <tr><td class="BTNnewWrite" colspan="5"><input type="button" value="새글쓰기"></td></tr>
+                    <tr><td class="paging" colspan="5">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                              <li class="page-item">
+	                            <c:if test="${pageStart > 1 }">
+	                            	 <a class="page-link"  href="<c:url value="Search?page=${pageStart-1 }&filter=${param.filter }&keyword=${param.keyword }"/>">이전</a>
+								</c:if>
+                           	 </li>
+							<c:forEach var ="i" begin="${pageStart }" end="${pageEnd }" step="1"> 
+								<c:choose>
+									<c:when test="${nowPage == i }">
+											<li class="page-item disabled">
+												<a class="page-link" href="<c:url value="Search?page=${i }&filter=${param.filter }&keyword=${param.keyword }"/>">${i }</a>
+											</li>
+									</c:when>		
+									
+									<c:otherwise>
+									<li class="page-item">
+										<a class="page-link" href="<c:url value="Search?page=${i }&filter=${param.filter }&keyword=${param.keyword }"/>">${i }</a>
+									</li>
+									</c:otherwise>		
+								</c:choose>
+							</c:forEach>
+                              	<li class="page-item">
+		                   			<c:if test="${pageEnd<pageTotal }">
+		                                <a class="page-link" href="<c:url value="Search?page=${pageEnd+1 }&filter=${param.filter }&keyword=${param.keyword }"/>">다음</a>
+									</c:if>
+								</li>
+                            </ul>
+                          </nav>
+                    </td></tr>
+                </tfoot>
+              </table>    
+        </div>
+        
+    </div>
+
+<!-- <table border ="">  -->
+
 	
-	</c:forEach>
-	<tr>
-		<td colspan="5" align="center">
-			<c:if test="${pageStart > 1 }">
-				<a href="<c:url value="Search?page=${pageStart-1 }&filter=${param.filter }&keyword=${param.keyword }"/>">[이전]</a>
-			</c:if>
-			<c:forEach var ="i" begin="${pageStart }" end="${pageEnd }" step="1">
-				<c:choose>
-					<c:when test="${nowPage == i }">
-							[${i }]
-					</c:when>		
+<%-- 	<c:forEach var="dto" items="${mainData }" varStatus="no"> --%>
+		
+<!-- 	<tr> -->
+<%-- <%-- 		<td>${ start + no.index+1}</td> --%> --%>
+<!-- 		<td> -->
+<%-- 			<a href="<c:url value="Detail?id=${dto.id }&page=${nowPage }"/>">${dto.title }</a> --%>
+<!-- 		</td> -->
+<%-- 		<td>${dto.filter }</td> --%>
+<!-- 		<td> -->
+<%-- 		<fmt:formatDate value="${dto.reg_date }" pattern="yy-MM-dd"/> --%>
+<!-- 		</td> -->
+<!-- 	</tr> -->
+	
+<%-- 	</c:forEach> --%>
+<!-- 	<tr> -->
+<!-- 		<td colspan="5" align="center"> -->
+<%-- 			<c:if test="${pageStart > 1 }"> --%>
+<%-- 				<a href="<c:url value="Search?page=${pageStart-1 }&filter=${param.filter }&keyword=${param.keyword }"/>">[이전]</a> --%>
+<%-- 			</c:if> --%>
+<%-- 			<c:forEach var ="i" begin="${pageStart }" end="${pageEnd }" step="1"> --%>
+<%-- 				<c:choose> --%>
+<%-- 					<c:when test="${nowPage == i }"> --%>
+<%-- 							[${i }] --%>
+<%-- 					</c:when>		 --%>
 					
-					<c:otherwise>
-					<a href="<c:url value="Search?page=${i }&filter=${param.filter }&keyword=${param.keyword }"/>">${i }</a>
-					</c:otherwise>		
-				</c:choose>
+<%-- 					<c:otherwise> --%>
+<%-- 					<a href="<c:url value="Search?page=${i }&filter=${param.filter }&keyword=${param.keyword }"/>">${i }</a> --%>
+<%-- 					</c:otherwise>		 --%>
+<%-- 				</c:choose> --%>
 				
 				
 				
-			</c:forEach>
+<%-- 			</c:forEach> --%>
 			
-			<c:if test="${pageEnd<pageTotal }">
-			<a href="<c:url value="Search?page=${pageEnd+1 }&filter=${param.filter }&keyword=${param.keyword }"/>">[다음]</a>
-			</c:if>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="5" align="right">
-			<a href="<c:url value="InsertForm?page=${nowPage }"/>">글쓰기</a>
-		</td>
-	</tr>
-</table>
+<%-- 			<c:if test="${pageEnd<pageTotal }"> --%>
+<%-- 			<a href="<c:url value="Search?page=${pageEnd+1 }&filter=${param.filter }&keyword=${param.keyword }"/>">[다음]</a> --%>
+<%-- 			</c:if> --%>
+<!-- 		</td> -->
+<!-- 	</tr> -->
+<!-- 	<tr> -->
+<!-- 		<td colspan="5" align="right"> -->
+<%-- 			<a href="<c:url value="InsertForm?page=${nowPage }"/>">글쓰기</a> --%>
+<!-- 		</td> -->
+<!-- 	</tr> -->
+<!-- </table> -->

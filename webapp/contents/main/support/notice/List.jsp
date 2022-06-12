@@ -24,7 +24,7 @@
             </form>  
         </div>
         
-        <div id="commu_bas_board">
+        <div id="notice">
             <table class="table table-hover">
                 <thead>
                   <tr>
@@ -50,7 +50,11 @@
 						</c:forEach>
                 </tbody>
                 <tfoot>
-                    <tr><td class="BTNnewWrite" colspan="5"><input type="button" value="새글쓰기"></td></tr>
+                    <tr><td class="BTNnewWrite" colspan="5" align="right">
+                    <a href="<c:url value="InsertForm?page=${nowPage }"/>"><button type="button" class="btn btn-outline-info" onclick="insert()">새글쓰기</button></a>
+<!--                     <input type="button" value="새글쓰기" onclick="insert()"> -->
+                    </td>
+                    </tr>
                     <tr><td class="paging" colspan="5">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-center">
@@ -87,5 +91,9 @@
         </div>
         
     </div>
-
+<script>
+function insert(){
+	location.href = '<c:url value="InsertForm?page=${nowPage }"/>'
+}
+</script>
 <%-- 			<a href="<c:url value="InsertForm?page=${nowPage }"/>">글쓰기</a> --%>

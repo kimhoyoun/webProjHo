@@ -19,9 +19,8 @@
 </style>
 
 <h1>농구 대관페이지</h1>
-
-<div id="calendar_wrap">
-	<div id="calendar">
+<div class = "row" style="margin-bottom:20px">
+	<div class="col">
 		<input type="text" name="selectDate" id="selectDate" class="ts"
 			autocomplete="off" value="${dateSet }" />
 		<script>
@@ -55,9 +54,10 @@
 			})
 		</script>
 	</div>
-
+	<div class ="col-sm-1" style="padding: 0px; width:75px">
+		<a href="<c:url value="InsertForm?page=${nowPage }"/>"><button type="button" class="btn btn-outline-secondary">글쓰기</button></a>
+	</div>
 </div>
-
 <!-- <div id = "table_wrap"> -->
 
 <!-- <table border="">  -->
@@ -155,20 +155,27 @@
 								<div class="col res_time_ea">10~12시</div>
 							</div>
 						</div>
+						
 						<div class="row gym_info_bottom_row">
 							<div class="bottom_text">옵션</div>
 							<div class="row ">
 								<div class="row option_div">
 									<div class="col"
-										style="background: white; margin: 5px; text-align: center;">샤워장</div>
+										style="background: white; margin: 5px; text-align: center;
+										<c:if test="${dto.option1}">background:yellow;</c:if>">샤워장
+									</div>
 									<div class="col"
-										style="background: white; margin: 5px; text-align: center;">주차장</div>
+										style="background: white; margin: 5px; text-align: center;
+										<c:if test="${dto.option2}">background:yellow;</c:if>">주차장</div>
 									<div class="col"
-										style="background: white; margin: 5px; text-align: center;">냉/난방시설</div>
+										style="background: white; margin: 5px; text-align: center;
+										<c:if test="${dto.option3}">background:yellow;</c:if>">냉/난방시설</div>
 									<div class="col"
-										style="background: white; margin: 5px; text-align: center;">정수기</div>
+										style="background: white; margin: 5px; text-align: center;
+										<c:if test="${dto.option4}">background:yellow;</c:if>">정수기</div>
 									<div class="col"
-										style="background: white; margin: 5px; text-align: center;">마룻바닥</div>
+										style="background: white; margin: 5px; text-align: center;
+										<c:if test="${dto.option5}">background:yellow;</c:if>">마룻바닥</div>
 								</div>
 
 							</div>
@@ -209,6 +216,8 @@
 			</c:if>
 		</ul>
 	</nav>
+	
+	
 </div>
 
 <script>

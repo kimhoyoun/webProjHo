@@ -36,10 +36,18 @@ public class FaqList implements SupportService{
 		
 		Object data = dao.list(start, limit);
 		
+		
+		String[] onetwo = new String[] {"headingOne","headingTwo","headingThree","headingFour","headingFive","headingSix","headingSeven","headingEight"};	
+		String[] onetwoCol = new String[] {"collapseOne","collapseTwo","collapseThree","collapseFour","collapseFive","collapseSix","collapseSeven","collapseEight"};	
+		String[] onetwoColshop = new String[] {"#collapseOne","#collapseTwo","#collapseThree","#collapseFour","#collapseFive","#collapseSix","#collapseSeven","#collapseEight"};	
+		
 		request.setAttribute("mainData", data);
 		request.setAttribute("mainUrl", FAQ+"List");
 		
 		
+		request.setAttribute("onetwo", onetwo);
+		request.setAttribute("onetwoCol", onetwoCol);
+		request.setAttribute("onetwoColshop", onetwoColshop);
 		request.setAttribute("start", start);
 		request.setAttribute("pageTotal", pageTotal);
 		request.setAttribute("pageStart", pageStart);

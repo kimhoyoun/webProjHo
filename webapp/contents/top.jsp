@@ -95,19 +95,47 @@
         <div class="col-md-3 text-end">
          <c:choose>
 				<c:when test="${User==null }">
-					<button type="button" class="btn btn-outline-primary me-2">LOGIN</button>
-          			<button type="button" class="btn btn-primary">Sign-up</button>
+					<button type="button" class="btn btn-outline-primary me-2" onclick = "goLogin()">LOGIN</button>
+          			<button type="button" class="btn btn-primary" onclick="goSignup()">Sign-up</button>
 				</c:when>
 				<c:otherwise>
-					 <button type="button" class="btn btn-outline-primary me-2">LOGOUT</button>
-         			 <button type="button" class="btn btn-primary">MYPAGE</button>
+					 <button type="button" class="btn btn-outline-primary me-2" onclick="goLogout()">LOGOUT</button>
+         			 <button type="button" class="btn btn-primary" onclick="goMypage()">MYPAGE</button>
 				</c:otherwise>
 			</c:choose>
         </div>
       </header>
     </div>
   
-  
+ <script>
+ 	function goLogin(){
+ 		location.href = '<c:url value="/member/Login"/>'
+ 	}
+ 	function goSignup(){
+ 		location.href = '<c:url value="/member/TypeSelect"/>'
+ 	}
+ 	function goLogout(){
+ 		location.href = '<c:url value="/member/Logout"/>'
+ 	}
+ 	function goMypage(){
+ 		location.href = '<c:url value="/mypage/info/InputPass"/>'
+ 	}
+ 	
+ </script>
+
+<%-- <a class="nav-link" href="<c:url value="/market/PostList"/>">LOGIN</a> --%>
+<!-- 		              </li> -->
+<!-- 		              <li class="nav-item"> -->
+<%-- 		                <a class="nav-link" href="<c:url value="/market/PostList"/>">JOIN</a> --%>
+<!-- 		              </li> -->
+<%-- 				</c:when> --%>
+<%-- 				<c:otherwise> --%>
+<!-- 					<li class="nav-item"> -->
+<%-- 		                <a class="nav-link" href="<c:url value="/member/Logout"/>">LOGOUT</a> --%>
+<!-- 		              </li> -->
+<!-- 		              <li class="nav-item"> -->
+<%-- 		                <a class="nav-link" href="<c:url value="/mypage/info/InputPass"/>">MYPAGE</a> --%>
+
 <!--   <header> -->
 <!--       Fixed navbar -->
 <!--       <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light" > -->
