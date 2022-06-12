@@ -10,6 +10,8 @@ public class MarketPostSearchList implements Market_Service {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 
+		// 검색어 없을 때 에러
+		
 		int page = (int)request.getAttribute("nowPage");
 		String l_field = request.getParameter("l_field");
 		String s_field = request.getParameter("s_field");
@@ -21,6 +23,7 @@ public class MarketPostSearchList implements Market_Service {
 		
 		MarketDAO dao = new MarketDAO();
 		Object data = null;
+		
 		if(l_field.equals("list")&& s_field.equals("list")) {
 			total = dao.totalCntSearch(search);
 		} else if(!l_field.equals("list") && !s_field.equals("list")) {

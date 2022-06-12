@@ -39,7 +39,7 @@
 	</tr>
 	<tr>
 		<th>주소</th>
-		<td>${dto.location } <br />
+		<td>${dto.address} , ${dto.address_detail} <br />
 		<a href="https://map.kakao.com/link/to/${dto.sname },33.450701,126.570667" style="color:blue" target="_blank">길찾기</a>
 		</td>
 	</tr>

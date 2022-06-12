@@ -52,19 +52,65 @@
 			nighttime = ${dto.price_weekday_nighttime}
 		}
 		
+		var unused_time = '${dto.unused_time}'
+		const unusedArr = unused_time.split(',')
+
+		
 		var str = '${resData}'
 		const arr = str.split(',')
-		for(item of priceList){
-			item.addEventListener('click', selectTime)
+		console.log(str)
+		console.log(arr)
+		
+		var isEnabled = true;
+		for(var i = 0; i<priceList.length; i++){
+			if(unused_time != ''){
+				for(var j = 0; j<unusedArr.length; j++){
+					if(i == unusedArr[j]){
+						console.log(unusedArr[j])
+						priceList[i].style.background = 'gray'
+						isEnabled = false;
+						break;
+					}
+				}
+			}
+			
+			if(str != ''){
+				for(var j = 0; j<arr.length; j++){
+					if(i == arr[j]){
+						console.log(arr[j])
+						priceList[i].style.background = 'blue'
+						isEnabled = false;
+						break;
+					}
+				}
+			}
+			
+			if(isEnabled){
+				priceList[i].addEventListener('click', selectTime)
+			}
+			
+			isEnabled = true;
 		}
 		
 		
+			
 		if(str.length >0){
 			for(var i = 0; i<arr.length; i++){
 				priceList[arr[i]].removeEventListener('click',selectTime)
 				priceList[arr[i]].style.background = 'blue'
 			}		
 		}
+// 		var unused_time = '${dto.unused_time}'
+// 		const unusedArr = unused_time.split(',')
+		
+// 		if(unusedArr.length >0){
+// 			for(var i = 0; i<unusedArr.length; i++){
+// 				priceList[unusedArr[i]].removeEventListener('click',selectTime)
+// 				priceList[unusedArr[i]].style.background = 'gray'
+				
+// 			}		
+// 		}
+		
 		
 		 function getIndex(checkList){
 	            let selectedIndex = 0;
@@ -173,7 +219,7 @@
 	</tr>
 	<tr>
 		<th>주소</th>
-		<td>${dto.location } <br />
+		<td>${dto.address } <br />
 		<a href="https://map.kakao.com/link/to/${dto.sname},33.450701,126.570667" style="color:blue" target="_blank">길찾기</a>
 		<div id="map" style="width:500px;height:400px;"></div>
 		<script>
@@ -193,7 +239,7 @@
 			var geocoder = new kakao.maps.services.Geocoder();
 			
 			// 주소로 좌표를 검색합니다
-			geocoder.addressSearch('${dto.location}', function(result, status) {
+			geocoder.addressSearch('${dto.address}', function(result, status) {
 			
 			    // 정상적으로 검색이 완료됐으면 
 			     if (status === kakao.maps.services.Status.OK) {

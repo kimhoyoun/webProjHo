@@ -32,7 +32,8 @@ public class BasketballDetail implements GymService{
 					resTime += resData.get(i).getResTime();
 				}
 				
-				if(i != resData.size()-1) {
+				if(i != (resData.size()-1)) {
+					System.out.println("ggg");
 					resTime += ",";
 				}
 			}

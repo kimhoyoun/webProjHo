@@ -4,7 +4,8 @@ import java.util.Date;
 
 public class BasketballDTO {
 	String id, sname, contents_info, contents_detail, contents_rule, contents_refund,
-		location, img, manager_id;
+		postcode, address, address_detail, img, manager_id, unused_time;
+
 	int price_weekday_weekly, price_weekday_nighttime, price_weekend_weekly, price_weekend_nighttime;
 	
 	boolean option1, option2, option3, option4, option5;
@@ -59,12 +60,28 @@ public class BasketballDTO {
 		this.contents_refund = contents_refund;
 	}
 
-	public String getLocation() {
-		return location;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+	public String getAddress_detail() {
+		return address_detail;
+	}
+
+	public void setAddress_detail(String address_detail) {
+		this.address_detail = address_detail;
 	}
 
 	public String getImg() {
@@ -115,6 +132,14 @@ public class BasketballDTO {
 		this.price_weekend_nighttime = price_weekend_nighttime;
 	}
 
+	public String getUnused_time() {
+		return unused_time;
+	}
+
+	public void setUnused_time(String unused_time) {
+		this.unused_time = unused_time;
+	}
+	
 	public boolean isOption1() {
 		return option1;
 	}
@@ -214,11 +239,6 @@ public class BasketballDTO {
 	public void setOption5(int option5) {
 		this.option5 = (option5==1);
 	}
-	
-
-	
-
-	
 
 	public Date getReg_date() {
 		return reg_date;
@@ -230,9 +250,19 @@ public class BasketballDTO {
 
 	@Override
 	public String toString() {
-		return "BasketballDTO [id=" + id + ", sname=" + sname + ", location=" + location + ", img=" + img
-				+ ", price_weekday_weekly=" + price_weekday_weekly + "]";
+		return "BasketballDTO [id=" + id + ", sname=" + sname + ", contents_info=" + contents_info
+				+ ", contents_detail=" + contents_detail + ", contents_rule=" + contents_rule + ", contents_refund="
+				+ contents_refund + ", postcode=" + postcode + ", address=" + address + ", address_detail="
+				+ address_detail + ", img=" + img + ", manager_id=" + manager_id + ", unused_time=" + unused_time
+				+ ", price_weekday_weekly=" + price_weekday_weekly + ", price_weekday_nighttime="
+				+ price_weekday_nighttime + ", price_weekend_weekly=" + price_weekend_weekly
+				+ ", price_weekend_nighttime=" + price_weekend_nighttime + ", option1=" + option1 + ", option2="
+				+ option2 + ", option3=" + option3 + ", option4=" + option4 + ", option5=" + option5 + ", reg_date="
+				+ reg_date + "]";
 	}
+
+
+
 	
 	
 }

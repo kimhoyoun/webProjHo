@@ -12,6 +12,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import gym.basketball.model.BasketballDTO;
+
 
 public class PaymentDAO {
 	Connection con;
@@ -388,7 +390,7 @@ public class PaymentDAO {
 		public ArrayList<PaymentDTO> myList(String boardId, String resdate){
 			ArrayList<PaymentDTO> res = new ArrayList<>();
 			
-			sql = "select * from payment where id= ? and resdate = ?";
+			sql = "select * from payment where id= ? and resdate = ? and refund_reg = 0 ";
 			
 			try {
 				ptmt = con.prepareStatement(sql);
@@ -500,6 +502,59 @@ public class PaymentDAO {
 			}
 			
 			return res;
+		}
+		
+		
+		public ArrayList<String> paymentList(ArrayList<BasketballDTO> bas, String date){
+			ArrayList<String> res = new ArrayList<>();
+			
+			String check = null;
+			boolean end = false;
+			
+			for(int i =0; i<bas.size(); i++) {
+				if(i == bas.size()-1) {
+					end =true;
+				}
+				
+				check = resString(bas.get(i).getId(), date, end);
+				
+				res.add(check);
+			}
+			
+			
+			return res;
+		}
+		
+		public String resString(String bas, String date, boolean end){
+			
+			
+			String unUsedTime = "";
+			sql = "select restime from payment where id = ? and resdate = ? and refund_reg = 0 ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,bas);
+				ptmt.setString(2,date);
+				
+				rs = ptmt.executeQuery();
+				
+				while(rs.next()) {
+					unUsedTime+= rs.getString("restime");
+				}
+				
+				if(!unUsedTime.equals("")) {
+					unUsedTime = unUsedTime.substring(0, unUsedTime.lastIndexOf(','));
+				}
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(end) {
+					close();
+				}
+			}
+			
+			return unUsedTime;
 		}
 //		
 //		public PaymentDTO detail(String notice_id){

@@ -34,7 +34,17 @@ public class BasketballModifyReg implements GymService{
 		dto.setPrice_weekday_nighttime(Integer.parseInt(request.getParameter("price_weekday_nighttime")));
 		dto.setPrice_weekend_weekly(Integer.parseInt(request.getParameter("price_weekend_weekly")));
 		dto.setPrice_weekend_nighttime(Integer.parseInt(request.getParameter("price_weekend_nighttime")));
-		dto.setLocation(request.getParameter("location"));
+		
+		dto.setPostcode(request.getParameter("postcode"));
+        dto.setAddress(request.getParameter("address"));
+        dto.setAddress_detail(request.getParameter("detailAddress"));
+        dto.setUnused_time(request.getParameter("unused_time"));
+        
+//		dto.setPostcode(map.get("postcode"));
+//        dto.setAddress(map.get("address"));
+//        dto.setAddress_detail(map.get("detailAddress"));
+//        dto.setUnused_time(map.get("unused_time"));
+		
 		dto.setManager_id(request.getParameter("manager_id"));
 		
 		System.out.println(dto);

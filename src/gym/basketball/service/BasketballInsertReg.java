@@ -36,12 +36,16 @@ public class BasketballInsertReg implements GymService{
 			ServletFileUpload fileUpload = new ServletFileUpload(diskFileItemFactory);
 			
 			
-			
 			List<FileItem> items = fileUpload.parseRequest(request);
-			
+			String unused_time ="";
 	         for (FileItem item : items) {
 	            if (item.isFormField()) {
-	               map.put(item.getFieldName(), item.getString());
+	               if(item.getFieldName().equals("unused_time")) {
+	            	   unused_time += item.getString()+",";
+	            	   map.put(item.getFieldName(), unused_time);
+	               }else {
+	            	   map.put(item.getFieldName(), item.getString());
+	               }
 	            } else {
 	               if (item.getSize() > 0) {
 	                  String separator = File.separator;
@@ -75,21 +79,21 @@ public class BasketballInsertReg implements GymService{
 	         dto.setPrice_weekday_nighttime(Integer.parseInt(map.get("price_weekday_nighttime")));
 	         dto.setPrice_weekend_weekly(Integer.parseInt(map.get("price_weekend_weekly")));
 	         dto.setPrice_weekend_nighttime(Integer.parseInt(map.get("price_weekend_nighttime")));
-	         dto.setLocation(map.get("location"));
-	         
+	         dto.setPostcode(map.get("postcode"));
+	         dto.setAddress(map.get("address"));
+	         dto.setAddress_detail(map.get("detailAddress"));
 	         dto.setImg(allImg);
-	         
 	         dto.setManager_id(map.get("manager_id"));
 	         
+	         if(map.get("unused_time") != null) {
+	        	 dto.setUnused_time(map.get("unused_time").substring(0, map.get("unused_time").lastIndexOf(',')) );
+	         }
 	         new BasketballDAO().insert(dto);
 	         
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 			
-		
-		
-	
 		request.setAttribute("msg", "작성되었습니다.");
 		request.setAttribute("goUrl", "List");
 		request.setAttribute("mainUrl", "alert");

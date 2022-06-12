@@ -60,11 +60,34 @@
 	</tr>
 	<tr>
 		<th>주소</th>
-		<td><input type="text" name="location"/></td>
+			<td>
+			<input type="text" name="postcode" id="postcode" placeholder="우편번호" readonly>
+   			<input type="button" onclick="on()" value="우편번호 찾기"><br>
+		    <input type="text" name=address id="address" placeholder="주소" readonly><br>
+		    <input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
+		    <input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목" readonly>
+		    </td>
 	</tr>
 	<tr>
 		<th>이미지</th>
 		<td><input type="file" name ="img" multiple /></td>
+	</tr>
+	<tr>
+		<th>사용불가 시간</th>
+		<td>
+		<label><input type="checkbox" name = "unused_time" value="0"/> 00시~02시</label>
+		<label><input type="checkbox" name = "unused_time" value="1"/> 02시~04시</label>
+		<label><input type="checkbox" name = "unused_time" value="2"/> 04시~06시</label>
+		<label><input type="checkbox" name = "unused_time" value="3"/> 06시~08시</label>
+		<label><input type="checkbox" name = "unused_time" value="4"/> 08시~10시</label>
+		<label><input type="checkbox" name = "unused_time" value="5"/> 10시~12시</label>
+		<label><input type="checkbox" name = "unused_time" value="6"/> 12시~14시</label>
+		<label><input type="checkbox" name = "unused_time" value="7"/> 14시~16시</label>
+		<label><input type="checkbox" name = "unused_time" value="8"/> 16시~18시</label>
+		<label><input type="checkbox" name = "unused_time" value="9"/> 18시~20시</label>
+		<label><input type="checkbox" name = "unused_time" value="10"/> 20시~22시</label>
+		<label><input type="checkbox" name = "unused_time" value="11"/> 22시~24시</label>
+		</td>
 	</tr>
 	<tr>
 		<td colspan = "2" align = "center">
@@ -76,4 +99,44 @@
 	
 </table>		
 </form>		
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+function on(){
+	execDaumPostcode();
+	
+	function execDaumPostcode() {
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	            var addr = ''; 
+	            var extraAddr = ''; 
 
+	            if (data.userSelectedType === 'R') { 
+	                addr = data.roadAddress;
+	            } else { 
+	                addr = data.jibunAddress;
+	            }
+
+	            if(data.userSelectedType === 'R'){
+	                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                    extraAddr += data.bname;
+	                }
+	                if(data.buildingName !== '' && data.apartment === 'Y'){
+	                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                }
+	                if(extraAddr !== ''){
+	                    extraAddr = ' (' + extraAddr + ')';
+	                }
+	                document.getElementById("extraAddress").value = extraAddr;
+	            
+	            } else {
+	                document.getElementById("extraAddress").value = '';
+	            }
+
+	            document.getElementById('postcode').value = data.zonecode;
+	            document.getElementById("address").value = addr;
+	            document.getElementById("detailAddress").focus();
+	        }
+	    }).open();
+	}
+}
+</script>
