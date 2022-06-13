@@ -23,7 +23,6 @@ public class NoticeController extends HttpServlet {
     public NoticeController() {
         super();
         nonClass = new ArrayList<>();
-        nonClass.add("InsertForm");
         nonClass.add("DeleteForm");
     }
 

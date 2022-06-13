@@ -49,6 +49,25 @@ public class BoardDAO {
 		return 0;
 	}
 	
+	public int myTotalCnt(String user_id) {
+		
+		sql = "select count(*) from commu_Bas_board where user_id = ? ";
+		
+		try {
+			ptmt = con.prepareStatement(sql);
+			ptmt.setString(1, user_id);
+			rs = ptmt.executeQuery();
+		
+			rs.next();
+				
+			return rs.getInt(1);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return 0;
+	}
+	
 
 
 	public int totalCntSearch(String search){

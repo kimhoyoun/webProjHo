@@ -22,7 +22,7 @@
 
         <div class="row" style="margin-top: 10px;">
           <div class="col text-center ">
-              <a href="<c:url value="Detail?id=${param.id }&page=${nowPage}"/>"><button type="button" class="btn btn-outline-secondary"> 뒤로</button></a>
+              <a href="<c:url value="List"/>"><button type="button" class="btn btn-outline-secondary"> 뒤로</button></a>
              	<button type="submit" class="btn btn-outline-secondary">삭제</button>
           </div>
         </div>

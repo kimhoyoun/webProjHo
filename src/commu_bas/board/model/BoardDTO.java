@@ -3,7 +3,7 @@ package commu_bas.board.model;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-public class BoardDTO {
+public class BoardDTO{
 
 	int cnt;
 	String post_id;

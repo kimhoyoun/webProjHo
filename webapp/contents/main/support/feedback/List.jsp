@@ -10,7 +10,6 @@
         <div class="row ">
 	        <div class="col text-end">
 	        	<a href="<c:url value="home"/>"><button type="button" class="btn btn-outline-secondary">홈으로</button></a>
-	        	<a href="<c:url value="InsertForm?page=${nowPage }"/>"><button type="button" class="btn btn-outline-secondary">새글쓰기</button></a>
 	        </div>
         </div>
         

@@ -24,9 +24,11 @@
 	            <button type="submit" class="btn btn-outline-secondary">검색</button>
             </form>  
             </div>
-            <div class="col text-end">
-            	<a href="<c:url value="InsertForm?page=${nowPage }"/>"><button type="button" class="btn btn-outline-secondary">새글쓰기</button></a>
-            </div>
+            <c:if test="${User.grade==1 }">
+	            <div class="col text-end">
+	            	<a href="<c:url value="InsertForm?page=${nowPage }"/>"><button type="button" class="btn btn-outline-secondary">새글쓰기</button></a>
+	            </div>
+            </c:if>
         </div>
         
         <div id="notice">

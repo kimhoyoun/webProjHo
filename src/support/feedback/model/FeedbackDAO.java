@@ -45,6 +45,25 @@ public class FeedbackDAO {
 		
 		return 0;
 	}
+		
+		public int myTotalCnt(String user_id){
+			
+			sql = "select count(*) from feedback where user_id = ? ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1, user_id);
+				rs = ptmt.executeQuery();
+				
+				rs.next();
+				
+				return rs.getInt(1);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return 0;
+		}
 		public ArrayList<FeedbackDTO> list(int start, int limit){
 			ArrayList<FeedbackDTO> res = new ArrayList<>();
 			
@@ -102,7 +121,10 @@ public class FeedbackDAO {
 					dto.setFilter(rs.getString("filter"));
 					dto.setUser_id(rs.getString("user_id"));
 					dto.setReg_date(rs.getTimestamp("reg_date"));
-					
+					if(rs.getString("answer")!=null) {
+						dto.setAnswer(rs.getString("answer"));
+						dto.setReg_date_answer(rs.getTimestamp("reg_date_answer"));
+					}
 					
 					res.add(dto);
 				}
@@ -141,6 +163,8 @@ public class FeedbackDAO {
 				}
 			}catch(Exception e) {
 				e.printStackTrace();
+			}finally {
+				close();
 			}
 			
 			return dto;

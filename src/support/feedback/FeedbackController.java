@@ -21,7 +21,6 @@ public class FeedbackController extends HttpServlet {
     public FeedbackController() {
         super();
         nonClass = new ArrayList<>();
-        nonClass.add("InsertForm");
         nonClass.add("home");
         nonClass.add("DeleteForm");
     }

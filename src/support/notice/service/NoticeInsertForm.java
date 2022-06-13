@@ -8,7 +8,10 @@ import member.model.MemberDTO;
 import support.SupportService;
 import support.notice.model.NoticeDAO;
 
-public class NoticeModifyForm implements SupportService{
+public class NoticeInsertForm implements SupportService{
+	
+	public NoticeInsertForm() {
+	}
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
@@ -18,13 +21,7 @@ public class NoticeModifyForm implements SupportService{
 			MemberDTO user = (MemberDTO)session.getAttribute("User");
 			
 			if(user.getGrade() == 1) {
-				String id = request.getParameter("id");
-				NoticeDAO dao = new NoticeDAO();
-				
-				Object data = dao.detail(id);
-				
-				request.setAttribute("dto", data);
-				request.setAttribute("mainUrl", NOTICE+"ModifyForm");
+				request.setAttribute("mainUrl", NOTICE+"InsertForm");
 			}else {
 				request.setAttribute("msg", "정상적인 접근이 아닙니다.");
 				request.setAttribute("goUrl", "back");

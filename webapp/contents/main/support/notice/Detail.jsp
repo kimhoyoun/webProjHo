@@ -12,10 +12,12 @@
 		<a href="List?page=${nowPage }"><button type="button" class="btn btn-outline-secondary"> 목록으로</button></a>
   	</div>
   	
-  	<div class ="col sm-4 text-end">
-  		<a href="ModifyForm?id=${dto.id }&page=${nowPage}"><button type="button" class="btn btn-outline-secondary"> 수정</button></a>
-  		<a href="DeleteForm?id=${dto.id }&page=${nowPage}"><button type="button" class="btn btn-outline-secondary"> 삭제</button></a>
-  	</div>
+  	<c:if test="${User.grade==1 }">
+	  	<div class ="col sm-4 text-end">
+	  		<a href="ModifyForm?id=${dto.id }&page=${nowPage}"><button type="button" class="btn btn-outline-secondary"> 수정</button></a>
+	  		<a href="DeleteForm?id=${dto.id }&page=${nowPage}"><button type="button" class="btn btn-outline-secondary"> 삭제</button></a>
+	  	</div>
+  	</c:if>
   </div>
   <div class="container border border-3 rounded">
           <div class="row">
@@ -34,24 +36,4 @@
           </div>
           
       </div>
-      
-<!--     <div class ="container" > -->
-<!--       <div id = "detail_title"> -->
-<%--         ${dto.title } --%>
-<!--       </div> -->
 
-<!--       <div id = "detail_filter"> -->
-<%--          ${dto.filter } |  --%>
-<!--       </div> -->
-
-<!--       <div id = "detail_date"> -->
-<%--           ${dto.reg_date } --%>
-<!--       </div> -->
-
-<!--       <div id = "detail_content"> -->
-<%--         <p> ${dto.content }</p> --%>
-<!--       </div> -->
-
-	
-	
-  
