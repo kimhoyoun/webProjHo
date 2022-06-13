@@ -220,7 +220,8 @@
 	<tr>
 		<th>주소</th>
 		<td>${dto.address } <br />
-		<a href="https://map.kakao.com/link/to/${dto.sname},33.450701,126.570667" style="color:blue" target="_blank">길찾기</a>
+		<button type = "button" onclick="goMap()"> 길찾기 </button>
+<%-- 		<a href="https://map.kakao.com/link/to/${dto.sname},33.450701,126.570667" style="color:blue" target="_blank">길찾기</a> --%>
 		<div id="map" style="width:500px;height:400px;"></div>
 		<script>
 			var lat = 0;
@@ -280,6 +281,15 @@
 			    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
 			    map.panTo(moveLatLon);            
 			} 
+			
+			
+			function goMap(){
+				var url = 'https://map.kakao.com/link/to/${dto.sname},'+lat+','+lng; 
+				 var win = window.open(url, '_blank');
+			        win.focus();
+
+			}
+			
 			</script>
 		</td>
 	</tr>

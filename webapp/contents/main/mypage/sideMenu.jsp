@@ -22,12 +22,12 @@
     <ul class="list-group mb-3">
 		<c:choose>
 			<c:when test = "${User.grade == 3 }">
-				<li class="list-group-item d-flex justify-content-between lh-sm" onclick="location.href='#'" >
+				<li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
                 <h6 class="my-0" ><a class="fs-6 text-secondary" href="../info/CorpMemberEdit">회원정보 수정</a></h6>
             </div>
 		        </li>
-		        <li class="list-group-item d-flex justify-content-between lh-sm" onclick="location.href='#'">
+		        <li class="list-group-item d-flex justify-content-between lh-sm">
 		            <div>
 		                <h6 class="my-0"><a class="fs-6 text-secondary" href="../corpres/List">대관 정보</a></h6>
 		            </div>
@@ -36,19 +36,19 @@
 			</c:when>
 			<c:otherwise>
 			
-				<li class="list-group-item d-flex justify-content-between lh-sm" onclick="location.href='#'" >
+				<li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
                 <h6 class="my-0" ><a class="fs-6 text-secondary"  href="../info/MemberEdit">회원정보 수정</a></h6>
             </div>
 		        </li>
-		        <li class="list-group-item d-flex justify-content-between lh-sm" onclick="location.href='#'">
+		        <li class="list-group-item d-flex justify-content-between lh-sm">
 		            <div>
 		                <h6 class="my-0"><a class="fs-6 text-secondary" href="../res/List">대관 내역</a></h6>
 		            </div>
 		        </li>
 			</c:otherwise>
 		</c:choose>    
-        <li class="list-group-item d-flex justify-content-between lh-sm" onclick="location.href='#'">
+        <li class="list-group-item d-flex justify-content-between lh-sm">
             <div>
                 <h6 class="my-0"><a class="fs-6 text-secondary" href="../board/List?board=bas_board">내가 쓴 글</a></h6>
             </div>

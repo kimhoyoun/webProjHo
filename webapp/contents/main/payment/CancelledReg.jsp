@@ -48,4 +48,4 @@
 	</tr>
 	
 </table>
-<a href="List">목록으로</a>
+<a href="../index.jsp">홈으로</a>

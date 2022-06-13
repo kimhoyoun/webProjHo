@@ -30,11 +30,11 @@
                 <tbody>
                 	<c:forEach var="dto" items="${mainData }" varStatus="no">
 		
-						<tr>
+						<tr onclick="location.href='<c:url value="Detail?id=${dto.id }&page=${nowPage }"/>'">
 							<td class="col text-center" >${ start + no.index+1}</td>
 							<td class = "col text-center">${dto.filter }</td>
 							<td class = "title">
-								<a href="<c:url value="Detail?id=${dto.id }&page=${nowPage }"/>">${dto.title }</a>
+								${dto.title }
 							</td>
 							<td  class = "col text-center">
 								<fmt:formatDate value="${dto.reg_date }" pattern="yy-MM-dd"/>

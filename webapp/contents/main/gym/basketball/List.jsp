@@ -21,7 +21,7 @@
 <h1>농구 대관페이지</h1>
 <div class = "row" style="margin-bottom:20px">
 	<div class="col">
-		<input type="text" name="selectDate" id="selectDate" class="ts"
+		<input type="text" name="selectDate" id="selectDate" class="ts fs-4 text-center"
 			autocomplete="off" value="${dateSet }" />
 		<script>
 			var setDate = null;
@@ -131,7 +131,11 @@
 					<div class="col gym_info_address pe-none">${dto.address }</div>
 				</div>
 				<div class="row">
-                  <div class="col"><p class="text-center fs-3 fw-bold"><a class ="link-secondary" href="">${dto.sname }</a></p></div>
+                  <div class="col">
+                  <p class="text-center fs-3 fw-bold">
+                  <a class ="link-secondary" href="<c:url value="Detail?id=${dto.id }&page=${nowPage }&dateSet=${dateSet }"/>">${dto.sname }</a>
+                  </p>
+                  </div>
            		 </div>
             
 				<div class="row">

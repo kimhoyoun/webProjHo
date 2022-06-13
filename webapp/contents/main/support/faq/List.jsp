@@ -20,18 +20,20 @@
 	
 	<div class="accordion" id="accordionExample">
 		<c:forEach var="dto" items="${mainData }" varStatus="no">
-		<div class ="row">
+		<div class ="row" style="margin-bottom:5px">
 			<div class ="col">
 			    <div class="accordion-item">
 			      <h2 class="accordion-header" id="${onetwo[no.index] }">
-			        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="${onetwoColshop[no.index] }" aria-expanded="false" aria-controls="${onetwoCol[no.index]}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-			         ${dto.question }
-			        </font></font></button>
+			        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="${onetwoColshop[no.index] }" aria-expanded="false" aria-controls="${onetwoCol[no.index]}">
+			        <font class = " fs-5 fw-bold" style="vertical-align: inherit;">
+			         	${dto.question }
+			        </font>
+			        </button>
 			      </h2>
 			      <div id="${onetwoCol[no.index] }" class="accordion-collapse collapse" aria-labelledby="${onetwo[no.index]}" data-bs-parent="#accordionExample" style="">
 			        <div class="accordion-body">
 			          <font style="vertical-align: inherit;">
-			          	<font style="vertical-align: inherit;">${dto.answer }</font>
+			          		${dto.answer }
 			      	  </font>
 			          </div>
 			      </div>

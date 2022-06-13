@@ -47,6 +47,8 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close();
 		}
 		
 		return res;
@@ -123,6 +125,8 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			System.out.println("email duplecation check fail");
 			e.printStackTrace();
+		}finally {
+			close();
 		}
 		return res;
 		

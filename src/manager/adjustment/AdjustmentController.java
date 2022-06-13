@@ -45,7 +45,6 @@ public class AdjustmentController extends HttpServlet {
 			request.setAttribute("mainUrl", "manager/adjustment/"+serviceStr);
 		}
 		else {
-		System.out.println("여기");
 			try {
 				ContentsService service = (ContentsService)Class.forName("manager.adjustment.service.Adjustment"+serviceStr).newInstance();
 				service.execute(request, response);

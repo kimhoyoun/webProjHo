@@ -145,13 +145,34 @@ public class PaymentDAO {
 //			return res;
 //		}
 		
-		public HashMap<String, Integer> managerTotal(String year){
-			HashMap<String, Integer> map = new HashMap<>();
-			sql = "SELECT DISTINCT manager_id, SUM(amount) sum FROM payment WHERE resDate like ? GROUP BY manager_id;";
+		public int managerTotalCnt(String year) {
+			sql = "select count(distinct manager_id) from payment where resDate like ? ";
 			
 			try {
 				ptmt = con.prepareStatement(sql);
 				ptmt.setString(1,year+"%");
+				rs = ptmt.executeQuery();
+				
+				rs.next();
+				
+				return rs.getInt(1);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return 0;
+		}
+		
+		public HashMap<String, Integer> managerTotal(String year, int start, int limit){
+			HashMap<String, Integer> map = new HashMap<>();
+			sql = "SELECT DISTINCT manager_id, SUM(amount) sum FROM payment WHERE resDate like ? and refund_reg = 0 GROUP BY manager_id limit ?, ? ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,year+"%");
+				ptmt.setInt(2,start);
+				ptmt.setInt(3,limit);
 				rs = ptmt.executeQuery();
 				
 				while(rs.next()) {
@@ -160,6 +181,8 @@ public class PaymentDAO {
 				
 			}catch(Exception e) {
 				e.printStackTrace();
+			}finally {
+				close();
 			}
 			
 			return map;
@@ -543,7 +566,9 @@ public class PaymentDAO {
 				}
 				
 				if(!unUsedTime.equals("")) {
-					unUsedTime = unUsedTime.substring(0, unUsedTime.lastIndexOf(','));
+					if(unUsedTime.lastIndexOf(',') != -1) {
+						unUsedTime = unUsedTime.substring(0, unUsedTime.lastIndexOf(','));
+					}
 				}
 				
 			}catch(Exception e) {
@@ -555,6 +580,44 @@ public class PaymentDAO {
 			}
 			
 			return unUsedTime;
+		}
+		
+		public ArrayList<PaymentDTO> adminList(int start, int limit){
+			ArrayList<PaymentDTO> res = new ArrayList<>();
+			
+			sql = "select * from payment order by no desc limit ?, ? ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setInt(1,start);
+				ptmt.setInt(2,limit);
+				rs = ptmt.executeQuery();
+				
+				while(rs.next()) {
+					PaymentDTO dto = new PaymentDTO();
+					// 필요한것만 보이기
+					dto.setImp_uid(rs.getString("imp_uid"));
+					dto.setBuyer_name(rs.getString("buyer_name"));
+					dto.setMerchant_uid(rs.getString("merchant_uid"));
+					dto.setId(rs.getString("id"));
+					dto.setSname(rs.getString("sname"));
+					dto.setResDate(rs.getString("resdate"));
+					dto.setResTime(rs.getString("restime"));
+					dto.setUser_id(rs.getString("user_id"));
+					dto.setManager_id(rs.getString("manager_id"));
+					dto.setAmount(rs.getInt("amount"));
+					dto.setIntRefund_reg(rs.getInt("refund_reg"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
+					
+					res.add(dto);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			
+			return res;
 		}
 //		
 //		public PaymentDTO detail(String notice_id){

@@ -13,62 +13,73 @@ import market.model.MarketDTO;
 import member.model.CorpMemberDTO;
 import member.model.MemberDTO;
 import mypage.MypageService;
+import mypage.board.model.MyBoardDAO;
 
 public class BoardList implements MypageService{
-	int total;
+	int pageTotal, start, pageStart, pageEnd;
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		
 		Object sUser = session.getAttribute("User");
-		 
-		if(sUser instanceof MemberDTO) {
-			MemberDTO user = (MemberDTO)session.getAttribute("User");
-			
-			String board = request.getParameter("board");
-			
-			if(board.contains("bas_board")) {
-				BoardDAO dao = new BoardDAO();
-				
-				total = dao.myTotalCnt(user.getPid());
-				
-				
-				ArrayList<BoardDTO> data = dao.userList(user.getPid(), start, limit);
-			}
-			
-			
-		}else if(sUser instanceof CorpMemberDTO) {
-			CorpMemberDTO user = (CorpMemberDTO)session.getAttribute("User");
-			
-		}
+		String board = request.getParameter("board");
+		String user_id = "";
 		
-		
-		MarketDAO dao = new MarketDAO();
+		MyBoardDAO dao = new MyBoardDAO();
 		
 		int page = (int)request.getAttribute("nowPage");
 		
 		int limit =8; // 한 페이지당 게시글 수
 		int pageLimit = 4; // 페이지 번호 갯수
 		
-		int pageTotal = total/limit;
+		int total = 0;
 		
-		if(total%limit > 0) {
-			pageTotal++;
-		}
 		
-		int start = (page-1)*limit;
 		
-		int pageStart = (page-1)/pageLimit*pageLimit+1;
-		
-		int pageEnd = pageStart+pageLimit-1;
-		if(pageEnd>pageTotal) {
-			pageEnd = pageTotal;
+		if(sUser instanceof MemberDTO) {
+			MemberDTO user = (MemberDTO)session.getAttribute("User");
+			user_id = user.getPid();
+		}else if(sUser instanceof CorpMemberDTO) {
+			CorpMemberDTO user = (CorpMemberDTO)session.getAttribute("User");
+			user_id = user.getPid();
 		}
 		
 		
+		if(board.contains("bas_board")) {
+						
+			total = dao.commu_bas_cnt(user_id);
+			calcPaging(page, limit, pageLimit, total);
+			
+			ArrayList<BoardDTO> data = dao.commu_bas_list(start, pageLimit, user_id);
+			
+			request.setAttribute("mainData", data);
+		}else if (board.contains("market")) {
+			total = dao.market_cnt(user_id);
+			calcPaging(page, limit, pageLimit, total);
+			
+			ArrayList<MarketDTO> data = dao.market_list(start, pageLimit, user_id);
+			
+			request.setAttribute("mainData", data);
+		}		
 		
-		request.setAttribute("mainData", data);
+//		int pageTotal = total/limit;
+//		
+//		if(total%limit > 0) {
+//			pageTotal++;
+//		}
+//		
+//		int start = (page-1)*limit;
+//		
+//		int pageStart = (page-1)/pageLimit*pageLimit+1;
+//		
+//		int pageEnd = pageStart+pageLimit-1;
+//		if(pageEnd>pageTotal) {
+//			pageEnd = pageTotal;
+//		}
+		
+		
+//		request.setAttribute("mainData", data);
 		request.setAttribute("mainUrl", "mypage/board/List");
 		
 		request.setAttribute("start", start);
@@ -76,5 +87,23 @@ public class BoardList implements MypageService{
 		request.setAttribute("pageStart", pageStart);
 		request.setAttribute("pageEnd", pageEnd);
 	}
-
+	
+	
+	public void calcPaging(int page, int limit, int pageLimit, int total) {
+		pageTotal = total/limit;
+		
+		if(total%limit > 0) {
+			pageTotal++;
+		}
+		
+		start = (page-1)*limit;
+		
+		pageStart = (page-1)/pageLimit*pageLimit+1;
+		
+		pageEnd = pageStart+pageLimit-1;
+		
+		if(pageEnd>pageTotal) {
+			pageEnd = pageTotal;
+		}
+	}
 }

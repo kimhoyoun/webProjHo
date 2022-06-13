@@ -95,12 +95,17 @@
         <div class="col-md-3 text-end">
          <c:choose>
 				<c:when test="${User==null }">
-					<button type="button" class="btn btn-outline-primary me-2" onclick = "goLogin()">LOGIN</button>
-          			<button type="button" class="btn btn-primary" onclick="goSignup()">Sign-up</button>
+					<a href="<c:url value="/member/Login"/>"><button type="button" class="btn btn-outline-primary me-2" >LOGIN</button></a>
+					<a href="<c:url value="/member/Login"/>"><button type="button" class="btn btn-primary" >Sign-up</button></a>
+					
 				</c:when>
 				<c:otherwise>
-					 <button type="button" class="btn btn-outline-primary me-2" onclick="goLogout()">LOGOUT</button>
-         			 <button type="button" class="btn btn-primary" onclick="goMypage()">MYPAGE</button>
+					<a href="<c:url value="/member/Logout"/>"><button type="button" class="btn btn-outline-primary me-2" >LOGOUT</button></a>
+					<a href="<c:url value="/mypage/info/InputPass"/>"><button type="button" class="btn btn-primary" >MYPAGE</button></a>
+					 <c:if test ="${User.grade == 1 }">
+					 	<a href="<c:url value="/manager/adjustment/List"/>"><button type="button" class="btn btn-primary" >관리자</button></a>
+					 </c:if>
+         			 
 				</c:otherwise>
 			</c:choose>
         </div>

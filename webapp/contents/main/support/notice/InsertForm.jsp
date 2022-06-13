@@ -14,7 +14,7 @@
 		  	</div>
   		</div>
 <form action="InsertReg" method="post">
-        <div id="commu_bas_board_post">
+        <div id="">
           <div class="mb-3 row">
             <label for="title" class="col-sm-2 col-form-label" >제목</label>
             <div class="col-sm-10">

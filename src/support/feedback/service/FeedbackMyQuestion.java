@@ -32,7 +32,7 @@ public class FeedbackMyQuestion implements SupportService{
 				user_id = mem.getPid();
 			}else {
 				corp = (CorpMemberDTO)user;
-				user_id = mem.getPid();
+				user_id = corp.getPid();
 			}
 			
 			int page = (int)request.getAttribute("nowPage");

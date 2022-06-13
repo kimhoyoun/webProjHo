@@ -14,6 +14,6 @@
 
 <a href="support/notice/List">공지사항List</a>
 <a href="gym/basketball/List">농구대관</a>
-<a href="manager/adjustment/MainPage">관리자</a>
+<a href="manager/adjustment/List">관리자</a>
 </body>
 </html>

@@ -58,7 +58,7 @@
     </div>
     
     <c:choose>
-    	<c:when test ="${User.grade==3 }">
+    	<c:when test ="${User.grade == 1 }">
 			<div class="container border border-3 rounded" style="margin-top: 15px;">
 				<c:choose>
 					<c:when test="${dto.answer == null }">
