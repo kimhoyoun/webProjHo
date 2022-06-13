@@ -12,7 +12,7 @@ public class NoticeList implements SupportService{
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		int page = (int)request.getAttribute("nowPage");
 		
-		int limit =8; // 한 페이지당 게시글 수
+		int limit =10; // 한 페이지당 게시글 수
 		int pageLimit = 4; // 페이지 번호 갯수
 		
 		

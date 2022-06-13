@@ -122,58 +122,60 @@
 				<a
 					href="<c:url value="Detail?id=${dto.id }&page=${nowPage }&dateSet=${dateSet }"/>"><img
 					src="<c:url value="/uploadFile/gym/basketball/${fn:split(dto.img, ',')[0]}"/>"
-					class="figure-img img-fluid rounded;" alt="${dto.sname }" /></a>
+					class="img-fluid rounded;" alt="${dto.sname }" /></a>
 
 			</div>
-
 			<div class="col-sm-7 right-note gym_item_info">
 				<div class="row">
-					<div class="col-sm-4 gym_info_date">${dateSet }</div>
-					<div class="col gym_info_address">${dto.address }</div>
+					<div class="col-sm-4 gym_info_date pe-none">${dateSet }</div>
+					<div class="col gym_info_address pe-none">${dto.address }</div>
 				</div>
-
+				<div class="row">
+                  <div class="col"><p class="text-center fs-3 fw-bold"><a class ="link-secondary" href="">${dto.sname }</a></p></div>
+           		 </div>
+            
 				<div class="row">
 					<div class="col gym_info_bottom">
 						<div class="row gym_info_bottom_row">
-							<div class="bottom_text" id="${no.index }">예약 현황</div>
+							<div class="bottom_text pe-none" id="${no.index }">예약 현황</div>
 							<div class="row res_time_div">
-								<div class="col res_time_text">오전</div>
-								<div class="col res_time_ea">00~02시</div>
-								<div class="col res_time_ea">02~04시</div>
-								<div class="col res_time_ea">04~06시</div>
-								<div class="col res_time_ea">06~08시</div>
-								<div class="col res_time_ea">08~10시</div>
-								<div class="col res_time_ea">10~12시</div>
+								<div class="col res_time_text pe-none">오전</div>
+								<div class="col res_time_ea pe-none">00~02시</div>
+								<div class="col res_time_ea pe-none">02~04시</div>
+								<div class="col res_time_ea pe-none">04~06시</div>
+								<div class="col res_time_ea pe-none">06~08시</div>
+								<div class="col res_time_ea pe-none">08~10시</div>
+								<div class="col res_time_ea pe-none">10~12시</div>
 							</div>
 							<div class="row res_time_div">
-								<div class="col res_time_text">오후</div>
-								<div class="col res_time_ea">00~02시</div>
-								<div class="col res_time_ea">02~04시</div>
-								<div class="col res_time_ea">04~06시</div>
-								<div class="col res_time_ea">08~08시</div>
-								<div class="col res_time_ea">08~10시</div>
-								<div class="col res_time_ea">10~12시</div>
+								<div class="col res_time_text pe-none">오후</div>
+								<div class="col res_time_ea pe-none">00~02시</div>
+								<div class="col res_time_ea pe-none">02~04시</div>
+								<div class="col res_time_ea pe-none">04~06시</div>
+								<div class="col res_time_ea pe-none">08~08시</div>
+								<div class="col res_time_ea pe-none">08~10시</div>
+								<div class="col res_time_ea pe-none">10~12시</div>
 							</div>
 						</div>
 						
 						<div class="row gym_info_bottom_row">
-							<div class="bottom_text">옵션</div>
+							<div class="bottom_text pe-none">옵션</div>
 							<div class="row ">
 								<div class="row option_div">
-									<div class="col"
+									<div class="col pe-none" 
 										style="background: white; margin: 5px; text-align: center;
 										<c:if test="${dto.option1}">background:yellow;</c:if>">샤워장
 									</div>
-									<div class="col"
+									<div class="col pe-none"
 										style="background: white; margin: 5px; text-align: center;
 										<c:if test="${dto.option2}">background:yellow;</c:if>">주차장</div>
-									<div class="col"
+									<div class="col pe-none"
 										style="background: white; margin: 5px; text-align: center;
 										<c:if test="${dto.option3}">background:yellow;</c:if>">냉/난방시설</div>
-									<div class="col"
+									<div class="col pe-none"
 										style="background: white; margin: 5px; text-align: center;
 										<c:if test="${dto.option4}">background:yellow;</c:if>">정수기</div>
-									<div class="col"
+									<div class="col pe-none"
 										style="background: white; margin: 5px; text-align: center;
 										<c:if test="${dto.option5}">background:yellow;</c:if>">마룻바닥</div>
 								</div>

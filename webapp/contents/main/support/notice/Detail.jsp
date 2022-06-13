@@ -3,64 +3,55 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<h1>공지사항</h1>
- <style>
 
-    div#div_detail{
-      width:980px;
-      margin:0px auto;
-      border: solid 1px black;
-      font-size: 30px;
-      margin-top: 5px;
-    }
-
-    div#detail_title{
-      font-size: 40px;
-      margin-top: 5px;
-    }
-
-    div#detail_filter{
-      font-size: 20px;
-      float:left;
-    }
-
-    div#detail_date{
-      font-size: 20px;
-      margin-left: 10px;
-    }
-
-    div#detail_content{
-      font-size: 30px;
-      margin-top: 5px;
-    }
-    
-    
-  </style>
-
-  <h1>상세</h1>
-
-    <div id = div_detail>
-      <div id = "detail_title">
-        ${dto.title }
+<div class="row border-dark border-bottom" style="margin-bottom:30px">
+	<h1>공지사항</h1>
+</div>
+  <div class="row">
+  	<div class ="col" style="margin-bottom:10px">
+		<a href="List?page=${nowPage }"><button type="button" class="btn btn-outline-secondary"> 목록으로</button></a>
+  	</div>
+  	
+  	<div class ="col sm-4 text-end">
+  		<a href="ModifyForm?id=${dto.id }&page=${nowPage}"><button type="button" class="btn btn-outline-secondary"> 수정</button></a>
+  		<a href="DeleteForm?id=${dto.id }&page=${nowPage}"><button type="button" class="btn btn-outline-secondary"> 삭제</button></a>
+  	</div>
+  </div>
+  <div class="container border border-3 rounded">
+          <div class="row">
+            <p class=" fs-3 fw-bold">${dto.title }</p>
+          </div>
+          <div class="row border-bottom">
+            <div class="col" style="margin-left : 20px">
+              <p class="fs-6 text-primary fw-bold" >${dto.filter }</p>
+            </div>
+            <div class="col sm-1 " style="margin-right:20px">
+              <p class="text-end fs-6 text-muted">  <fmt:formatDate value="${dto.reg_date }" pattern="yyyy.MM.dd"/></p>
+            </div>
+          </div>
+           <div class="row" style="padding:10px" >
+            <p class=" fs-4">${dto.content }</p>
+          </div>
+          
       </div>
+      
+<!--     <div class ="container" > -->
+<!--       <div id = "detail_title"> -->
+<%--         ${dto.title } --%>
+<!--       </div> -->
 
-      <div id = "detail_filter">
-         ${dto.filter } | 
-      </div>
+<!--       <div id = "detail_filter"> -->
+<%--          ${dto.filter } |  --%>
+<!--       </div> -->
 
-      <div id = "detail_date">
-          ${dto.reg_date }
-      </div>
+<!--       <div id = "detail_date"> -->
+<%--           ${dto.reg_date } --%>
+<!--       </div> -->
 
-      <div id = "detail_content">
-        <p> ${dto.content }</p>
-      </div>
+<!--       <div id = "detail_content"> -->
+<%--         <p> ${dto.content }</p> --%>
+<!--       </div> -->
 
 	
-	<div align="right">
-		<a href="List?page=${nowPage }">목록으로</a>
-		<a href="ModifyForm?id=${dto.id }&page=${nowPage}">수정</a>
-		<a href="DeleteForm?id=${dto.id }&oage=${nowPage}">삭제</a>
-	</div>
+	
   
-  </div>

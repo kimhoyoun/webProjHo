@@ -4,14 +4,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
-
 <div id="main_wrap">
-        <div><h2 id="main_title">공지사항</h2></div>
-        <hr>
+        <div class="row border-dark border-bottom" style="margin-bottom:20px">
+			<h1>공지사항</h1>
+		</div>
         
-        <div id="Search">
+        <div class="row ">
+        <div class="col">
             <form action="Search">
-                <select name="filter" id="">
+                <select class="form-select" name="filter" id="" style="width:auto; display: inline-block">
                     <option value="전체">전체</option>
 			        <option value="서버">서버</option>
 			        <option value="대관">대관</option>
@@ -19,42 +20,41 @@
 			        <option value="게시판">게시판</option>
 			        <option value="공지">공지</option>
                 </select>
-                <input type="text" name = "keyword"/>
-	            <input type="submit"  value="검색"/>
+                <input class="form-control" type="text" name = "keyword" placeholder="검색어를 입력하세요" style="width:200px; display: inline-block"/>
+	            <button type="submit" class="btn btn-outline-secondary">검색</button>
             </form>  
+            </div>
+            <div class="col text-end">
+            	<a href="<c:url value="InsertForm?page=${nowPage }"/>"><button type="button" class="btn btn-outline-secondary">새글쓰기</button></a>
+            </div>
         </div>
         
         <div id="notice">
             <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th class="num" scope="col">번호</th>
-                    <th class="title" scope="col">제목</th>
-                    <th class="user_id" scope="col">분류</th>
-                    <th class="reg_date" scope="col">작성일</th>
+                    <th class="col text-center"  style="width:100px">번호</th>
+			          <th class="col" >제목</th>
+			          <th class="col text-center" style="width:100px" >분류</th>
+			          <th class="col text-center" style="width:200px" >작성일</th>
                   </tr>
                 </thead>
                 <tbody>
                 	<c:forEach var="dto" items="${mainData }" varStatus="no">
 		
 						<tr>
-							<td class="num" scope="row" >${ start + no.index+1}</td>
+							<td class="col text-center" >${ start + no.index+1}</td>
 							<td class = "title">
 								<a href="<c:url value="Detail?id=${dto.id }&page=${nowPage }"/>">${dto.title }</a>
 							</td>
-							<td class = "user_id">${dto.filter }</td>
-							<td  class = "reg_date" scope="col">
+							<td class = "col text-center">${dto.filter }</td>
+							<td  class = "col text-center">
 								<fmt:formatDate value="${dto.reg_date }" pattern="yy-MM-dd"/>
 							</td>
 						</tr>
 						</c:forEach>
                 </tbody>
                 <tfoot>
-                    <tr><td class="BTNnewWrite" colspan="5" align="right">
-                    <a href="<c:url value="InsertForm?page=${nowPage }"/>"><button type="button" class="btn btn-outline-info" onclick="insert()">새글쓰기</button></a>
-<!--                     <input type="button" value="새글쓰기" onclick="insert()"> -->
-                    </td>
-                    </tr>
                     <tr><td class="paging" colspan="5">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-center">
@@ -89,11 +89,4 @@
                 </tfoot>
               </table>    
         </div>
-        
     </div>
-<script>
-function insert(){
-	location.href = '<c:url value="InsertForm?page=${nowPage }"/>'
-}
-</script>
-<%-- 			<a href="<c:url value="InsertForm?page=${nowPage }"/>">글쓰기</a> --%>

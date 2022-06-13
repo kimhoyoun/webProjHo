@@ -19,9 +19,11 @@ public class NoticeDeleteReg implements SupportService{
 		NoticeDTO dto = new NoticeDTO();
 		
 		String id = request.getParameter("id");
+		
 		String deleteCheck = request.getParameter("deleteCheck");
 		
-		
+		System.out.println("id : "+id);
+		System.out.println("del : "+deleteCheck);
 		
 		dto.setId(id);
 		int res = 0;

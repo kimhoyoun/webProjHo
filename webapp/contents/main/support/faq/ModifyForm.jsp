@@ -1,50 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <h1>FAQ Insert</h1>
+<div id="main_wrap">
 
-<style>
-    div#div_input{
-      width:980px;
-      margin:0px auto;
-      border: solid 1px black;
-    }
+    <div class="row border-dark border-bottom" style="margin-bottom:20px">
+		<h1>FAQ 수정</h1>
+	</div>
+	
+	<div class="row">
+	  	<div class ="col text-end" style="margin-bottom:10px; margin-right:10px">
+			<a href="List?page=${nowPage }"><button type="button" class="btn btn-outline-secondary"> 목록으로</button></a>
+	  	</div>
+  	</div>
+  	
+	<form action="ModifyReg" method="post">
+	<input type="hidden" name = "id" value="${dto.id }" />
+        <div class="mb-3 row">
+          <label for="content" class="col-sm-2 col-form-label fs-2 fw-bold" >Question</label>
+          <div class="col-sm-10">
+              <textarea class="form-control" id="question" name = "question" rows="10" required>${dto.question }</textarea>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="content" class="col-sm-2 col-form-label fs-2 fw-bold" >Answer</label>
+          <div class="col-sm-10">
+              <textarea class="form-control" id="answer" name = "answer" rows="10" required>${dto.answer }</textarea>
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="BTN" class="col-sm-2 col-form-label"></label>
+          <div class="col-sm-10 text-end" id="BTNsubmit">
+           	<button type="submit" class="btn btn-outline-secondary">수정</button>
+          </div>
+        </div>
+	</form>
+</div>   
 
-
-    div#div_input form{
-      width : 700px;
-      margin : 0px auto;
-    }
-
-    div#input_title textarea{
-      font-size: 20px;
-      margin-top: 10px;
-    }
-
-    div#input_content textarea{
-      font-size: 20px;
-      margin-top: 10px;
-    }
-    
-  </style>
-
- <div id = div_input>
-  <form action="ModifyReg" method="post">
-  	<input type="hidden" name = "id" value="${dto.id }" />
-    <div id = "input_title">
-      Q 
-      <textarea name="question" id="" cols="60" rows="10">${dto.question }</textarea>
-    </div>
-
-    <div id = "input_content">
-      A
-      <textarea name="answer" id="" cols="60" rows="10">${dto.answer }</textarea>
-    </div>
-
-    <div id ="input_submit">
-    	<a href="<c:url value="List?page=${nowPage}"/>">뒤로</a>
-      <input  type="submit" value="수정">
-    </div>
-  </form>
-
-</div>

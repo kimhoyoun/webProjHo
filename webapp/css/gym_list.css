@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+a{
+	text-decoration:none;
+}
 .row{
   margin: 0px;
   padding: 0px;
@@ -23,6 +26,7 @@ div#contents_wrap div.gym_list:last-child{
 }
 
 div.gym_item_img{
+	margin:0px;
   padding: 0px;
 }
 
@@ -49,7 +53,7 @@ div.gym_info_address{
 }
 
 div.gym_info_bottom{
-  margin-top: 80px;
+  margin-top: 20px;
 }
 
 div.bottom_text{

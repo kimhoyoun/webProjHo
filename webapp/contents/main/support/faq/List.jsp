@@ -4,123 +4,45 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
-<h1>FAQ</h1>
 
-<style>
-    div#faq_section{
-      width:980px;
-      margin:0px auto;
-       position:relative;
-      /* font-size: 30px; */
-      margin-top: 5px;
-    }
-
-    div.faq_data{
-      width: 90%;
-      height: 80px;
-      overflow: hidden;
-      border-top: solid 1px black;
-    }
-    
-	div.faq_btn{
-      width:5%;
-      position: absolute;
-      right: 0px;
-    }
-
-    div.faq_btn div{
-      font-size: 20px;
-      margin-top: 5px;
-    }
-    
-    div#faq_section>div:last-child{
-      border-bottom: solid 1px black;
-    }
-    
-    div.faq_question{
-      font-size: 30px;
-    }
-    div.faq_answer{
-      font-size: 25px;
-      /* display : none; */
-    }
-
-	div#faq_page{
-	width : 300px;
-		margin: 0px auto;
-		text-align:center;
-	}
+<div id = "main_wrap">
+	<div class="row border-dark border-bottom" style="margin-bottom:10px">
+			<h1>FAQ</h1>
+	</div>
 	
-	div#newFAQ{
-		float : right;
-	}
-  </style>
-  
-<script>
+	<div class="row">
+		<div class="col text-end" style="margin-bottom:10px">
+            	<a href="<c:url value="InsertForm?page=${nowPage }"/>"><button type="button" class="btn btn-outline-secondary">새글쓰기</button></a>
+            </div>
+	</div>
 
-	document.addEventListener('DOMContentLoaded', ()=>{
-		const questionList = document.querySelectorAll('.faq_data')
-		
-
-		let closeHeight = 40;
-		let openHeight = 0;
-		let selectedItem = null
-		
-		let questionHeight = 30;
-
-		
-		for(const item of questionList){
-      item.addEventListener('click', questionClick)
-		}
-		
-
-    
-		function questionClick(){
-			if(selectedItem != null && selectedItem != this){
-				gsap.to(selectedItem, {height: selectedItem.children[0].clientHeight, duration: 0.3, ease:'power1.out'})
-			}
-
-      if(selectedItem != this){
-        selectedItem = this;
-        openHeight = selectedItem.children[0].clientHeight + selectedItem.children[1].clientHeight
-        gsap.to(selectedItem, {height: openHeight, duration:0.3, ease:'power1.out'})
-
-      }
-
-		}
-		
-	})
-
-</script>
+	
 	<div class="accordion" id="accordionExample">
-	<c:forEach var="dto" items="${mainData }" varStatus="no">
-	<div class ="row">
-	<div class ="col">
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="${onetwo[no.index] }">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="${onetwoColshop[no.index] }" aria-expanded="false" aria-controls="${onetwoCol[no.index]}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-         ${dto.question }
-        </font></font></button>
-      </h2>
-      <div id="${onetwoCol[no.index] }" class="accordion-collapse collapse" aria-labelledby="${onetwo[no.index]}" data-bs-parent="#accordionExample" style="">
-        <div class="accordion-body">
-          <font style="vertical-align: inherit;">
-          	<font style="vertical-align: inherit;">${dto.answer }</font>
-      	  </font>
-          </div>
-      </div>
-    </div>
-    </div>
-    <div class ="col-sm-2">
-    	<div> 
-        <a href="ModifyForm?id=${dto.id }&page=${nowPage}"><button type="button" class="btn btn-light">수정</button></a>
-        
-        <a href="DeleteForm?id=${dto.id }&oage=${nowPage}"><button type="button" class="btn btn-secondary">삭제</button></a>
-      </div>
-      <div>
-          
-      </div>
-    </div>
+		<c:forEach var="dto" items="${mainData }" varStatus="no">
+		<div class ="row">
+			<div class ="col">
+			    <div class="accordion-item">
+			      <h2 class="accordion-header" id="${onetwo[no.index] }">
+			        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="${onetwoColshop[no.index] }" aria-expanded="false" aria-controls="${onetwoCol[no.index]}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+			         ${dto.question }
+			        </font></font></button>
+			      </h2>
+			      <div id="${onetwoCol[no.index] }" class="accordion-collapse collapse" aria-labelledby="${onetwo[no.index]}" data-bs-parent="#accordionExample" style="">
+			        <div class="accordion-body">
+			          <font style="vertical-align: inherit;">
+			          	<font style="vertical-align: inherit;">${dto.answer }</font>
+			      	  </font>
+			          </div>
+			      </div>
+			    </div>
+		    </div>
+		    <div class ="col" style="width:150px; display:contents; margin-left:5px">
+		        <a href="ModifyForm?id=${dto.id }&page=${nowPage}" style="margin-right:5px"><button type="button" class="btn btn-light">수정</button></a>
+		        <a href="DeleteForm?id=${dto.id }&oage=${nowPage}"><button type="button" class="btn btn-secondary">삭제</button></a>
+		      <div>
+		          
+		      </div>
+		    </div>
     </div>
     </c:forEach>
     	<nav aria-label="Page navigation example">
@@ -153,7 +75,7 @@
        		</ul>
      	</nav>
   </div>
-
+</div>
 <!--   <div id = "faq_section"> -->
   
 <%--   	<c:forEach var="dto" items="${mainData }" varStatus="no"> --%>

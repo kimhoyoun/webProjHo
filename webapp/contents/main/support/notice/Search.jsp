@@ -5,12 +5,14 @@
 <!DOCTYPE html>
 
 <div id="main_wrap">
-        <div><h2 id="main_title">공지사항</h2></div>
-        <hr>
+        <div class="row border-dark border-bottom" style="margin-bottom:20px">
+			<h1>공지사항</h1>
+		</div>
         
-        <div id="Search">
+         <div class="row ">
+         <div class="col">
             <form action="Search">
-                <select name="filter" id="">
+                <select class="form-select" name="filter" id="" style="width:auto; display: inline-block">
                     <option value="전체" <c:if test = "${param.filter == \"전체\" }">selected</c:if>  >전체</option>
 			        <option value="서버" <c:if test = "${param.filter == \"서버\" }">selected</c:if>  >서버</option>
 			        <option value="대관" <c:if test = "${param.filter == \"대관\" }">selected</c:if>  >대관</option>
@@ -18,38 +20,42 @@
 			        <option value="게시판" <c:if test = "${param.filter == \"게시판\" }">selected</c:if>  >게시판</option>
 			        <option value="공지" <c:if test = "${param.filter == \"공지\" }">selected</c:if>  >공지</option>
                 </select>
-                <input type="text" name = "keyword" value = "${param.keyword }"/>
-	            <input type="submit"  value="검색"/>
+                <input class="form-control" type="text" name = "keyword" value = "${param.keyword }" style="width:200px; display: inline-block"/>
+	            <button type="submit" class="btn btn-outline-secondary">검색</button>
             </form>  
+            </div>
+            <div class="col text-end">
+            	<a href="<c:url value="List?page=${nowPage }"/>"><button type="button" class="btn btn-outline-secondary">목록으로</button></a>
+            	<a href="<c:url value="InsertForm?page=${nowPage }"/>"><button type="button" class="btn btn-outline-secondary">새글쓰기</button></a>
+            </div>
         </div>
         
         <div id="notice">
             <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th class="num" scope="col">번호</th>
-                    <th class="title" scope="col">제목</th>
-                    <th class="user_id" scope="col">분류</th>
-                    <th class="reg_date" scope="col">작성일</th>
+	                  <th class="col text-center"  style="width:100px">번호</th>
+			          <th class="col" >제목</th>
+			          <th class="col text-center" style="width:100px" >분류</th>
+			          <th class="col text-center" style="width:200px" >작성일</th>
                   </tr>
                 </thead>
                 <tbody>
                 	<c:forEach var="dto" items="${mainData }" varStatus="no">
 		
 						<tr>
-							<td class="num" scope="row" >${ start + no.index+1}</td>
+							<td class=" col text-center"  >${ start + no.index+1}</td>
 							<td class = "title">
 								<a href="<c:url value="Detail?id=${dto.id }&page=${nowPage }"/>">${dto.title }</a>
 							</td>
-							<td class = "user_id">${dto.filter }</td>
-							<td  class = "reg_date" scope="col">
+							<td class = "text-center">${dto.filter }</td>
+							<td  class = "col text-center" >
 								<fmt:formatDate value="${dto.reg_date }" pattern="yy-MM-dd"/>
 							</td>
 						</tr>
 						</c:forEach>
                 </tbody>
                 <tfoot>
-                    <tr><td class="BTNnewWrite" colspan="5"><input type="button" value="새글쓰기"></td></tr>
                     <tr><td class="paging" colspan="5">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-center">
@@ -93,7 +99,7 @@
 <%-- 	<c:forEach var="dto" items="${mainData }" varStatus="no"> --%>
 		
 <!-- 	<tr> -->
-<%-- <%-- 		<td>${ start + no.index+1}</td> --%> --%>
+<%-- <%-- 		<td>${ start + no.index+1}</td> --%> 
 <!-- 		<td> -->
 <%-- 			<a href="<c:url value="Detail?id=${dto.id }&page=${nowPage }"/>">${dto.title }</a> --%>
 <!-- 		</td> -->

@@ -5,19 +5,28 @@
 <div id="main_wrap">
 
 <form action="InsertReg" method="post">
-        <div><h2 id="main_title">공지사항 작성</h2></div>
-        <hr>
+        <div class="row border-dark border-bottom" style="margin-bottom:20px">
+			<h1>공지사항 작성</h1>
+		</div>
+		
+		<div class="row">
+	  	<div class ="col text-end" style="margin-bottom:10px; margin-right:10px">
+			<a href="List?page=${nowPage }"><button type="button" class="btn btn-outline-secondary"> 목록으로</button></a>
+	  	</div>
+  	
+  	</div>
         <div id="commu_bas_board_post">
           <div class="mb-3 row">
-            <label for="title" class="col-sm-2 col-form-label">제목</label>
+            <label for="title" class="col-sm-2 col-form-label" >제목</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="title" name = "title">
+              <input type="text" class="form-control" id="title" name = "title" required>
             </div>
           </div>
           <div class="mb-3 row">
             <label for="title" class="col-sm-2 col-form-label">구분</label>
             <div class="col-sm-10">
-              <select name="filter" id="">
+              <select class ="form-select form-select-lg mb-3" name="filter" id="">
+              
 		        <option value="서버">서버</option>
 		        <option value="대관">대관</option>
 		        <option value="수강">수강</option>
@@ -27,17 +36,17 @@
             </div>
           </div>
           <div class="mb-3 row">
-            <label for="content" class="col-sm-2 col-form-label">내용</label>
+            <label for="content" class="col-sm-2 col-form-label" >내용</label>
             <div class="col-sm-10">
-                <textarea class="form-control" id="content" name = "content" rows="15"></textarea>
+                <textarea class="form-control" id="content" name = "content" rows="15" required></textarea>
             </div>
           </div>
           
           <div class="mb-3 row">
             <label for="BTN" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-10" id="BTNsubmit">
-                <input type="reset" value="초기화">
-                <input type="submit" value="등록">
+            <div class="col-sm-10 text-end" id="BTNsubmit">
+             	<button type="reset" class="btn btn-outline-secondary">초기화</button>
+             	<button type="submit" class="btn btn-outline-secondary">등록</button>
             </div>
           </div>
         </div>

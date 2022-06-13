@@ -1,18 +1,13 @@
 @charset "UTF-8";
 
 a{
-  color: blue;
 /*   text-decoration: none; */
 }
 
-body{
-  background: #ececec;
-}
 
 div#contents_wrap{
   width: 100%;
   min-height: 1200px;
-  background: #ececec;
 }
 
 section#contents{
