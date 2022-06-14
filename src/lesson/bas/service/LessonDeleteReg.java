@@ -51,7 +51,7 @@ public class LessonDeleteReg implements LessonService{
 				String[] tokens = images.split(",");
 				
 				String path = request.getRealPath("board");
-				path = "C:\\temp\\jsp_work\\webProjectTest\\webapp\\uploadFile\\lesson\\bas";
+				path = "C:\\temp\\jsp_work\\readytoplay\\webapp\\uploadFile\\lesson\\bas";
 				
 				for(int i =0; i<tokens.length; i++) {
 					System.out.println(path + "\\" + tokens[i]);

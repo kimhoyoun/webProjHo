@@ -5,19 +5,20 @@ import java.io.File;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import gym.GymService;
 import gym.basketball.model.BasketballDAO;
 import gym.basketball.model.BasketballDTO;
 import market.Market_Service;
 import market.model.MarketDAO;
 import market.model.MarketDTO;
 
-public class BasketballUploadImgEdit_Reg implements Market_Service{
+public class BasketballUploadImgEdit_Reg implements GymService{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		String post_id = request.getParameter("post_id");
-		BasketballDTO delDTO = new BasketballDAO().detail(post_id);
+		String id = request.getParameter("id");
+		BasketballDTO delDTO = new BasketballDAO().detail(id);
 
-//		int res = new BasketballDAO().modifyFile(post_id);
+		int res = new BasketballDAO().modifyFile(id);
 		if (res > 0) {
 			if (delDTO.getImg() != null) {
 				String images = delDTO.getImg();
@@ -33,6 +34,6 @@ public class BasketballUploadImgEdit_Reg implements Market_Service{
 			}
 		}
 
-		request.setAttribute("mainUrl", "market/PostModify");
+		request.setAttribute("mainUrl", "gym/basketball/ModifyForm");
 	}
 }

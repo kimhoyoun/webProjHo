@@ -14,9 +14,8 @@ public class MemberFindIdReg implements MemberService{
 	
 	@Override	
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-			String email = request.getParameter("email");
+			String email = request.getParameter("email1") + "@" + request.getParameter("email2");
 			String memberKind = (String) request.getParameter("memberkind");
-			System.out.println("memberkind ===> " + memberKind);
 			
 			if(memberKind.equals("개인회원")) {
 				MemberDTO dto = new MemberDAO().findId(email);

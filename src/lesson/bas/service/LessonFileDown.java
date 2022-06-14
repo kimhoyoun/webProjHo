@@ -29,7 +29,7 @@ public class LessonFileDown implements LessonService{
 		   String path = request.getRealPath("lesson_bas");
 		   
 		   ///////////////////////////////
-		   path = "/Users/minsookim/Desktop/프로젝트/04_proj/proj_04_minsoo/proj_04_minsoo/src/main/webapp/uploadFile/lesson_bas";
+		   path = "C:\\temp\\jsp_work\\readytoplay\\webapp\\uploadFile\\lesson\\bas";
 		   path += "/"+fName;
 
 		   FileInputStream fis = new FileInputStream(path);

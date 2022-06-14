@@ -413,7 +413,7 @@ public class BasketballDAO {
 			sql = "update gym_basketball set sname = ?, contents_info = ?, contents_detail = ?, contents_rule = ?, contents_refund = ?, "
 					+ "postcode = ?, address = ?, address_detail = ?, "
 					+ "price_weekday_weekly = ?, price_weekday_nighttime = ?, price_weekend_weekly = ?, price_weekend_nighttime = ?, "
-					+ "option1 = ?, option2 = ?, option3 = ?, option4 = ?, option5 = ?, unused_time = ? "
+					+ "option1 = ?, option2 = ?, option3 = ?, option4 = ?, option5 = ?, unused_time = ?, img = ? "
 					+ "where id = ? ";
 			try {
 				ptmt = con.prepareStatement(sql);
@@ -438,8 +438,9 @@ public class BasketballDAO {
 				ptmt.setInt(17, dto.getIntOption5());
 				
 				ptmt.setString(18, dto.getUnused_time());
+				ptmt.setString(19, dto.getImg());
 				
-				ptmt.setString(19, dto.getId());
+				ptmt.setString(20, dto.getId());
 				res = ptmt.executeUpdate();
 				
 			}catch(Exception e) {
@@ -450,6 +451,24 @@ public class BasketballDAO {
 			
 			return res;
 		}
+	
+	public int modifyFile(String id){
+		int res = 0;
+		
+		sql = "update gym_basketball set img = null	where id = ? ";
+		try {
+			ptmt = con.prepareStatement(sql);
+			ptmt.setString(1, id);
+			res = ptmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		return res;
+	}
 
 		public int delete(BasketballDTO dto){
 		int res = 0;

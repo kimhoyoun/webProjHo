@@ -110,7 +110,10 @@ public int totalCntSearch(String search){
 				dto.setLesson_time(rs.getString("lesson_time"));
 				dto.setManager_id(rs.getString("manager_id"));
 				dto.setPrice(rs.getInt("price"));
-				dto.setLocation(rs.getString("location"));
+				
+				dto.setPostcode(rs.getString("postcode"));
+				dto.setAddress(rs.getString("address"));
+				dto.setAddress_detail(rs.getString("address_detail"));
 				
 				res.add(dto);
 								
@@ -151,7 +154,9 @@ public int totalCntSearch(String search){
 				dto.setLesson_time(rs.getString("lesson_time"));
 				dto.setManager_id(rs.getString("manager_id"));
 				dto.setPrice(rs.getInt("price"));
-				dto.setLocation(rs.getString("location"));
+				dto.setPostcode(rs.getString("postcode"));
+				dto.setAddress(rs.getString("address"));
+				dto.setAddress_detail(rs.getString("address_detail"));
 				res.add(dto);
 			}
 			
@@ -191,7 +196,9 @@ public int totalCntSearch(String search){
 				dto.setLesson_time(rs.getString("lesson_time"));
 				dto.setManager_id(rs.getString("manager_id"));
 				dto.setPrice(rs.getInt("price"));
-				dto.setLocation(rs.getString("location"));
+				dto.setPostcode(rs.getString("postcode"));
+				dto.setAddress(rs.getString("address"));
+				dto.setAddress_detail(rs.getString("address_detail"));
 				
 				res.add(dto);
 			}
@@ -234,7 +241,9 @@ public int totalCntSearch(String search){
 				dto.setOption4(rs.getBoolean("option4"));
 				dto.setOption5(rs.getBoolean("option5"));
 				dto.setPrice(rs.getInt("price"));
-				dto.setLocation(rs.getString("location"));
+				dto.setPostcode(rs.getString("postcode"));
+				dto.setAddress(rs.getString("address"));
+				dto.setAddress_detail(rs.getString("address_detail"));
 				dto.setManager_id(rs.getString("manager_id"));
 				dto.setLesson_time(rs.getString("lesson_time"));
 				dto.setMax_student(rs.getInt("max_student"));
@@ -269,9 +278,9 @@ public int totalCntSearch(String search){
 		
 		sql = "insert into lesson (post_id, category, sname, "
 				+ "contents_info, contents_detail, contents_rule, contents_refund, "
-				+ "price, img, lesson_time, manager_id, max_student, location, "
+				+ "price, img, lesson_time, manager_id, max_student, postcode, address, address_detail, "
 				+ "option1, option2, option3, option4, option5, reg_date) values " 
-				+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate())";
+				+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate())";
 		
 		try {
 			ptmt = con.prepareStatement(sql);
@@ -288,13 +297,16 @@ public int totalCntSearch(String search){
 			ptmt.setString(10, dto.getLesson_time());
 			ptmt.setString(11, dto.getManager_id());
 			ptmt.setInt(12, dto.getMax_student());
-			ptmt.setString(13, dto.getLocation());
-			ptmt.setInt(14, dto.getIntOption1());
-			ptmt.setInt(15, dto.getIntOption2());
-			ptmt.setInt(16, dto.getIntOption3());
-			ptmt.setInt(17, dto.getIntOption4());
-			ptmt.setInt(18, dto.getIntOption5());
 			
+			ptmt.setString(13, dto.getPostcode());
+			ptmt.setString(14, dto.getAddress());
+			ptmt.setString(15, dto.getAddress_detail());
+			
+			ptmt.setInt(16, dto.getIntOption1());
+			ptmt.setInt(17, dto.getIntOption2());
+			ptmt.setInt(18, dto.getIntOption3());
+			ptmt.setInt(19, dto.getIntOption4());
+			ptmt.setInt(20, dto.getIntOption5());
 			
 			ptmt.executeUpdate();
 			
@@ -314,7 +326,8 @@ public int totalCntSearch(String search){
 		
 		sql = "update lesson set category = ?, sname = ?, img = ?, "
 				+ "contents_info = ?, contents_detail = ?, contents_rule = ?, contents_refund = ?, "
-				+ "price = ?, lesson_time = ?, manager_id = ?, max_student = ?, location = ?, "
+				+ "price = ?, lesson_time = ?, manager_id = ?, max_student = ?, "
+				+ "postcode = ?, address = ?, address_detail = ?, "
 				+ "option1 = ?, option2 = ?, option3 = ?, option4 = ?, option5 = ? "
 				+ "where post_id=? ";
 		
@@ -333,13 +346,17 @@ public int totalCntSearch(String search){
 			ptmt.setString(9, dto.getLesson_time());
 			ptmt.setString(10, dto.getManager_id());
 			ptmt.setInt(11, dto.getMax_student());
-			ptmt.setString(12, dto.getLocation());
-			ptmt.setInt(13, dto.getIntOption1());
-			ptmt.setInt(14, dto.getIntOption2());
-			ptmt.setInt(15, dto.getIntOption3());
-			ptmt.setInt(16, dto.getIntOption4());
-			ptmt.setInt(17, dto.getIntOption5());
-			ptmt.setString(18, dto.getPost_id());
+			
+			ptmt.setString(12, dto.getPostcode());
+			ptmt.setString(13, dto.getAddress());
+			ptmt.setString(14, dto.getAddress_detail());
+			
+			ptmt.setInt(15, dto.getIntOption1());
+			ptmt.setInt(16, dto.getIntOption2());
+			ptmt.setInt(17, dto.getIntOption3());
+			ptmt.setInt(18, dto.getIntOption4());
+			ptmt.setInt(19, dto.getIntOption5());
+			ptmt.setString(20, dto.getPost_id());
 						
 			res = ptmt.executeUpdate();
 			

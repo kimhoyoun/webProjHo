@@ -40,7 +40,6 @@ public class InfoInputPass_Reg implements MypageService{
 			}else if(user instanceof CorpMemberDTO) {
 				CorpMemberDTO dto = (CorpMemberDTO)user;
 				if (dto.getPw().equals(user_pw)) {
-					System.out.println("여기");
 					msg = "확인되었습니다.";
 					goUrl = "CorpMemberEdit";
 				} else {

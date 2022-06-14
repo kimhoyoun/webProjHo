@@ -6,6 +6,13 @@ public class MemberDTO {
 	private int grade;
 	
 	
+	
+	public String getDetailAddress() {
+		return detailAddress;
+	}
+	public void setDetailAddress(String detailAddress) {
+		this.detailAddress = detailAddress;
+	}
 	public String getNick_name() {
 		return nick_name;
 	}
@@ -54,21 +61,12 @@ public class MemberDTO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
-	
-	public String getDetailAddress() {
-		return detailAddress;
-	}
-	public void setDetailAddress(String detailAddress) {
-		this.detailAddress = detailAddress;
-	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 	public String getPhoneNum() {
 		return phoneNum;
 	}
@@ -79,8 +77,7 @@ public class MemberDTO {
 	public String toString() {
 		return "MemberDTO [pid=" + pid + ", pName=" + pName + ", nick_name=" + nick_name + ", gender=" + gender
 				+ ", address=" + address + ", email=" + email + ", pw=" + pw + ", telecom=" + telecom + ", phoneNum="
-				+ phoneNum + ", grade=" + grade + "]";
+				+ phoneNum + ", detailAddress=" + detailAddress + ", grade=" + grade + "]";
 	}
-	
 	
 }

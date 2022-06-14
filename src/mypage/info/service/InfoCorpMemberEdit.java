@@ -20,7 +20,7 @@ public class InfoCorpMemberEdit implements MypageService{
 			request.setAttribute("goUrl", "../../member/Login");
 		}else {
 			CorpMemberDTO dto = (CorpMemberDTO)session.getAttribute("User");
-			String[] email_arr = dto.getCorp_email().split("@");
+			String[] email_arr = dto.getEmail().split("@");
 			
 			request.setAttribute("email", email_arr[0]);
 			request.setAttribute("email_adress", email_arr[1]);

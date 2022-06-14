@@ -3,12 +3,24 @@ package market.model;
 import java.util.Date;
 
 public class MarketDTO {
-	private String post_id, user_id, user_email, title, check_quality, l_category, s_category, delivery, content, user_num, img;
+	private String user_num, post_id, user_id, user_email, title, check_quality, l_category, s_category, delivery, content, img, firstImg;
 	private int price, cnt;
 	private Date reg_date;
 	
 	
 	
+	public String getFirstImg() {
+		return firstImg;
+	}
+	public void setFirstImg(String firstImg) {
+		this.firstImg = firstImg;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
 	public int getCnt() {
 		return cnt;
 	}
@@ -87,20 +99,12 @@ public class MarketDTO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
-	
-	public String getImg() {
-		return img;
-	}
-	public void setImg(String img) {
-		this.img = img;
-	}
 	@Override
 	public String toString() {
-		return "MarketDTO [post_id=" + post_id + ", user_id=" + user_id + ", user_email=" + user_email + ", title="
-				+ title + ", check_quality=" + check_quality + ", l_category=" + l_category + ", s_category="
-				+ s_category + ", delivery=" + delivery + ", content=" + content + ", user_num=" + user_num + ", price="
-				+ price + ", cnt=" + cnt + ", reg_date=" + reg_date + "]";
+		return "MarketDTO [user_num=" + user_num + ", post_id=" + post_id + ", user_id=" + user_id + ", user_email="
+				+ user_email + ", title=" + title + ", check_quality=" + check_quality + ", l_category=" + l_category
+				+ ", s_category=" + s_category + ", delivery=" + delivery + ", content=" + content + ", img=" + img
+				+ ", firstImg=" + firstImg + ", price=" + price + ", cnt=" + cnt + ", reg_date=" + reg_date + "]";
 	}
 
 }

@@ -49,6 +49,11 @@ public class BoardDAO {
 		return 0;
 	}
 	
+	
+	// ===================================================================================
+	// ===================================================================================
+	// ===================================================================================
+	// ===================================================================================
 	public int myTotalCnt(String user_id) {
 		
 		sql = "select count(*) from commu_Bas_board where user_id = ? ";
@@ -113,7 +118,7 @@ public class BoardDAO {
 		ArrayList<BoardDTO> res = new ArrayList<BoardDTO>();
 		
 		sql = "select * from commu_Bas_board "
-				+ "where " + field + " like ? order by post_id desc limit ?, ? ";
+				+ "where " + field + " like ? order by reg_date desc limit ?, ? ";
 		
 		try {
 			ptmt = con.prepareStatement(sql);
@@ -152,7 +157,7 @@ public class BoardDAO {
 		ArrayList<BoardDTO> res = new ArrayList<BoardDTO>();
 		
 		sql = "select * from commu_Bas_board "
-				+ "where title like ? order by post_id desc limit ?, ? ";
+				+ "where title like ? order by reg_date desc limit ?, ? ";
 		
 		try {
 			ptmt = con.prepareStatement(sql);
@@ -190,7 +195,7 @@ public class BoardDAO {
 		ArrayList<BoardDTO> res = new ArrayList<BoardDTO>();
 		
 		sql = "select * from commu_Bas_board "
-				+ "order by post_id desc limit ?, ? ";
+				+ "order by reg_date desc limit ?, ? ";
 		
 		try {
 			ptmt = con.prepareStatement(sql);
@@ -221,10 +226,7 @@ public class BoardDAO {
 		}
 		
 		return res;
-		
 	}
-	
-	
 	
 	
 	public BoardDTO detail(String post_id) {
@@ -247,6 +249,7 @@ public class BoardDAO {
 				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));
 				dto.setUpfile(rs.getString("upfile"));
+				dto.setImg(rs.getString("img"));
 				dto.setReg_date(rs.getTimestamp("reg_date"));
 				dto.setCnt(rs.getInt("cnt"));					
 			}
@@ -277,8 +280,8 @@ public class BoardDAO {
 	
 	public void insert(BoardDTO dto) {	
 		
-		sql = "insert into commu_Bas_board (head, title, content, upfile, user_id, post_id, reg_date, cnt) values " 
-				+ "(?, ?, ?, ?, ?, ?, sysdate(), 0)";
+		sql = "insert into commu_Bas_board (head, title, content, "
+				+ "upfile, img,user_id, post_id, reg_date, cnt) values " + "(?, ?, ?, ?, ?, ?, ?, sysdate(), 0)";
 		
 		try {
 			ptmt = con.prepareStatement(sql);
@@ -287,8 +290,9 @@ public class BoardDAO {
 			ptmt.setString(2, dto.title);
 			ptmt.setString(3, dto.content);
 			ptmt.setString(4, dto.upfile);
-			ptmt.setString(5, dto.user_id);
-			ptmt.setString(6, dto.post_id);
+			ptmt.setString(5, dto.img);
+			ptmt.setString(6, dto.user_id);
+			ptmt.setString(7, dto.post_id);
 			
 			ptmt.executeUpdate();
 			
@@ -306,7 +310,8 @@ public class BoardDAO {
 	public int modify(BoardDTO dto) {	
 		int res = 0;
 		
-		sql = "update commu_Bas_board set head =?, title =?, content=?, upfile=?, user_id=? where post_id= ? ";
+		sql = "update commu_Bas_board set head =?, title =?, " + "content=?, upfile=?, img=?,user_id=? "
+				+ "where post_id=? ";
 		
 		try {
 			ptmt = con.prepareStatement(sql);
@@ -315,8 +320,9 @@ public class BoardDAO {
 			ptmt.setString(2, dto.getTitle());
 			ptmt.setString(3, dto.getContent());
 			ptmt.setString(4, dto.getUpfile());
-			ptmt.setString(5, dto.getUser_id());
-			ptmt.setString(6, dto.getPost_id());
+			ptmt.setString(5, dto.getImg());
+			ptmt.setString(6, dto.getUser_id());
+			ptmt.setString(7, dto.getPost_id());
 						
 			res = ptmt.executeUpdate();
 			
@@ -330,6 +336,26 @@ public class BoardDAO {
 		return res;
 		
 	}
+	
+	public int modifyFile(String post_id) {
+		int res = 0;
+		
+		sql = "update postlist_market set img = ? where post_id = ?";
+
+		try {
+			ptmt = con.prepareStatement(sql);
+			ptmt.setString(1, "");
+			ptmt.setString(2, post_id);
+
+			res = ptmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return res;
+	}
+	
 	
 	public int delete(BoardDTO dto) {	
 		int res = 0;

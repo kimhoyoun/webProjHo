@@ -14,7 +14,7 @@ public class MarketPostList implements Market_Service {
 
 		int page = (int)request.getAttribute("nowPage");
 		
-		int limit = 5; // 한 페이지에 보여줄 게시물 수
+		int limit = 6; // 한 페이지에 보여줄 게시물 수
 		int pageLimit = 4; // 페이지 번호 갯수
 
 		MarketDAO dao = new MarketDAO();
@@ -35,7 +35,7 @@ public class MarketPostList implements Market_Service {
 			pageEnd = pageTotal;
 		}
 		
-		Object data = new MarketDAO().list(start, limit);
+		Object data = dao.list(start, limit);
 		
 		request.setAttribute("mainData", data);
 		request.setAttribute("mainUrl", "market/PostList");

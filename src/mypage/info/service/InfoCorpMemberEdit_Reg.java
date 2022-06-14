@@ -24,11 +24,12 @@ public class InfoCorpMemberEdit_Reg implements MypageService{
 			String pw = request.getParameter("pw");
 			String nick_name = request.getParameter("nick_name");
 			String corp_name = request.getParameter("corp_name");
-			Long corp_regnum = Long.parseLong((String)request.getParameter("corp_regnum")); 
+			String corp_regnum = request.getParameter("corp_regnum"); 
 			String corp_address = request.getParameter("address");
 			String detailAddress = request.getParameter("detailAddress");
 			String manager_name = request.getParameter("manager_name");
-			int manager_num = Integer.parseInt((String)request.getParameter("manager_num")); 
+			String telecom = request.getParameter("telecom"); 
+			String manager_num = request.getParameter("manager_num"); 
 			String email1 = request.getParameter("email1");
 			String email2 = request.getParameter("email2");
 			String email = email1 + "@" + email2;
@@ -40,11 +41,13 @@ public class InfoCorpMemberEdit_Reg implements MypageService{
 			dto.setNick_name(nick_name);
 			dto.setCorp_name(corp_name);
 			dto.setCorp_regnum(corp_regnum);
-			dto.setCorp_address(corp_address);
+			dto.setAddress(corp_address);
 			dto.setDetailAddress(detailAddress);
+			dto.setTelecom(telecom);
 			dto.setManager_name(manager_name);
 			dto.setManager_num(manager_num);
-			dto.setCorp_email(email);
+			dto.setEmail(email);
+			
 			
 			CorpMemberDAO dao = new CorpMemberDAO();
 			
@@ -52,7 +55,7 @@ public class InfoCorpMemberEdit_Reg implements MypageService{
 			
 			session.setAttribute("User", null);
 			
-			request.setAttribute("msg", "회원정보가 수정되었습니다. \n 다시 로그인 해주세요");
+			request.setAttribute("msg", "회원정보가 수정되었습니다. 다시 로그인 해주세요");
 			request.setAttribute("mainUrl", "alert");
 			request.setAttribute("goUrl", "../../member/Login");
 		}

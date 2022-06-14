@@ -15,7 +15,7 @@
 .hasDatepicker{cursor: pointer;}
   
  </style>
- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c59b252c5ce6b362867c5d3da3e6369c&libraries=services"></script>
 <script>
 	document.addEventListener('DOMContentLoaded', ()=>{
 		
@@ -86,26 +86,6 @@
 			isEnabled = true;
 		}
 		
-		
-			
-// 		if(str.length >0){
-// 			for(var i = 0; i<arr.length; i++){
-// 				priceList[arr[i]].removeEventListener('click',selectTime)
-// 				priceList[arr[i]].style.background = 'blue'
-// 			}		
-// 		}
-// 		var unused_time = '${dto.unused_time}'
-// 		const unusedArr = unused_time.split(',')
-		
-// 		if(unusedArr.length >0){
-// 			for(var i = 0; i<unusedArr.length; i++){
-// 				priceList[unusedArr[i]].removeEventListener('click',selectTime)
-// 				priceList[unusedArr[i]].style.background = 'gray'
-				
-// 			}		
-// 		}
-		
-		
 		 function getIndex(checkList){
 	            let selectedIndex = 0;
 	            while((checkList=checkList.previousElementSibling) != null){
@@ -120,7 +100,6 @@
 	        	  if(selectItemNum<2){
 	        		  this.classList.remove('list-group-item-primary')
 	        		  this.classList.add('list-group-item-danger')
-// 		        	  this.classList.add('selected')
 		        	  if(this.value == 1){
 		 	       	  	total += weekly
 		        	  }else{
@@ -137,7 +116,6 @@
 	        		  alert('최대 4시간까지 예약 가능합니다.')
 	        	  }
 	          }else{
-// 	        	  this.classList.remove('selected')
 	        	  this.classList.remove('list-group-item-danger')
 	        	  this.classList.add('list-group-item-primary')
 	        	  if(this.value == 1){
@@ -178,8 +156,8 @@
     <div class="row" style="margin-bottom:10px">
 <%--     	<c:if test="${User.grade==1 }"> --%>
             <div class="col text-end" >
-            	<a href="ModifyForm?id=${dto.id }&page=${nowPage}"><button type="button" class="btn btn-outline-secondary">수정</button></a>
-            	<a href="DeleteForm?id=${dto.id }&page=${nowPage}"><button type="button" class="btn btn-outline-secondary">삭제</button></a>
+            	<a href="ModifyForm?id=${dto.id }&page=${nowPage}&dateSet=${dateSet }"><button type="button" class="btn btn-outline-secondary">수정</button></a>
+            	<a href="DeleteForm?id=${dto.id }&page=${nowPage}&dateSet=${dateSet }"><button type="button" class="btn btn-outline-secondary">삭제</button></a>
             </div>
 <%--         </c:if> --%>
     </div>
@@ -461,7 +439,6 @@
 				var url = 'https://map.kakao.com/link/to/${dto.sname},'+lat+','+lng; 
 				 var win = window.open(url, '_blank');
 			        win.focus();
-
 			}
 			
 			</script>

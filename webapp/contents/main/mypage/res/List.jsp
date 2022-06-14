@@ -62,10 +62,12 @@
                   </td>
                   <td class = "col text-center"> 
                   	${dto.resDate } <br />
-					<c:forTokens items ="${dto.resTime }"
-						delims = "," var = "time" varStatus="no">
-						${time*2 }시~${(time+1)*2  }시 
-					</c:forTokens>
+                  	<c:if test="${fn:contains(dto.id, 'gym')}">
+						<c:forTokens items ="${dto.resTime }"
+							delims = "," var = "time" varStatus="no">
+							${time*2 }시~${(time+1)*2  }시 
+						</c:forTokens>
+                  	</c:if>
                   </td>
                   <td  class = "col text-center">
                     <a href="<c:url value="${type }"/>">${dto.sname }</a>

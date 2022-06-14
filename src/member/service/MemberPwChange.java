@@ -18,9 +18,9 @@ public class MemberPwChange implements MemberService{
 		String email = request.getParameter("email");
 		String pw = request.getParameter("pw");
 		String msg = "비밀번호 변경에 실패했습니다.";
-		String goUrl = "/Main/Main";
-		System.out.println(email);
-		System.out.println(memberKind);
+		String goUrl = "";
+
+		
 		if(memberKind.equals("개인회원")) {
 			MemberDTO dto = new MemberDAO().findId(email);
 			dto.setPw(pw);

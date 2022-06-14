@@ -22,7 +22,7 @@ public class MarketPostInsert_Reg implements Market_Service {
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 
 		String realPath = "";
-		String savePath = "C:\\jsp_work\\member\\WebContent\\uploadFile\\market";
+		String savePath = "C:/temp/jsp_work/readytoplay/webapp/uploadFile/market";
 		int maxSize = 10 * 1024 * 1024;
 		String type = "utf-8";
 		realPath = savePath;
@@ -47,16 +47,14 @@ public class MarketPostInsert_Reg implements Market_Service {
 				} else {
 					if (item.getSize() > 0) {
 						String separator = File.separator;
-						System.out.println();
+						
 						int index = item.getName().lastIndexOf(separator);
 
 						String fileName = item.getName().substring(index + 1);
-
 						File uploadFile = new File(realPath + separator + fileName);
 						allImg += fileName + ",";
 
 						item.write(uploadFile);
-
 					} // if
 				} // else
 			} // for
@@ -73,9 +71,9 @@ public class MarketPostInsert_Reg implements Market_Service {
 			dto.setDelivery(map.get("delivery"));
 			dto.setPrice(Integer.parseInt(map.get("price")));
 			dto.setContent(map.get("content"));
+			dto.setImg(allImg);
 
 			new MarketDAO().insert(dto);
-
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

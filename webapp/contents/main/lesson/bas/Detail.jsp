@@ -9,6 +9,7 @@
 
 <form action="<c:url value="/payment/ReservationForm"/>" method="post">
 <input type="hidden" name = "id" value="${dto.post_id }" />
+<input type="hidden" name = "manager_id" value="${dto.manager_id }" />
 <table border="">
 
 	<tr>
@@ -58,8 +59,8 @@
 	</tr>
 	<tr>
 		<td>주소</td>
-		<td>${dto.location } <br />
-			<a href="https://map.kakao.com/link/to/33.919067,-118.118731" style="color:blue" target="_blank">길찾기</a>
+		<td>${dto.address } <br />
+			<button type="button" onclick="goMap()" class="btn btn-outline-primary">길찾기</button>
 			<div id="map" style="width:500px;height:400px;"></div>
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5055bae492acc70f48ba8a992e50a421&libraries=services
 			"></script>
@@ -80,7 +81,7 @@
 				var geocoder = new kakao.maps.services.Geocoder();
 				
 				// 주소로 좌표를 검색합니다
-				geocoder.addressSearch('${dto.location}', function(result, status) {
+				geocoder.addressSearch('${dto.address}', function(result, status) {
 				
 				    // 정상적으로 검색이 완료됐으면 
 				     if (status === kakao.maps.services.Status.OK) {
@@ -120,6 +121,12 @@
 				    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
 				    map.panTo(moveLatLon);            
 				} 
+				
+				function goMap(){
+					var url = 'https://map.kakao.com/link/to/${dto.sname},'+lat+','+lng; 
+					 var win = window.open(url, '_blank');
+				        win.focus();
+				}
 				</script>
 		</td>
 	</tr>

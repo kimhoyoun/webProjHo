@@ -24,7 +24,7 @@ public class LessonInsertReg implements LessonService{
 		// 파일 업로드
 		String realPath = "";
 		/////////////////////////////////////
-		String savePath = "C:\\temp\\jsp_work\\webProjectTest\\webapp\\uploadFile\\lesson\\bas";
+		String savePath = "C:\\temp\\jsp_work\\readytoplay\\webapp\\uploadFile\\lesson\\bas";
 	    int maxSize = 10*1024*1024;
 	    String type = "utf-8";
 	    realPath = savePath;
@@ -79,7 +79,9 @@ public class LessonInsertReg implements LessonService{
 	         dto.setPrice(Integer.parseInt(map.get("price")));
 	         dto.setLesson_time(map.get("lesson_time"));
 	         dto.setMax_student(Integer.parseInt(map.get("max_student")));
-	         dto.setLocation(map.get("location"));
+	         dto.setPostcode(map.get("postcode"));
+	         dto.setAddress(map.get("address"));
+	         dto.setAddress_detail(map.get("address_detail"));
 	         dto.setImg(allImg);
 	         dto.setManager_id(map.get("manager_id"));
 	        

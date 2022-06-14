@@ -21,17 +21,17 @@ public class MemberCorpInsertReg implements MemberService{
 		dto.setPw(request.getParameter("pw"));
 		dto.setNick_name(request.getParameter("nick_name"));
 		dto.setCorp_name(request.getParameter("corp_name"));
-		dto.setCorp_regnum(Long.parseLong(request.getParameter("corp_regnum")));
-		dto.setCorp_email(email);
-		dto.setCorp_address(request.getParameter("address"));
+		dto.setCorp_regnum(request.getParameter("corp_regnum"));
+		dto.setEmail(email);
+		dto.setAddress(request.getParameter("address"));
 		dto.setDetailAddress(request.getParameter("detailAddress"));
 		dto.setManager_name(request.getParameter("manager_name"));
-		dto.setManager_num(Integer.parseInt(request.getParameter("manager_num")));
+		dto.setManager_num(request.getParameter("manager_num"));
 		dto.setGrade(grade);
 		
 		new CorpMemberDAO().corpMemInsert(dto);;
 		
-		String msg = "회원가입 되었습니다.", goUrl ="/Main/Main"; 
+		String msg = "회원가입 되었습니다.", goUrl ="/"; 
 		
 		request.setAttribute("msg", msg);
 		request.setAttribute("goUrl", goUrl);

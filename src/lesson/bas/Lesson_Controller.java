@@ -20,7 +20,6 @@ public class Lesson_Controller extends HttpServlet {
     public Lesson_Controller() {
         super();
         nonClass = new ArrayList<String>();
-        nonClass.add("InsertForm");
         nonClass.add("DeleteForm"); 
     }
 

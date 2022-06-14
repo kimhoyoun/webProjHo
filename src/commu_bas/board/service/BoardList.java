@@ -40,13 +40,10 @@ public class BoardList implements BoardService{
 		request.setAttribute("mainUrl", "commu_bas/board/List");
 		
 		request.setAttribute("start", start);
-
 		request.setAttribute("pageTotal", pageTotal);
 		request.setAttribute("pageStart", pageStart);
 		request.setAttribute("pageEnd", pageEnd);
 
-
-		System.out.println("BoardList execute() 실행" + data + "," + total);
 	}
 	
 }

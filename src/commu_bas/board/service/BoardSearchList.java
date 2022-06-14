@@ -11,13 +11,13 @@ public class BoardSearchList implements BoardService{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		int page = 	(int)request.getAttribute("nowPage");
-		String field = request.getParameter("field");
+		int page = (int) request.getAttribute("nowPage");
 		String search = request.getParameter("search");
+		String field = "list";
+
 		
 		if (!search.equals("")) {
 			field = request.getParameter("field");
-			System.out.println(field);
 		}
 		
 		int limit = 5; // 한 페이지당 게시물 갯수
@@ -26,9 +26,10 @@ public class BoardSearchList implements BoardService{
 		
 		BoardDAO dao = new BoardDAO();
 		Object data = null;
+		
 		if(field.equals("list")) {
 			total = dao.totalCntSearch(search);
-		}else {
+		} else {
 			total = dao.totalCntSearch(field, search);
 		}
 		int pageTotal = total/limit;
@@ -57,7 +58,6 @@ public class BoardSearchList implements BoardService{
 		request.setAttribute("mainUrl", "commu_bas/board/SearchList");
 		
 		request.setAttribute("start", start);
-
 		request.setAttribute("pageTotal", pageTotal);
 		request.setAttribute("pageStart", pageStart);
 		request.setAttribute("pageEnd", pageEnd);

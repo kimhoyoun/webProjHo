@@ -14,10 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 public class Board_Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-	
 	ArrayList<String> nonClass;
 	
     public Board_Controller() {

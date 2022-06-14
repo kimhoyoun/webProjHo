@@ -22,19 +22,20 @@ public class BoardInsertReg implements BoardService{
 
 		// 파일 업로드
 		String realPath = "";
-		String savePath = "C:\\temp\\jsp_work\\webProjectTest\\webapp\\uploadFile\\commu\\bas\\board";
+		String savePath = "C:/temp/jsp_work/readytoplay/webapp/uploadFile/commu/bas/board";
 	    int maxSize = 10*1024*1024;
 	    String type = "utf-8";
+	    
 	    realPath = savePath;
 
-	    
-	    
 	    String title = "";
-	    String user_id = "";
-	    String post_id = "";
-	    String content = "";
-	    String upfile = "";
-	    String allImg = "";
+		String user_id = "";
+		String post_id = "";
+		String pw = "";
+		String content = "";
+		String allImg = "";
+		String upfile = "";
+		String allfile = "";
 	    
 	    HashMap<String, String> list = new HashMap<String, String>();
 	    
@@ -44,7 +45,6 @@ public class BoardInsertReg implements BoardService{
 			diskFileItemFactory.setSizeThreshold(maxSize);
 			diskFileItemFactory.setDefaultCharset(type);
 			ServletFileUpload fileUpload = new ServletFileUpload(diskFileItemFactory);
-		
 			
 			List<FileItem> items = fileUpload.parseRequest(request);
 			
@@ -69,20 +69,32 @@ public class BoardInsertReg implements BoardService{
 	            } // else
 	         } // for 
 	         
-	        title = list.get("title");
-	  		user_id = list.get("user_id");
-	  		post_id = list.get("post_id");
-	  		content = list.get("content");
-	  		upfile = allImg;
 
-	  		  
-	        System.out.println(allImg);
+			title = list.get("title");
+			user_id = list.get("user_id");
+			post_id = list.get("post_id");
+			pw = list.get("pw");
+			content = list.get("content");
+
 	         
-	        BoardDTO dto = new BoardDTO(title, user_id, post_id, content, allImg);
-
-	        new BoardDAO().insert(dto);
-	         	        
-
+			BoardDTO dto = new BoardDTO(title, user_id, post_id, content, allfile);
+			
+			String[] fileList = dto.getAllfile().split(",");
+			
+			
+			for(int i =0; i<fileList.length; i++) {
+				if(dto.isImg(fileList, i)) {
+					allImg += fileList[i]+",";
+				} else if(dto.isUpfile(fileList, i)) {
+					upfile += fileList[i]+",";
+				}
+			}
+			dto.setImg(allImg);
+			dto.setUpfile(upfile);
+			
+			
+			new BoardDAO().insert(dto);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

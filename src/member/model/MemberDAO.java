@@ -30,7 +30,7 @@ public class MemberDAO {
 	
 	public int editInfo(MemberDTO dto) {
 		int res = 0;
-		sql = "update memlist set nick_name = ?, pname = ?, gender = ?, phonenum = ?, email = ?, address = ? where pid = ?";
+		sql = "update memlist set nick_name = ?, pname = ?, gender = ?, phonenum = ?, email = ?, address = ?, detailAddress = ? where pid = ? ";
 		
 		 try {
 			pstmt = con.prepareStatement(sql);
@@ -40,14 +40,15 @@ public class MemberDAO {
 			pstmt.setString(4, dto.getPhoneNum());
 			pstmt.setString(5, dto.getEmail());
 			pstmt.setString(6, dto.getAddress());
-			pstmt.setString(7, dto.getPid());
+			pstmt.setString(7, dto.getDetailAddress());
+			pstmt.setString(8, dto.getPid());
 			
 			res = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close();
 		}
 		
@@ -94,11 +95,37 @@ public class MemberDAO {
 				res.setPhoneNum(rs.getString("phonenum"));
 				res.setEmail(rs.getString("email"));
 				res.setAddress(rs.getString("address"));
+				res.setDetailAddress(rs.getString("detailAddress"));
 				res.setGrade(rs.getInt("grade"));
 			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return res;
+	}
+	
+	public String idCheck(String inputId) {
+		String res = "unuseable";
+		sql = "select * from memlist where pid=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, inputId);
+			rs = pstmt.executeQuery();
+			
+			if (!rs.next()) {
+				res = "useable";
+				System.out.println("this id possible to use.");
+			} else {
+				res = "unuseable";
+				System.out.println("this id is already in use.");
+			}
+		} catch (SQLException e) {
+			System.out.println("id duplecation check fail");
 			e.printStackTrace();
 		} finally {
 			close();
@@ -125,8 +152,6 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			System.out.println("email duplecation check fail");
 			e.printStackTrace();
-		}finally {
-			close();
 		}
 		return res;
 		
@@ -154,6 +179,7 @@ public class MemberDAO {
 				res.setPhoneNum(rs.getString("phonenum"));
 				res.setEmail(rs.getString("email"));
 				res.setAddress(rs.getString("address"));
+				res.setDetailAddress(rs.getString("detailAddress"));
 				res.setGrade(rs.getInt("grade"));
 			}
 
@@ -184,6 +210,7 @@ public class MemberDAO {
 				dto.setPhoneNum(rs.getString("phonenum"));
 				dto.setEmail(rs.getString("email"));
 				dto.setAddress(rs.getString("address"));
+				dto.setAddress(rs.getString("detailAddress"));
 				
 				list.add(dto);
 				
@@ -198,8 +225,8 @@ public class MemberDAO {
 	}
 	
 	public void insert(MemberDTO dto) {
-		sql = "insert into memlist (pid, pw, nick_name, pname, gender, telecom, phonenum, email, address, grade) values"
-				+"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		sql = "insert into memlist (pid, pw, nick_name, pname, gender, telecom, phonenum, email, address, detailAddress, grade) values"
+				+"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		System.out.println(dto);
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -213,7 +240,8 @@ public class MemberDAO {
 			pstmt.setString(7, dto.getPhoneNum());
 			pstmt.setString(8, dto.getEmail());
 			pstmt.setString(9, dto.getAddress());
-			pstmt.setInt(10, dto.getGrade());
+			pstmt.setString(10, dto.getDetailAddress());
+			pstmt.setInt(11, dto.getGrade());
 			
 			pstmt.executeUpdate();
 			

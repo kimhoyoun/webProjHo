@@ -27,7 +27,8 @@ public class BoardFileDown implements BoardService{
 		   // out = PageContext.pushBody();
 		   
 		   String path = request.getRealPath("board");
-		   path = "/Users/minsookim/Desktop/프로젝트/04_proj/proj_04_minsoo/proj_04_minsoo/src/main/webapp/uploadFile/commu_bas/board";
+//		   path = "/Users/minsookim/Desktop/프로젝트/total/webProjHo-master/webapp/uploadFile/commu/bas/upFile";
+		   path = "C:/temp/jsp_work/readytoplay/webapp/uploadFile/commu/bas/board";
 		   path += "/"+fName;
 
 		   FileInputStream fis = new FileInputStream(path);

@@ -1,7 +1,9 @@
 package gym.basketball;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +18,8 @@ import gym.GymService;
 public class BasketballController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ArrayList<String> nonClass;
+	
+	
     public BasketballController() {
         super();
         nonClass = new ArrayList<>();
@@ -31,12 +35,18 @@ public class BasketballController extends HttpServlet {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String date = format.format(new Date());
+		if(request.getParameter("dateSet")!=null) {
+			date = request.getParameter("dateSet");
+		}
+		
 		request.setAttribute("nowPage", page);
+		request.setAttribute("dateSet", date);
 		
 		String serviceStr = request.getRequestURI().substring(
 				(request.getContextPath()+"/gym/basketball/").length()
 				);
-		
 		
 		if(nonClass.contains(serviceStr)) {
 			request.setAttribute("mainUrl", "gym/basketball/"+serviceStr);
@@ -50,9 +60,10 @@ public class BasketballController extends HttpServlet {
 				e.printStackTrace();
 			} 
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/contents/template.jsp");
-//		
-		dispatcher.forward(request, response);
+		if(!serviceStr.equals("UploadImgEdit_Reg")) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/contents/template.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -56,8 +56,16 @@
 			<td><input type="text" name="max_student" value="${dto.max_student }" /></td>
 		</tr>
 		<tr>
+			<th>우편번호</th>
+			<td><input type="text" name="postcode" value="${dto.postcode }"/></td>
+		</tr>
+		<tr>
 			<th>주소</th>
-			<td><input type="text" name="location" value="${dto.location }"/></td>
+			<td><input type="text" name="address" value="${dto.address }"/></td>
+		</tr>
+		<tr>
+			<th>상세주소</th>
+			<td><input type="text" name="address_detail" value="${dto.detail }"/></td>
 		</tr>
 		<tr>
 			<th>옵션</th>

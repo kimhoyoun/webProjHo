@@ -8,7 +8,7 @@ public class LessonDTO {
 	boolean option1, option2, option3, option4, option5;
 	String post_id, category, sname, 
 			contents_info, contents_detail, contents_rule, contents_refund,
-			img, lesson_time, manager_id, location;
+			img, lesson_time, manager_id, postcode, address, address_detail;
 	
 	Date reg_date;
 	
@@ -183,23 +183,36 @@ public class LessonDTO {
 	public void setMax_student(int max_student) {
 		this.max_student = max_student;
 	}
-	public String getLocation() {
-		return location;
+	public String getAddress() {
+		return address;
 	}
-	public void setLocation(String location) {
-		this.location = location;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
-	
+	public String getPostcode() {
+		return postcode;
+	}
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+	public String getAddress_detail() {
+		return address_detail;
+	}
+	public void setAddress_detail(String address_detail) {
+		this.address_detail = address_detail;
+	}
 	@Override
 	public String toString() {
-		return "LessonDTO [price=" + price + ", max_student=" + max_student + ", option1=" + option1
-				+ ", option2=" + option2 + ", option3=" + option3 + ", option4=" + option4 + ", option5=" + option5
-				+ ", post_id=" + post_id + ", category=" + category + ", sname=" + sname + ", contents_info="
-				+ contents_info + ", contents_detail=" + contents_detail + ", contents_rule=" + contents_rule
-				+ ", contents_refund=" + contents_refund + ", img=" + img + ", lesson_time=" + lesson_time
-				+ ", manager_id=" + manager_id + ", location=" + location + ", reg_date=" + reg_date + "]";
+		return "LessonDTO [price=" + price + ", max_student=" + max_student + ", option1=" + option1 + ", option2="
+				+ option2 + ", option3=" + option3 + ", option4=" + option4 + ", option5=" + option5 + ", post_id="
+				+ post_id + ", category=" + category + ", sname=" + sname + ", contents_info=" + contents_info
+				+ ", contents_detail=" + contents_detail + ", contents_rule=" + contents_rule + ", contents_refund="
+				+ contents_refund + ", img=" + img + ", lesson_time=" + lesson_time + ", manager_id=" + manager_id
+				+ ", postcode=" + postcode + ", address=" + address + ", address_detail=" + address_detail
+				+ ", reg_date=" + reg_date + "]";
 	}
+	
 	
 	
 	

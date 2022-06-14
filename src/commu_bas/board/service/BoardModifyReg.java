@@ -1,8 +1,10 @@
 package commu_bas.board.service;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,15 +23,21 @@ public class BoardModifyReg implements BoardService{
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 	
 		String realPath = "";
-		String savePath = "C:\\temp\\jsp_work\\webProjectTest\\webapp\\uploadFile\\commu\\bas\\board";
+		String savePath = "C:/temp/jsp_work/readytoplay/webapp/uploadFile/commu/bas/board";
 	    int maxSize = 10*1024*1024;
 	    String type = "utf-8";
+	    
 	    realPath = savePath;
 
-	    String msg = null, goUrl = null;
-	    String allImg = "";
 	    
-	    HashMap<String, String> map = new HashMap<String, String>();
+	    String msg = null;
+	    String goUrl = null;
+	   
+		String allImg = "";
+		String upfile = "";
+		String allfile = "";
+	    
+	    HashMap<String, String> list = new HashMap<String, String>();
 	    
 	    try {
 			DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
@@ -42,7 +50,7 @@ public class BoardModifyReg implements BoardService{
 	         
 			for (FileItem item : items) {
 	            if (item.isFormField()) {
-	               map.put(item.getFieldName(), item.getString());
+	            	list.put(item.getFieldName(), item.getString());
 	               
 	            } else {
 	               if (item.getSize() > 0) {
@@ -52,35 +60,53 @@ public class BoardModifyReg implements BoardService{
 	                  String fileName = item.getName().substring(index + 1);
 	                  
 	                  File uploadFile = new File(realPath + separator + fileName);
-	                  allImg += fileName + ",";
 	                  
+	                  allfile += fileName + ",";
+	                  System.out.println("allFile : "+allfile);
 	                  item.write(uploadFile);
 	                  
 	               } // if
 	            } // else
 	         } // for  
 			
-				        
-			 BoardDTO dto = new BoardDTO();
-			 
-			 dto.setHead(map.get("head"));
-			 dto.setTitle(map.get("title"));
-			 dto.setContent(map.get("content"));
-			 dto.setUpfile(allImg);
-			 dto.setUser_id(map.get("user_id"));
-			 dto.setPost_id(map.get("post_id"));
-	        
-	         int res =  new BoardDAO().modify(dto);
-				
-	         msg = "수정 실패"; 
-	         goUrl = "ModifyForm?post_id=" + dto.getPost_id();
+			BoardDTO dto = new BoardDTO();	
 			
-	         if (res > 0) {
-				msg = "수정 성공";
-				goUrl = "Detail?post_id=" + dto.getPost_id() + "&page=" + request.getAttribute	("nowPage");
-	         }
-         	        
+			dto.setTitle(list.get("title"));
+			dto.setUpfile(list.get("upfile"));
+			dto.setImg(list.get("img"));
+			dto.setUser_id(list.get("user_id"));
+			dto.setPost_id(list.get("post_id"));
+			dto.setContent(list.get("content"));
 
+			dto.setAllfile(allfile);
+			
+			String[] fileList = dto.getAllfile().split(",");
+			System.out.println("fileList"+Arrays.toString(fileList));
+			for(int i =0; i<fileList.length; i++) {
+				System.out.println(i+" : "+Pattern.matches(".*[.](jpg|jpeg|png|bmp|gif)", fileList[i].toLowerCase()));
+				if(dto.isImg(fileList, i)) {
+					System.out.println("여기");
+					allImg += fileList[i]+",";
+				} else if(dto.isUpfile(fileList, i)) {
+					System.out.println("저기");
+					upfile += fileList[i]+",";
+				}
+			}
+			System.out.println("aaa : "+allImg);
+			System.out.println("bbb : "+upfile);
+			dto.setImg(allImg);
+			dto.setUpfile(upfile);
+			System.out.println("aaImg: "+dto.getImg()+" , file : "+dto.getUpfile());
+			int res = new BoardDAO().modify(dto);
+			
+			msg = "수정 실패";
+			goUrl = "ModifyForm?post_id=" + dto.getPost_id();
+
+			if (res > 0) {
+				msg = "수정 성공";
+				goUrl = "Detail?post_id=" + dto.getPost_id() + "&page=" + request.getAttribute("nowPage");
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -56,8 +56,16 @@
 			<td><input type="text" name="max_student" /></td>
 		</tr>
 		<tr>
+			<th>우편번호</th>
+			<td><input type="text" name=postcode /></td>
+		</tr>
+		<tr>
 			<th>주소</th>
-			<td><input type="text" name="location" /></td>
+			<td><input type="text" name="address" /></td>
+		</tr>
+		<tr>
+			<th>상세주소</th>
+			<td><input type="text" name="address_detail" /></td>
 		</tr>
 		<tr>
 			<th>옵션</th>
@@ -71,7 +79,14 @@
 		</tr>
 		<tr>
 			<th>매니저</th>
-			<td></td>
+			<td>
+				<select class="form-select form-select-lg sm-3 text-center" name="manager_id" id="" style="width: 400px;">
+                  <option value="none">======= 법인 =======</option>
+                  <c:forEach var="mem" items="${mainData }">
+					<option value="${mem }">${mem }</option>
+				  </c:forEach>
+                </select>
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2"><a href="<c:url value="List?page=${nowPage }"/>">목록으로</a>

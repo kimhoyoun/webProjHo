@@ -41,7 +41,7 @@
 		<td>${dto.lesson_time }</td>
 		<td>${dto.manager_id }</td>
 		<td>${dto.price }</td>
-		<td>${dto.location }</td>		
+		<td>${dto.address }</td>		
 	</tr>
 	</c:forEach>
 	

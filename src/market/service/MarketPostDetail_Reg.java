@@ -25,12 +25,7 @@ public class MarketPostDetail_Reg implements Market_Service {
 		} else {
 
 			String post_id = (String) request.getParameter("post_id");
-			
-			
-			
 			MarketDAO dao = new MarketDAO();
-			
-			
 			dao.addCount(post_id);
 			ArrayList<CommentDTO> comment_list = new CommentDAO().list(post_id);
 			Object post_data = dao.detail(post_id);

@@ -44,14 +44,16 @@ public class InfoMemberEdit_Reg implements MypageService{
 			dto.setAddress(address);
 			dto.setDetailAddress(detailAddress);
 			
+			System.out.println(dto);
+			
 			MemberDAO dao = new MemberDAO();
 			dao.editInfo(dto);
 			
-			session.setAttribute("User", null);
 			
-			request.setAttribute("msg", "회원정보가 수정되었습니다. 다시 로그인 하세요!");
+			session.setAttribute("User", null);
+			request.setAttribute("msg", "회원정보가 수정되었습니다. 다시 로그인 하세요");
 			request.setAttribute("mainUrl", "alert");
-			request.setAttribute("goUrl", "../../member/Login");
+			request.setAttribute("goUrl", "/member/Login");
 		}
 	}
 

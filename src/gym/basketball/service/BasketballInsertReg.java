@@ -64,7 +64,7 @@ public class BasketballInsertReg implements GymService{
 	         } // for 
 	         
 	         BasketballDTO dto = new BasketballDTO();
-	         dto.setId("basketball"+System.currentTimeMillis());
+	         dto.setId("gym_basketball"+System.currentTimeMillis());
 	         dto.setSname(map.get("sname"));
 	         dto.setContents_info(map.get("contents_info"));
 	         dto.setContents_detail(map.get("contents_detail"));

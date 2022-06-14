@@ -17,7 +17,7 @@ public class LessonModifyForm implements LessonService{
 		if(session.getAttribute("User") == null) {
 			request.setAttribute("msg", "관리자만 이용할 수 있습니다.");
 			request.setAttribute("mainUrl", "alert");
-			request.setAttribute("goUrl", "member/Login");
+			request.setAttribute("goUrl", "../../member/Login");
 		}else {
 			String post_id = request.getParameter("post_id");
 			LessonDAO dao = new LessonDAO();

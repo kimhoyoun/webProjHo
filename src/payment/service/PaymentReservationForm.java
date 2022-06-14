@@ -15,12 +15,18 @@ public class PaymentReservationForm implements ContentsService{
 		
 		String id = request.getParameter("id");
 		
-		if(id.contains("lesson_bas")) {
+		if(id.contains("lesson")) {
 			LessonDAO dao = new LessonDAO();
 			Object data = dao.detail(id);
 			request.setAttribute("dto", data);
 			request.setAttribute("dataType","lesson");
+		}else if(id.contains("gym_basketball")){
+			BasketballDAO dao = new BasketballDAO();
+			Object data = dao.detail(id);
+			request.setAttribute("dto", data);
+			request.setAttribute("dataType","gym");
 		}
+		
 		
 		
 		request.setAttribute("timeSelect", request.getParameter("timeSelect"));

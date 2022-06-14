@@ -128,7 +128,7 @@
             </div>
             
             <div class="col-sm-2">
-            	<button onclick="deleteImg()" class="btn btn-secondary">이미지 초기화</button>
+            	<button type = "button" onclick="deleteImg()" class="btn btn-secondary">이미지 초기화</button>
          	 </div>
             </div>
 
@@ -192,12 +192,11 @@
 <script>
 
 	function deleteImg() {
-		
 		var id = new Object();
 		id.id = '${dto.id }';
-		
+		alert(id)
 		$.ajax({
-			url : '/gym/basketball/UploadImgEdit_Reg',
+			url : '/readytoplay/gym/basketball/UploadImgEdit_Reg',
 			data : id,
 			type : 'POST',
 			success : function(result) {

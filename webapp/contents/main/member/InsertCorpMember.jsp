@@ -1,78 +1,261 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<link href="/readytoplay/css/membersign.css" rel="stylesheet">
+<style>
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
 
-<form name="signUpForm" action="CorpInsertReg" method="post"  onsubmit="return authCheck();">
-	<table border="">
-		<tr>
-			<th>아이디</th>
-			<td><input type="text" name="pid"/></td>
-		</tr>
-		<tr>
-			<th>비밀번호</th>
-			<td><input type="text" name="pw"/></td>
-		</tr>
-		<tr>
-			<th>닉네임</th>
-			<td><input type="text" name="nick_name"/></td>
-		</tr>
-		<tr>
-			<th>회사명</th>
-			<td><input type="text" name="corp_name"/></td>
-		</tr>
-		<tr>
-			<th>사업자등록번호</th>
-			<td><input type="text" name="corp_regnum"/><button type="button" value="사업자 등록번호 확인" name="checkRegNum" onclick="corpRegNumCheck()">인증</button></td>
-		</tr>
-		<tr>
-			<th>회사 주소</th>
-			<td>
-			<input type="text" name="postcode" id="postcode" placeholder="우편번호">
-   			<input type="button" onclick="on()" value="우편번호 찾기"><br>
-		    <input type="text" name="address" id="address" placeholder="주소"><br>
-		    <input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
-		    <input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목">
-		    </td>
-		</tr>
-		<tr>
-			<th>담당자이름</th>
-			<td><input type="text" name="manager_name"/></td>
-		</tr>
-		<tr>
-			<th>담당자전화번호</th>
-			<td><input type="text" name="manager_num"/></td>
-		</tr>
-		<tr>
-			<th>담당자이메일</th>
-			<td>
-				<input type="text" name="email1" id="inputEmailForm"/>
-				<input type="text" style="width: 20px; border: none; background: transparent;" value="@" disabled /> 
-				<select name="email2" id="selectEmailForm">
-					<option value="gmail.com">google.com</option>
-					<option value="naver.com">naver.com</option>
-					<option value="nate.com">naver.com</option>
-				</select>
-				<button onclick="emailAuthentication()" id="eamilAuthBtn" 
-						type="button" class="btnChk">인증 메일 보내기</button>
-			</td>
-		</tr>
-		<tr>
-			<th>인증번호 입력</th>
-			<td colspan="2">
-			<input type="text" name="authCode" id="inputAuthCode" maxlength="10">
-			<button onclick="authCodeCheck()" id="authCodeCheckBtn" type="button">인증</button> 
-			<input type="hidden" name="authPass" id="authPass" value="false"></td>
-		</tr>
-		<tr>
-			<td colspan="2" align="right"><input type="submit" value="완료" /></td>
-		</tr>
-	</table>
-</form>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+</style>
+<div class="container">
+	<main id="main_area">
+		<div class="py-5 text-center">
+			<h2>회원 가입</h2>
+			<p class="lead">
+				준비된 공간에서 좋은 사람들과의 즐거운 시간을 공유할 수 있는 <br>Ready To Play에 오신것을
+				환영합니다.
+			</p>
+		</div>
+
+		<div class="col-md-7 col-lg-8" style="margin: auto;">
+			<form class="needs-validation" name="signUpForm"
+				action="CorpInsertReg" method="post" onsubmit="return authCheck();">
+				<div class="row g-3">
+					<div class="col-sm-9">
+						<label for="input_id" class="form-label">ID</label> <input
+							type="text" class="form-control" id="input_id" name="pid"
+							placeholder="" value="" required> <input type="hidden"
+							name="useableCheck" id="useableCheck" value="false">
+					</div>
+
+					<div class="col-sm-3">
+						<label for="id_checkbtn" class="form-label">중복확인</label>
+						<button class="w-100 btn btn-lg btn-primary"
+							onclick="overLap_Check()" type="button" id="id_checkbtn">확인</button>
+					</div>
+
+					<div class="col-sm-6">
+						<label for="input_pw" class="form-label">Password</label> <input
+							type="password" class="form-control" id="input_pw" name="pw"
+							placeholder="" value="" required>
+						<div id="pwfeedback" class="invalid-feedback">하나 이상의 대문자와
+							특수문자를 포함한 8~12자리 암호를 입력해주세요.</div>
+					</div>
+
+					<div class="col-sm-6">
+						<label for="pw_check" class="form-label">Password Check</label> <input
+							type="password" class="form-control" id="pw_check" placeholder=""
+							value="" required>
+						<div id="pwcheckfalse" class="invalid-feedback">비밀번호가 다릅니다.
+						</div>
+					</div>
+
+					<div class="col-sm-6">
+						<label for="input_nickname" class="form-label">닉네임</label> <input
+							type="text" class="form-control" id="input_nickname"
+							name="nick_name" placeholder="" value="" required>
+					</div>
+					<div class="col-sm-6"></div>
+
+					<div class="col-sm-4">
+						<label for="corp_name" class="form-label">회사명</label> <input
+							type="text" class="form-control" id="corp_name" name="corp_name"
+							placeholder="" value="" required>
+					</div>
+					<div class="col-sm-4">
+						<label for="corp_regnum" class="form-label">사업자 등록번호</label> <input
+							type="text" class="form-control" id="corp_regnum"
+							name="corp_regnum" placeholder="" value="" required>
+					</div>
+					<div class="col-sm-4">
+						<label for="id_checkbtn" class="form-label">사업자 등록번호 인증</label>
+						<button class="w-100 btn btn-lg btn-primary"
+							onclick="corpRegNumCheck()" type="button" id="id_checkbtn">인증</button>
+						<input type="hidden" name="corpAuthPass" id="corpAuthPass"
+							value="false">
+					</div>
+
+					<label for="address" class="form-label">주소</label>
+					<div class="col-5">
+						<input type="text" class="form-control" id="address"
+							name="address" placeholder="주소" value="" readonly> <input
+							type="text" class="form-control" id="detailAddress"
+							name="detailAddress" placeholder="상세주소" value="">
+					</div>
+					<div class="col-4">
+						<input type="text" class="form-control" id="postcode"
+							name="postcode" placeholder="우편번호" value="" readonly> <input
+							type="text" class="form-control" id="extraAddress"
+							name="extraAddress" placeholder="참고사항" value="" readonly>
+					</div>
+					<div class="col-sm-3">
+						<button class="w-100 btn btn-lg btn-primary" onclick="on()"
+							type="button" id="authCodeCheckBtn">우편번호 찾기</button>
+					</div>
+
+					<div class="col-sm-4">
+						<label for="manager_name" class="form-label">담당자 이름</label> <input
+							type="text" class="form-control" id="manager_name"
+							name="manager_name" placeholder="" value="" required>
+					</div>
+					<div class="col-sm-8"></div>
+
+					<div class="col-sm-3">
+						<label for="telecom" class="form-label">통신사</label>
+						<div class="input-group">
+							<select class="form-select" id="telecom" name="telecom">
+								<option selected>- 선택 -</option>
+								<option value="SKT">SKT</option>
+								<option value="KT">KT</option>
+								<option value="LG">LG U+</option>
+							</select> <input type="hidden" id="telecomcheck" value="false">
+						</div>
+					</div>
+
+					<div class="col-sm-9">
+						<label for="input_num" class="form-label">담당자 전화번호</label> <input
+							type="text" class="form-control" id="input_num"
+							name="manager_num" maxlength="11" placeholder="" value=""
+							required>
+						<div id="pNumfeedback" class="invalid-feedback">숫자를 이용한 핸드폰
+							번호만 입력할 수 있습니다. ( "-" 제외 )</div>
+						<input type="hidden" id="pnumcheck" value="false">
+					</div>
+
+					<div class="col-9">
+						<label for="inputEmailForm" class="form-label">이메일</label>
+						<div class="input-group mb-3">
+							<input type="text" class="form-control" id="inputEmailForm"
+								name="email1" maxlength="30" placeholder="Username"
+								aria-label="Username"> <span class="input-group-text">@</span>
+							<select class="form-select" id="selectEmailForm" name="email2">
+								<option selected value="gmail.com">gmail.com</option>
+								<option value="naver.com">naver.com</option>
+								<option value="nate.com">nate.com</option>
+							</select>
+						</div>
+						<div class="invalid-feedback">이메일 인증이 필요합니다.</div>
+					</div>
+
+					<div class="col-sm-3">
+						<label for="eamilAuthBtn" class="form-label">이메일 인증</label>
+						<button class="w-100 btn btn-lg btn-primary"
+							onclick="emailAuthentication()" type="button" id="eamilAuthBtn">메일
+							전송</button>
+					</div>
+
+					<div class="col-sm-9">
+						<label for="authCode" class="form-label">인증번호 입력</label> <input
+							type="text" class="form-control" id="authCode" name="authCode"
+							placeholder="" value="" required>
+					</div>
+
+					<div class="col-sm-3">
+						<label for="authCodeCheckBtn" class="form-label">인증번호 확인</label>
+						<button class="w-100 btn btn-lg btn-primary"
+							onclick="authCodeCheck()" type="button" id="authCodeCheckBtn">인증</button>
+						<input type="hidden" name="authPass" id="authPass" value="false">
+					</div>
+
+
+
+				</div>
+				<hr class="my-4">
+
+				<button class="w-100 btn btn-primary btn-lg" type="submit">회원가입
+					완료</button>
+			</form>
+		</div>
+	</main>
+</div>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
 	var corpCheck = false;
+	const form = document.signUpForm;
+
+
+$('#input_num').on('propertychange change paste input', function(){
+	var input_num= document.getElementById("input_num").value;
 	
+	if(!pNumValCheck(input_num)){
+		$('#pNumfeedback').css("display","block");
+		document.getElementById("pnumcheck").value = false;
+	} else if(pNumValCheck(input_num)){
+		$('#pNumfeedback').css("display","none");
+		document.getElementById("pnumcheck").value = true;
+	}
+})
+
+$('#telecom').on('propertychange change paste input', function(){
+	var telecom= document.getElementById("telecom").value;
+	
+	if(telecom == "- 선택 -"){
+		document.getElementById("telecomcheck").value = false;
+	} else {
+		document.getElementById("telecomcheck").value = true;
+	}
+})
+
+$('#pw_check').on('propertychange change paste input', function(){
+	var input_pw= document.getElementById("input_pw").value;
+	var pw_check= document.getElementById("pw_check").value;
+	if(input_pw != pw_check){
+		$('#pwcheckfalse').css("display","block");
+	} else if(input_pw == pw_check){
+		$('#pwcheckfalse').css("display","none");
+	} 
+});
+
+$('#input_pw').on('propertychange change paste input', function(){
+	var input_pw= document.getElementById("input_pw").value;
+	if(!pwValCheck(input_pw)){
+		$('#pwfeedback').css("display","block");
+	} else if(pwValCheck(input_pw)){
+		$('#pwfeedback').css("display","none");
+	} 
+});
+
+function overLap_Check(){
+	var inputId = form.input_id.value;
+
+	var userId =  new Object();
+		userId.pid = inputId;
+        	  
+	$.ajax({
+		url:'/readytoplay/member/OverLap_Check',
+		data:userId,
+		type:'POST',
+		async: false,
+		success: function(result){
+			console.log(result)
+			if(result=="false"){
+				alert("이미 사용중인 아이디 입니다.")
+			} else if(result=="null"){
+				alert("아이디를 입력 해주세요")
+			} else if(result=="true"){
+				alert("사용가능한 아이디 입니다.")
+				document.getElementById("useableCheck").value=true;
+			}
+			
+		},
+		error:function(e){
+			console.log(e);
+		}
+  })
+}
+
 	function on(){
 		execDaumPostcode();
 	
@@ -124,33 +307,46 @@
 		    }).open();
 		}
 	}
+<!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+function authCheck(){	/* 인증 유효성검사 */
+	var email = document.getElementById("authPass").value;
+	var id = document.getElementById("useableCheck").value;
+	var pw = document.getElementById("input_pw").value;
+	var phone = document.getElementById("pNumCheck").value;
+	var telecom = document.getElementById("telecomcheck").value;
 	
-	function authCheck(){ 	/* 인증 유효성검사 */
-		var emailReg= document.getElementById("authPass").value;
-		var corpReg = document.getElementById("corpAuthPass").value;
-		
-		if(emailReg=="true" && corpReg=="true" ){
-			return true
-		} else if(corpReg=="false"){
-			alert("사업자 인증을 해주세요")
-			return false;
-		} else if(emailReg=="false"){
-			alert("이메일 인증을 해주세요")
-			return false;
-		}
-	}
-	
+	if(email=="true" && id=="true" && pwValCheck(pw) && phone=="true" && telecom=="true"){
+		return true
+	} else if(id=="false"){
+		alert("아이디 중복 검사가 되지 않았습니다.")
+		return false;
+	} else if(!pwValCheck(pw)){
+		alert("비밀번호 양식을 지켜주세요")
+		return false;
+	} else if(telecom=="false"){
+		alert("통신사를 선택해주세요")
+		return false;
+	} else if(phone=="false"){
+		alert("핸드폰 번호 확인 후 다시 입력해주세요.")
+		return false;
+	} else if(email=="false"){
+		alert("이메일 인증을 해주세요")
+		return false;
+	} 
+}
+<!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
+
 	function emailAuthentication(){
 		if (!emailValCheck()){
 	    	return false;
 	    }
-		var email = document.signUpForm.corp_email.value;
+		var email = form.email1.value + "@" +form.email2.value;
 
 		var userData =  new Object();
 	        	  userData.email = email;
 	        	  userData.requestPage = "InsertCorpMember";
 		$.ajax({
-			url:'/member/Cert/MailReg',
+			url:'/readytoplay/cert/MailReg',
 			data:userData,
 			type:'POST',
 			success: function(result){
@@ -164,12 +360,25 @@
 
 	function emailValCheck(){
 		var emailPattern= /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-		var email = document.signUpForm.corp_email.value;
+		var email = form.email1.value + "@" +form.email2.value;
 		if(!check(emailPattern, email, "유효하지 않은 이메일 주소입니다.")) {
 			return false;
 		}
 	    return true;
 	}
+
+<!-- ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ -->
+	function pwValCheck(asValue) {
+		
+		var regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+		return regExp.test(asValue); // 형식에 맞는 경우 true 리턴
+	}
+
+	function pNumValCheck(asValue) {
+		var regExp = /^01(0|1[6-9])(\d{3,4})(\d{4})$/;
+		return regExp.test(asValue); // 형식에 맞는 경우 true 리턴
+	}
+	<!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
 
 
 	function check(pattern, taget, message) {
@@ -182,7 +391,7 @@
 	}
 
 	function authCodeCheck(){
-		var url = "/member/Cert/authCodeCheck?inputedCode=" + document.signUpForm.authCode.value;
+		var url = "/readytoplay/cert/authCodeCheck?inputedCode=" + document.signUpForm.authCode.value;
 		open(url, "confirm",
 				"toolbar=no, location=no,menubar=no,scrollbars=no,resizable=no,width=300,height=200");
 	}	
@@ -194,8 +403,6 @@ function corpRegNumCheck(){
     var data = {
     "b_no": [inputRegNum]
     }; 
-    
-    console.log(data)
 
     $.ajax({
       url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=TSCYgkMUJNavMzzHkbBTAvLHLaj1RrxOpBZ6BGHm49jIZIs%2FWtYi41K96uUEnIDmbtL7F7x900D14CVoDKpsNA%3D%3D",  // serviceKey 값을 xxxxxx에 입력
@@ -209,8 +416,11 @@ function corpRegNumCheck(){
     	  
     	  if(b_stt=="" || b_stt=="폐업자" || b_stt=="휴업자"){
     		  alert("잘못된 등록번호 입니다.")
+    	 	  document.getElementById("corpAuthPass").value = false;
     	  }else if(b_stt=="계속사업자"){
     		  alert("인증되었습니다.")
+    	 	  document.getElementById("corpAuthPass").value = true;
+
     		  corpCheck = true;
     	  }else{
     		  alert("잘못된 등록번호 입니다.")

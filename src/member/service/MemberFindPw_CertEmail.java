@@ -27,7 +27,7 @@ public class MemberFindPw_CertEmail implements MemberService{
 		} else if(memberkind.equals("법인회원")) {
 			CorpMemberDTO dto = new CorpMemberDAO().findUser(userId);
 			
-			request.setAttribute("userEmail", dto.getCorp_email());
+			request.setAttribute("userEmail", dto.getEmail());
 			request.setAttribute("mainUrl", "member/FindPw_CertEmail");
 			request.setAttribute("memberkind", memberkind);
 		}
