@@ -63,7 +63,6 @@ public class LessonDeleteReg implements LessonService{
 		request.setAttribute("msg", msg);
 		request.setAttribute("goUrl", goUrl);
 		request.setAttribute("mainUrl", "alert");
-		System.out.println("Lesson_bas/DeleteReg execute() 실행");
 		
 	}
 }

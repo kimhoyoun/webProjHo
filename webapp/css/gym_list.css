@@ -3,15 +3,7 @@
 a{
 	text-decoration:none;
 }
-.row{
-  margin: 0px;
-  padding: 0px;
-}
 
-.col{
- margin:0px;
- padding: 0px;
-}
 div#gym_list_wrap{
 	width:100%;
 }

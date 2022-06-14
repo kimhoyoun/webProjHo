@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class LessonDTO {
 	
-	int no, price, max_student;
+	int price, max_student;
 	boolean option1, option2, option3, option4, option5;
 	String post_id, category, sname, 
 			contents_info, contents_detail, contents_rule, contents_refund,
@@ -110,13 +110,6 @@ public class LessonDTO {
 		this.option5 = (option5==1);
 	}
 	
-	
-	public int getNo() {
-		return no;
-	}
-	public void setNo(int no) {
-		this.no = no;
-	}
 	public int getPrice() {
 		return price;
 	}
@@ -200,7 +193,7 @@ public class LessonDTO {
 	
 	@Override
 	public String toString() {
-		return "LessonDTO [no=" + no + ", price=" + price + ", max_student=" + max_student + ", option1=" + option1
+		return "LessonDTO [price=" + price + ", max_student=" + max_student + ", option1=" + option1
 				+ ", option2=" + option2 + ", option3=" + option3 + ", option4=" + option4 + ", option5=" + option5
 				+ ", post_id=" + post_id + ", category=" + category + ", sname=" + sname + ", contents_info="
 				+ contents_info + ", contents_detail=" + contents_detail + ", contents_rule=" + contents_rule

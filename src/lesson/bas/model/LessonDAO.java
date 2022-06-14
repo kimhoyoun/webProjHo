@@ -103,7 +103,6 @@ public int totalCntSearch(String search){
 
 				LessonDTO dto = new LessonDTO();
 				
-				dto.setNo(rs.getInt("no"));
 				dto.setPost_id(rs.getString("post_id"));
 				dto.setCategory(rs.getString("category"));
 				dto.setImg(rs.getString("img"));
@@ -145,7 +144,6 @@ public int totalCntSearch(String search){
 				
 				LessonDTO dto = new LessonDTO();
 				
-				dto.setNo(rs.getInt("no"));
 				dto.setPost_id(rs.getString("post_id"));
 				dto.setCategory(rs.getString("category"));
 				dto.setImg(rs.getString("img"));
@@ -186,7 +184,6 @@ public int totalCntSearch(String search){
 				
 				LessonDTO dto = new LessonDTO();
 				
-				dto.setNo(rs.getInt("no"));
 				dto.setPost_id(rs.getString("post_id"));
 				dto.setCategory(rs.getString("category"));
 				dto.setImg(rs.getString("img"));
@@ -223,7 +220,6 @@ public int totalCntSearch(String search){
 				
 				dto = new LessonDTO();
 				
-				dto.setNo(rs.getInt("no"));
 				dto.setCategory(rs.getString("category"));
 				dto.setPost_id(rs.getString("post_id"));
 				dto.setSname(rs.getString("sname"));

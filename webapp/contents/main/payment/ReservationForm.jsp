@@ -5,6 +5,14 @@
  
  
 <h1>예약 확인</h1>
+<c:choose>
+	<c:when test="${dataType == \"lesson\" }">
+		<c:set var="pid" value = "${dto.post_id }"></c:set>
+	</c:when>
+	<c:otherwise>
+		<c:set var="pid" value = "${dto.id }"></c:set>
+	</c:otherwise>							
+</c:choose>
 
 <table border ="">
 	<tr>
@@ -13,7 +21,17 @@
 	</tr>
 	<tr>
 		<th>경기장 번호</th>
-		<td>${dto.id }</td>
+		<td>
+			<c:choose>
+               	<c:when test="${dataType == \"lesson\" }">
+               		${dto.post_id }
+               	</c:when>
+               	<c:otherwise>
+	               ${dto.id }
+               	</c:otherwise>
+               </c:choose>
+		
+		</td>
 	</tr>
 	<tr>
 		<th>날짜</th>
@@ -50,7 +68,7 @@
 
 	<tr>
 		<td colspan = "2">
-			<a href="<c:url value="Detail?id=${dto.id }&page=${nowPage }&dateSet=${dateSet }"/>">취소</a>
+<%-- 			<a href="<c:url value="Detail?id=${dto.id }&page=${nowPage }&dateSet=${dateSet }"/>">취소</a> --%>
 			 <button onclick="requestPay()">결제하기</button>
 		</td>
 	</tr>
@@ -86,7 +104,7 @@
 			 
 			 var params = {
 				 imp_uid : rsp.imp_uid,
-				 id : '${dto.id}',
+				 id : '${pid}',
 				 price : '${totalPrice}',
 				 dateSet : '${dateSet}',
 				 selectTime : '${timeSelect}',

@@ -259,6 +259,39 @@ public class PaymentDAO {
 			return dto;
 		}
 		
+		public PaymentDTO mydetail(String imp_uid){
+			PaymentDTO dto = null;
+			sql = "select * from payment where imp_uid = ? ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,imp_uid);
+				rs = ptmt.executeQuery();
+				
+				if(rs.next()) {
+					// 필요한것만 보이기
+					dto = new PaymentDTO();
+					dto.setImp_uid(rs.getString("imp_uid"));
+					dto.setBuyer_name(rs.getString("buyer_name"));
+					dto.setMerchant_uid(rs.getString("merchant_uid"));
+					dto.setId(rs.getString("id"));
+					dto.setSname(rs.getString("sname"));
+					dto.setResDate(rs.getString("resdate"));
+					dto.setResTime(rs.getString("restime"));
+					dto.setUser_id(rs.getString("user_id"));
+					dto.setManager_id(rs.getString("manager_id"));
+					dto.setAmount(rs.getInt("amount"));
+					dto.setIntRefund_reg(rs.getInt("refund_reg"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			
+			return dto;
+		}
 		
 		public ArrayList<PaymentDTO> list(String year){
 			ArrayList<PaymentDTO> res = new ArrayList<>();

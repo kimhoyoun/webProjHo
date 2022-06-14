@@ -47,14 +47,52 @@ public class BasketballDAO {
 		return 0;
 	}
 		
-		public int totalCntSearch(String filter, String keyword){
+		public int searchCnt(String filter, String keyword){
 			
-			sql = "select count(*) from gym_basketball where notice_filter = ? and INSTR(sname, ?) > 0";
+			sql = "SELECT COUNT(*) FROM gym_basketball WHERE address LIKE ? and sname LIKE ? ";
 			
 			try {
 				ptmt = con.prepareStatement(sql);
-				ptmt.setString(1,filter);
-				ptmt.setString(2,keyword);
+				ptmt.setString(1,"%"+filter+"%");
+				ptmt.setString(2,"%"+keyword+"%");
+				rs = ptmt.executeQuery();
+				
+				rs.next();
+				
+				return rs.getInt(1);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return 0;
+		}
+		
+		public int snameSearchCnt(String keyword){
+			
+			sql = "select count(*) from gym_basketball where sname like ? ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,"%"+keyword+"%");
+				rs = ptmt.executeQuery();
+				
+				rs.next();
+				
+				return rs.getInt(1);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return 0;
+		}
+
+		public int filterSearchCnt(String filter){
+			
+			sql = "select count(*) from gym_basketball where address like ? ";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,"%"+filter+"%");
 				rs = ptmt.executeQuery();
 				
 				rs.next();
@@ -118,28 +156,150 @@ public class BasketballDAO {
 		}
 		
 		
-		public ArrayList<NoticeDTO> search(int start, int limit, String filter, String keyword){
-			ArrayList<NoticeDTO> res = new ArrayList<>();
+		public ArrayList<BasketballDTO> search(int start, int limit, String filter, String keyword){
+			ArrayList<BasketballDTO> res = new ArrayList<>();
 			
-			sql = "select * from gym_basketball where filter = ? and INSTR(title, ?) > 0 order by no desc limit ?, ?";
+			sql = "select * from gym_basketball where address like ? and sname like ? order by no desc limit ?, ?";
 			
 			try {
 				ptmt = con.prepareStatement(sql);
-				ptmt.setString(1,filter);
-				ptmt.setString(2,keyword);
+				ptmt.setString(1,"%"+filter+"%");
+				ptmt.setString(2,"%"+keyword+"%");
 				ptmt.setInt(3,start);
 				ptmt.setInt(4, limit);
 				rs = ptmt.executeQuery();
 				
 				while(rs.next()) {
-					NoticeDTO dto = new NoticeDTO();
+					BasketballDTO dto = new BasketballDTO();
 					// 필요한것만 보이기
 					dto.setId(rs.getString("id"));
-					dto.setTitle(rs.getString("title"));
-					dto.setContent(rs.getString("content"));
-					dto.setFilter(rs.getString("filter"));
+					dto.setSname(rs.getString("sname"));
+					dto.setContents_info(rs.getString("contents_info"));
+					dto.setContents_detail(rs.getString("contents_detail"));
+					dto.setContents_rule(rs.getString("contents_rule"));
+					dto.setContents_refund(rs.getString("contents_refund"));
+					
+					dto.setPostcode(rs.getString("postcode"));
+					dto.setAddress(rs.getString("address"));
+					dto.setAddress_detail(rs.getString("address_detail"));
+
+					dto.setImg(rs.getString("img"));
+					dto.setManager_id(rs.getString("manager_id"));
+					dto.setPrice_weekday_weekly(rs.getInt("price_weekday_weekly"));
+					dto.setPrice_weekday_nighttime(rs.getInt("price_weekday_nighttime"));
+					dto.setPrice_weekend_weekly(rs.getInt("price_weekend_weekly"));
+					dto.setPrice_weekend_nighttime(rs.getInt("price_weekend_nighttime"));
+					dto.setOption1(rs.getInt("option1"));
+					dto.setOption2(rs.getInt("option2"));
+					dto.setOption3(rs.getInt("option3"));
+					dto.setOption4(rs.getInt("option4"));
+					dto.setOption5(rs.getInt("option5"));
+					dto.setUnused_time(rs.getString("unused_time"));
 					dto.setReg_date(rs.getTimestamp("reg_date"));
 					
+					
+					res.add(dto);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			
+			return res;
+		}
+		
+		public ArrayList<BasketballDTO> snameSearch(int start, int limit, String keyword){
+			ArrayList<BasketballDTO> res = new ArrayList<>();
+			
+			sql = "select * from gym_basketball where sname like ? order by no desc limit ?, ?";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,"%"+keyword+"%");
+				ptmt.setInt(2,start);
+				ptmt.setInt(3, limit);
+				rs = ptmt.executeQuery();
+				
+				while(rs.next()) {
+					BasketballDTO dto = new BasketballDTO();
+					// 필요한것만 보이기
+					dto.setId(rs.getString("id"));
+					dto.setSname(rs.getString("sname"));
+					dto.setContents_info(rs.getString("contents_info"));
+					dto.setContents_detail(rs.getString("contents_detail"));
+					dto.setContents_rule(rs.getString("contents_rule"));
+					dto.setContents_refund(rs.getString("contents_refund"));
+					
+					dto.setPostcode(rs.getString("postcode"));
+					dto.setAddress(rs.getString("address"));
+					dto.setAddress_detail(rs.getString("address_detail"));
+
+					dto.setImg(rs.getString("img"));
+					dto.setManager_id(rs.getString("manager_id"));
+					dto.setPrice_weekday_weekly(rs.getInt("price_weekday_weekly"));
+					dto.setPrice_weekday_nighttime(rs.getInt("price_weekday_nighttime"));
+					dto.setPrice_weekend_weekly(rs.getInt("price_weekend_weekly"));
+					dto.setPrice_weekend_nighttime(rs.getInt("price_weekend_nighttime"));
+					dto.setOption1(rs.getInt("option1"));
+					dto.setOption2(rs.getInt("option2"));
+					dto.setOption3(rs.getInt("option3"));
+					dto.setOption4(rs.getInt("option4"));
+					dto.setOption5(rs.getInt("option5"));
+					dto.setUnused_time(rs.getString("unused_time"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
+					
+					
+					res.add(dto);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			
+			return res;
+		}
+		
+		public ArrayList<BasketballDTO> filterSearch(int start, int limit, String filter){
+			ArrayList<BasketballDTO> res = new ArrayList<>();
+			
+			sql = "select * from gym_basketball where address like ? order by no desc limit ?, ?";
+			
+			try {
+				ptmt = con.prepareStatement(sql);
+				ptmt.setString(1,"%"+filter+"%");
+				ptmt.setInt(2,start);
+				ptmt.setInt(3, limit);
+				rs = ptmt.executeQuery();
+				
+				while(rs.next()) {
+					BasketballDTO dto = new BasketballDTO();
+					// 필요한것만 보이기
+					dto.setId(rs.getString("id"));
+					dto.setSname(rs.getString("sname"));
+					dto.setContents_info(rs.getString("contents_info"));
+					dto.setContents_detail(rs.getString("contents_detail"));
+					dto.setContents_rule(rs.getString("contents_rule"));
+					dto.setContents_refund(rs.getString("contents_refund"));
+					
+					dto.setPostcode(rs.getString("postcode"));
+					dto.setAddress(rs.getString("address"));
+					dto.setAddress_detail(rs.getString("address_detail"));
+
+					dto.setImg(rs.getString("img"));
+					dto.setManager_id(rs.getString("manager_id"));
+					dto.setPrice_weekday_weekly(rs.getInt("price_weekday_weekly"));
+					dto.setPrice_weekday_nighttime(rs.getInt("price_weekday_nighttime"));
+					dto.setPrice_weekend_weekly(rs.getInt("price_weekend_weekly"));
+					dto.setPrice_weekend_nighttime(rs.getInt("price_weekend_nighttime"));
+					dto.setOption1(rs.getInt("option1"));
+					dto.setOption2(rs.getInt("option2"));
+					dto.setOption3(rs.getInt("option3"));
+					dto.setOption4(rs.getInt("option4"));
+					dto.setOption5(rs.getInt("option5"));
+					dto.setUnused_time(rs.getString("unused_time"));
+					dto.setReg_date(rs.getTimestamp("reg_date"));
 					
 					res.add(dto);
 				}

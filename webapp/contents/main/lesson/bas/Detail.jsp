@@ -7,8 +7,8 @@
 
 <h2>레슨 상세보기</h2>
 
-<form action="ReservationForm" method="post">
-<input type="hidden" name = "post_id" value="${dto.post_id }" />
+<form action="<c:url value="/payment/ReservationForm"/>" method="post">
+<input type="hidden" name = "id" value="${dto.post_id }" />
 <table border="">
 
 	<tr>

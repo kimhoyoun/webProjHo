@@ -20,7 +20,7 @@ public class BasketballInsertReg implements GymService{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String realPath = "";
-		String savePath = "C:\\temp\\jsp_work\\webProjectTest\\webapp\\uploadFile\\gym\\basketball";
+		String savePath = "C:\\temp\\jsp_work\\readytoplay\\webapp\\uploadFile\\gym\\basketball";
 		
 		int maxSize = 10*1024*1024;
 	    String type = "utf-8";

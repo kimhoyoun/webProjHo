@@ -18,20 +18,18 @@
 }
 </style>
 
-<div class="row border-dark border-bottom" style="margin-bottom:30px">
-      <h1>대관</h1>
-</div>
+<h1>농구 대관페이지</h1>
 <div class = "row" style="margin-bottom:20px">
 	 <div class="col-sm-5">
             <form action="Search">
-            <input type="hidden" name ="dateSet" value="${dateSet }"/>
+             <input type="hidden" name ="dateSet" value="${dateSet }"/>
                 <select class="form-select" name="filter" id="" style="width:auto; display: inline-block">
-                    <option value="전체">전체</option>
-			        <option value="서울">서울</option>
-			        <option value="경기">경기</option>
-			        <option value="인천">인천</option>
+                    <option value="전체" <c:if test = "${param.filter == \"전체\" }">selected</c:if> >전체</option>
+			        <option value="서울" <c:if test = "${param.filter == \"서울\" }">selected</c:if>>서울</option>
+			        <option value="경기" <c:if test = "${param.filter == \"경기\" }">selected</c:if>>경기</option>
+			        <option value="인천" <c:if test = "${param.filter == \"인천\" }">selected</c:if>>인천</option>
                 </select>
-                <input class="form-control" type="text" name = "keyword" placeholder="구장을 검색하세요" style="width:250px; display: inline-block"/>
+                <input class="form-control" type="text" value="${param.keyword }" name = "keyword" placeholder="검색어를 입력하세요" style="width:250px; display: inline-block"/>
 	            <button type="submit" class="btn btn-outline-secondary">검색</button>
             </form>  
             </div>
@@ -69,8 +67,11 @@
 			})
 		</script>
 	</div>
-	<div class ="col-sm-1" style="padding: 0px; width:75px">
+	<div class ="col-sm-2 text-end"  style="padding: 0px;">
+		<a href="<c:url value="List"/>"><button type="button" class="btn btn-outline-secondary">목록으로</button></a>
+		<c:if test ="${User.grade==1 }">
 		<a href="<c:url value="InsertForm?page=${nowPage }"/>"><button type="button" class="btn btn-outline-secondary">글쓰기</button></a>
+		</c:if>
 	</div>
 </div>
 <!-- <div id = "table_wrap"> -->
@@ -137,7 +138,7 @@
 				<a
 					href="<c:url value="Detail?id=${dto.id }&page=${nowPage }&dateSet=${dateSet }"/>"><img
 					src="<c:url value="/uploadFile/gym/basketball/${fn:split(dto.img, ',')[0]}"/>"
-					class="img-fluid rounded;" alt="${dto.sname }" style="width:500px; height:300px"/></a>
+					class="img-fluid rounded;" alt="${dto.sname }" /></a>
 
 			</div>
 			<div class="col-sm-7 right-note gym_item_info">
@@ -211,20 +212,20 @@
 		<ul class="pagination justify-content-center">
 			<c:if test="${pageStart > 1 }">
 				<li class="page-item disabled">
-					<a class="page-link" href="<c:url value="List?page=${pageStart-1 }&dateSet=${dateSet }"/>">이전</a>
+					<a class="page-link" href="<c:url value="Search?page=${pageStart-1 }&dateSet=${dateSet }&filter=${parma.filter }&keyword=${param.keyword }"/>">이전</a>
 				</li>
 			</c:if>
 			<c:forEach var="i" begin="${pageStart }" end="${pageEnd }" step="1">
 				<c:choose>
 					<c:when test="${nowPage == i }">
 						<li class="page-item disabled"><a class="page-link"
-							href="<c:url value="List?page=${i }&dateSet=${dateSet }"/>">${i }</a>
+							href="<c:url value="Search?page=${i }&dateSet=${dateSet }&filter=${parma.filter }&keyword=${param.keyword }"/>">${i }</a>
 						</li>
 					</c:when>
 
 					<c:otherwise>
 						<li class="page-item">
-							<a class="page-link" href="<c:url value="List?page=${i }&dateSet=${dateSet }"/>">${i }</a>
+							<a class="page-link" href="<c:url value="Search?page=${i }&dateSet=${dateSet }&filter=${parma.filter }&keyword=${param.keyword }"/>">${i }</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
@@ -232,7 +233,7 @@
 			</c:forEach>
 			<c:if test="${pageEnd<pageTotal }">
 				<li class="page-item">
-					<a class="page-link" href="<c:url value="List?page=${pageEnd+1 }&dateSet=${dateSet }"/>">다음</a>
+					<a class="page-link" href="<c:url value="Search?page=${pageEnd+1 }&dateSet=${dateSet }&filter=${parma.filter }&keyword=${param.keyword }"/>">다음</a>
 				</li>
 			</c:if>
 		</ul>

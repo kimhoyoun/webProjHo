@@ -3,7 +3,7 @@ package market.model;
 import java.util.Date;
 
 public class MarketDTO {
-	private String post_id, user_id, user_email, title, check_quality, l_category, s_category, delivery, content, user_num;
+	private String post_id, user_id, user_email, title, check_quality, l_category, s_category, delivery, content, user_num, img;
 	private int price, cnt;
 	private Date reg_date;
 	
@@ -86,6 +86,14 @@ public class MarketDTO {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	
+	
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
 	}
 	@Override
 	public String toString() {

@@ -28,7 +28,10 @@ public class PaymentCancelled implements ContentsService{
 		
 		String imp_uid = request.getParameter("imp_uid");
 		
-		request.setAttribute("imp_uid", imp_uid);
+		PaymentDTO dto = new PaymentDAO().mydetail(imp_uid);
+		
+		
+		request.setAttribute("dto", dto);
 		request.setAttribute("mainUrl", "payment/Cancelled");
 	}
 
