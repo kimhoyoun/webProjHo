@@ -42,8 +42,8 @@
 								<c:set var = "type" value="../../gym/basketball/Detail?id=${dto.id }"/>
 								농구 경기장
 							</c:when>
-							<c:when test = "${fn:contains(dto.id, 'gym_soccor')}">
-							<c:set var = "type" value="../../gym/soccor/Detail?id=${dto.id }"/>
+							<c:when test = "${fn:contains(dto.id, 'gym_soccer')}">
+							<c:set var = "type" value="../../gym/soccer/Detail?id=${dto.id }"/>
 								축구 경기장
 							</c:when>
 							<c:when test = "${fn:contains(dto.id, 'lesson_bas')}">

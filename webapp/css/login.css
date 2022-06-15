@@ -3,8 +3,6 @@
 body {
   height: 100%;
   align-items: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
 }
 
 .form-signin {
@@ -57,16 +55,8 @@ body {
   margin-top: 50px;
   text-align-last: justify;
 }
-.btn-primary{
-  color: #fff;
-  background-color: #7b9acc;
-  border-color: #7b9acc;
-}
-.btn-primary:hover {
-  color: #fff;
-  background-color: #5c87cb;
-  border-color: #5c87cb;
-}
+
+
 #login_btn{
   margin-bottom: 10px;
 }

@@ -90,7 +90,7 @@ public int totalCntSearch(String search){
 	public ArrayList<LessonDTO> list(int start, int limit) {
 		ArrayList<LessonDTO> res = new ArrayList<LessonDTO>();
 
-		sql = "select * from lesson order by post_id desc limit ?, ?"; // 뒤는 번호를 받아와야함
+		sql = "select * from lesson order by post_id desc limit ?, ? "; // 뒤는 번호를 받아와야함
 		
 		try {
 			ptmt = con.prepareStatement(sql);
@@ -108,8 +108,16 @@ public int totalCntSearch(String search){
 				dto.setImg(rs.getString("img"));
 				dto.setSname(rs.getString("sname"));
 				dto.setLesson_time(rs.getString("lesson_time"));
+				
 				dto.setManager_id(rs.getString("manager_id"));
 				dto.setPrice(rs.getInt("price"));
+				
+				dto.setMax_student(rs.getInt("max_student"));
+				dto.setOption1(rs.getBoolean("option1"));
+				dto.setOption2(rs.getBoolean("option2"));
+				dto.setOption3(rs.getBoolean("option3"));
+				dto.setOption4(rs.getBoolean("option4"));
+				dto.setOption5(rs.getBoolean("option5"));
 				
 				dto.setPostcode(rs.getString("postcode"));
 				dto.setAddress(rs.getString("address"));
@@ -154,6 +162,14 @@ public int totalCntSearch(String search){
 				dto.setLesson_time(rs.getString("lesson_time"));
 				dto.setManager_id(rs.getString("manager_id"));
 				dto.setPrice(rs.getInt("price"));
+				
+				dto.setMax_student(rs.getInt("max_student"));
+				dto.setOption1(rs.getBoolean("option1"));
+				dto.setOption2(rs.getBoolean("option2"));
+				dto.setOption3(rs.getBoolean("option3"));
+				dto.setOption4(rs.getBoolean("option4"));
+				dto.setOption5(rs.getBoolean("option5"));
+				
 				dto.setPostcode(rs.getString("postcode"));
 				dto.setAddress(rs.getString("address"));
 				dto.setAddress_detail(rs.getString("address_detail"));
@@ -196,6 +212,14 @@ public int totalCntSearch(String search){
 				dto.setLesson_time(rs.getString("lesson_time"));
 				dto.setManager_id(rs.getString("manager_id"));
 				dto.setPrice(rs.getInt("price"));
+				
+				dto.setMax_student(rs.getInt("max_student"));
+				dto.setOption1(rs.getBoolean("option1"));
+				dto.setOption2(rs.getBoolean("option2"));
+				dto.setOption3(rs.getBoolean("option3"));
+				dto.setOption4(rs.getBoolean("option4"));
+				dto.setOption5(rs.getBoolean("option5"));
+				
 				dto.setPostcode(rs.getString("postcode"));
 				dto.setAddress(rs.getString("address"));
 				dto.setAddress_detail(rs.getString("address_detail"));
@@ -259,20 +283,6 @@ public int totalCntSearch(String search){
 		return dto;
 		
 	}
-	
-//	public void addCount(String post_id) {		
-//		sql = "update lesson set cnt = cnt + 1 where post_id =?";
-//		
-//		try {
-//			ptmt = con.prepareStatement(sql);
-//			ptmt.setString(1, post_id);
-//			ptmt.executeUpdate();
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//	}
 	
 	public void insert(LessonDTO dto) {	
 		

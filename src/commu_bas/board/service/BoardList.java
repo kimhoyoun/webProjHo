@@ -14,8 +14,8 @@ public class BoardList implements BoardService{
 		int page = 	(int)request.getAttribute("nowPage");
 
 		
-		int limit = 5; // 한 페이지당 게시물 갯수
-		int pageLimit = 3; // 페이지 번호 갯수
+		int limit = 10; // 한 페이지당 게시물 갯수
+		int pageLimit = 5; // 페이지 번호 갯수
 		
 		BoardDAO dao = new BoardDAO();
 		

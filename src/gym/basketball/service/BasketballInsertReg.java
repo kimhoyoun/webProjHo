@@ -3,6 +3,7 @@ package gym.basketball.service;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +38,7 @@ public class BasketballInsertReg implements GymService{
 			
 			
 			List<FileItem> items = fileUpload.parseRequest(request);
+			int i = 1;
 			String unused_time ="";
 	         for (FileItem item : items) {
 	            if (item.isFormField()) {
@@ -52,13 +54,13 @@ public class BasketballInsertReg implements GymService{
 	                  int index = item.getName().lastIndexOf(".");
 	                  String expert = item.getName().substring(index);
 	                  
-	                  String fileName = "img"+System.currentTimeMillis()+expert;
+	                  String fileName = "img"+System.currentTimeMillis()+i+expert;
 	                  
 	                  File uploadFile = new File(realPath + separator + fileName);
 	                  allImg += fileName + ",";
 	                  
 	                  item.write(uploadFile);
-	                  
+	                  i++;
 	               } // if
 	            } // else
 	         } // for 

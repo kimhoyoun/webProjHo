@@ -84,6 +84,20 @@ public class BasketballDTO {
 		this.address_detail = address_detail;
 	}
 
+	public String getContentsBr_info() {
+		return contents_info.replaceAll("\n", "<br>");
+	}
+	public String getContentsBr_detail() {
+		return contents_detail.replaceAll("\n", "<br>");
+	}
+	public String getContentsBr_rule() {
+		return contents_rule.replaceAll("\n", "<br>");
+	}
+	public String getContentsBr_refund() {
+		return contents_refund.replaceAll("\n", "<br>");
+	}
+	
+	
 	public String getImg() {
 		return img;
 	}

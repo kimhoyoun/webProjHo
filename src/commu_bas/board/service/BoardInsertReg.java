@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -19,7 +20,13 @@ public class BoardInsertReg implements BoardService{
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
 
+		if (session.getAttribute("User") == null) {
+			request.setAttribute("msg", "로그인이 필요합니다.");
+			request.setAttribute("goUrl", "../../member/Login");
+			request.setAttribute("mainUrl", "alert");
+		} else {
 		// 파일 업로드
 		String realPath = "";
 		String savePath = "C:/temp/jsp_work/readytoplay/webapp/uploadFile/commu/bas/board";
@@ -105,7 +112,7 @@ public class BoardInsertReg implements BoardService{
 		request.setAttribute("mainUrl", "alert");
 		System.out.println("BoardInsertReg execute() 실행");
 		
-
+		}
 		
 	}
 	

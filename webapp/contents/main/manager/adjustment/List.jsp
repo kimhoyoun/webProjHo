@@ -48,7 +48,7 @@
                     <th class="col text-center"  style="width:120px">종목</th>
                     <th class="col text-center" >주문 상품</th>
                     <th class="col text-center" style="width:200px" >사용일</th>
-                    <th class="col text-center" style="width:100px" >결제자</th>
+                    <th class="col text-center" style="width:100px" >ID</th>
                     <th class="col text-center" style="width:130px" >결제일</th>
                     <th class="col text-center" style="width:120px" >가격</th>
                     <th class="col text-center" style="width:100px" >상태</th>
@@ -88,13 +88,15 @@
 	                  </td>
 	                  <td class = "col text-center"> 
 	                  	${dto.resDate } <br />
+						<c:if test="${fn:contains(dto.id, 'gym')}">
 						<c:forTokens items ="${dto.resTime }"
 							delims = "," var = "time" varStatus="no">
 							${time*2 }시~${(time+1)*2  }시 
 						</c:forTokens>
+                  	</c:if>
 	                  </td>
 	                  <td  class = "col text-center">
-	                    ${dto.buyer_name }
+	                    ${dto.user_id }
 	                  </td>
 	                  <td class="col text-center">
 	                   <fmt:formatDate value="${dto.reg_date }" pattern="yyyy-MM-dd HH:mm"/>

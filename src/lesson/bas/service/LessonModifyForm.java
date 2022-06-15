@@ -14,11 +14,11 @@ public class LessonModifyForm implements LessonService{
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("User") == null) {
-			request.setAttribute("msg", "관리자만 이용할 수 있습니다.");
-			request.setAttribute("mainUrl", "alert");
-			request.setAttribute("goUrl", "../../member/Login");
-		}else {
+//		if(session.getAttribute("User") == null) {
+//			request.setAttribute("msg", "관리자만 이용할 수 있습니다.");
+//			request.setAttribute("mainUrl", "alert");
+//			request.setAttribute("goUrl", "../../member/Login");
+//		}else {
 			String post_id = request.getParameter("post_id");
 			LessonDAO dao = new LessonDAO();
 			
@@ -27,7 +27,6 @@ public class LessonModifyForm implements LessonService{
 			
 			request.setAttribute("dto", data);
 			request.setAttribute("mainUrl", "lesson/bas/ModifyForm");
-			System.out.println("LessonModifyForm execute() 실행" + data);
 		}
-	}
+//	}
 }

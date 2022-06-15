@@ -239,6 +239,7 @@ public class FeedbackDAO {
 			
 			return res;
 		}
+		
 		public int delete(FeedbackDTO dto){
 			int res = 0;
 			
@@ -257,96 +258,7 @@ public class FeedbackDAO {
 			return res;
 		}
 		
-		public FeedbackAnswerDTO detailA(String id){
-			FeedbackAnswerDTO dto = null;
-			
-			sql = "select * from feedback_a where question_id = ?";
-			
-			try {
-				ptmt = con.prepareStatement(sql);
-				ptmt.setString(1, id);
-				rs = ptmt.executeQuery();
-				
-				if(rs.next()) {
-					dto = new FeedbackAnswerDTO();
-					// 필요한것만 보이기
-					dto.setId(rs.getString("id"));
-					dto.setAnswer(rs.getString("answer"));
-					dto.setQuestion_id(rs.getString("question_id"));
-					dto.setReg_date(rs.getTimestamp("reg_date"));
-				}
-			}catch(Exception e) {
-				e.printStackTrace();
-			}finally {
-				close();
-			}
-			
-			return dto;
-		}
 		
-		
-		public void insertA(FeedbackAnswerDTO dto){
-			
-			sql = "insert into feedback_a(id, answer, question_id, reg_date) "
-					+ "values (? , ? , ?, sysdate())";
-			
-			try {
-				ptmt = con.prepareStatement(sql);
-				ptmt.setString(1, dto.getId());
-				ptmt.setString(2, dto.getAnswer());
-				ptmt.setString(3, dto.getQuestion_id());
-				ptmt.executeUpdate();
-				
-			}catch(Exception e) {
-				e.printStackTrace();
-			}finally {
-				close();
-			}
-			
-		}
-		
-		
-	
-		public int modifyA(FeedbackAnswerDTO dto){
-			int res = 0;
-			
-			sql = "update feedback_a set answer = ?"
-					+ "where id = ? and question_id = ?";
-			try {
-				ptmt = con.prepareStatement(sql);
-				ptmt.setString(1, dto.getAnswer());
-				ptmt.setString(2, dto.getId());
-				ptmt.setString(3, dto.getQuestion_id());
-				res = ptmt.executeUpdate();
-				
-			}catch(Exception e) {
-				e.printStackTrace();
-			}finally {
-				close();
-			}
-			
-			return res;
-		}
-
-		
-		public int deleteA(FeedbackAnswerDTO dto){
-			int res = 0;
-			
-			sql = "delete from feedback_a where id = ? and question_id = ?";
-			try {
-				ptmt = con.prepareStatement(sql);
-				ptmt.setString(1, dto.getId());
-				ptmt.setString(2, dto.getQuestion_id());
-				res = ptmt.executeUpdate();
-				
-			}catch(Exception e) {
-				e.printStackTrace();
-			}finally {
-				close();
-			}
-			
-			return res;
-		}
 		
 		
 		public void close() {

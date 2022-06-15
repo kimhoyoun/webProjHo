@@ -155,7 +155,7 @@
             
 				<div class="row">
 					<div class="col gym_info_bottom">
-						<div class="row gym_info_bottom_row">
+						<div class="row gym_info_bottom_row" style="background:wheat; padding:10px">
 							<div class="bottom_text pe-none" id="${no.index }">예약 현황</div>
 							<div class="row res_time_div">
 								<div class="col res_time_text pe-none">오전</div>
@@ -177,26 +177,26 @@
 							</div>
 						</div>
 						
-						<div class="row gym_info_bottom_row">
+						<div class="row gym_info_bottom_row" style="margin-top:15px">
 							<div class="bottom_text pe-none">옵션</div>
 							<div class="row ">
 								<div class="row option_div">
 									<div class="col pe-none" 
 										style="background: white; margin: 5px; text-align: center;
-										<c:if test="${dto.option1}">background:yellow;</c:if>">샤워장
+										<c:if test="${dto.option1}">background:wheat;</c:if>">샤워장
 									</div>
 									<div class="col pe-none"
 										style="background: white; margin: 5px; text-align: center;
-										<c:if test="${dto.option2}">background:yellow;</c:if>">주차장</div>
+										<c:if test="${dto.option2}">background:wheat;</c:if>">주차장</div>
 									<div class="col pe-none"
 										style="background: white; margin: 5px; text-align: center;
-										<c:if test="${dto.option3}">background:yellow;</c:if>">냉/난방시설</div>
+										<c:if test="${dto.option3}">background:wheat;</c:if>">냉/난방시설</div>
 									<div class="col pe-none"
 										style="background: white; margin: 5px; text-align: center;
-										<c:if test="${dto.option4}">background:yellow;</c:if>">정수기</div>
+										<c:if test="${dto.option4}">background:wheat;</c:if>">정수기</div>
 									<div class="col pe-none"
 										style="background: white; margin: 5px; text-align: center;
-										<c:if test="${dto.option5}">background:yellow;</c:if>">마룻바닥</div>
+										<c:if test="${dto.option5}">background:wheat;</c:if>">마룻바닥</div>
 								</div>
 
 							</div>
@@ -258,7 +258,7 @@
 
 			for (var j = 0; j < unusedArr.length; j++) {
 				if (i % 12 == unusedArr[j]) {
-					priceList[i].style.background = 'gray'
+					priceList[i].style.background = 'lightgray'
 					break;
 				}
 			}
@@ -269,7 +269,7 @@
 
 			for (var j = 0; j < resdateArr.length; j++) {
 				if (i % 12 == resdateArr[j]) {
-					priceList[i].style.background = 'blue'
+					priceList[i].style.background = 'lightgray'
 					break;
 				}
 			}

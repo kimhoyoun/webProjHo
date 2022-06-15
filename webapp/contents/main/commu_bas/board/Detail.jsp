@@ -112,7 +112,7 @@ table tr td textarea {
                     <td class="img" colspan="4">
                     	<c:if test="${dto.img !=null }"> 
 						<c:forTokens items ="${dto.img }" delims = "," var = "ee" varStatus="no">
-							<img src="<c:url value="/uploadFile/commu/bas/board/${ee}"/>" alt="" />
+							<img src="<c:url value="/uploadFile/commu/bas/board/${ee}"/>" alt="" style="width: 300px; height: 300px;" />
 						</c:forTokens>
 						</c:if>
                     </td>
@@ -185,12 +185,14 @@ table tr td textarea {
                                 value="${comment_dto.reg_date }" />
                         </td>                  
                         <!-- 댓글 수정 / 삭제 버튼 -->
-                        <td align="right">
-                        <button type="button" name="commentEdit" idx_data="${comment_dto.comment_id}"
-                                onclick="commentModify(this)">수정</button>
-                            <button type="button" idx_data="${comment_dto.comment_id}"
-                                onclick="commentDelete(this)">삭제</button>
-                        </td>
+	                        <td align="right">
+                        <c:if test="${User.pid == comment_dto.comment_writer }">
+	                        <button type="button" name="commentEdit" idx_data="${comment_dto.comment_id}"
+	                                onclick="commentModify(this)">수정</button>
+	                            <button type="button" idx_data="${comment_dto.comment_id}"
+	                                onclick="commentDelete(this)">삭제</button>
+                        </c:if>
+	                        </td>
                     </tr>
                 </c:forEach>
             </table>
@@ -207,7 +209,7 @@ table tr td textarea {
         function commentInsert() {
             console.log("dklfjsldkf");
             var comment = document.getElementsByName("comment_input")[0].value;
-            location.href = '/readytoplay/comment/Insert?post_id=${dto.post_id }&page=${nowPage }&user_id=${dto.user_id}&comment=' + comment;
+            location.href = '/readytoplay/comment/Insert?post_id=${dto.post_id }&page=${nowPage }&comment=' + comment;
         }
 
         function commentModify(me) {

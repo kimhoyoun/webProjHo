@@ -22,7 +22,7 @@
             <a class="nav-link dropdown-toggle link-dark" data-bs-toggle="dropdown" role="button"aria-current="page" href="#"  aria-expanded="false">대관</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="<c:url value="/gym/basketball/List"/>">농구 경기장</a></li>
-                  <li><a class="dropdown-item" href="#scrollspyHeading4">축구 경기장</a></li>
+                  <li><a class="dropdown-item" href="<c:url value="/gym/soccer/List"/>">축구 경기장</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -35,17 +35,17 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle link-dark" data-bs-toggle="dropdown" role="button"aria-current="page" href="#"  aria-expanded="false">농구 게시판</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="<c:url value="/commu_bas/board/List"/>">자유 게시판</a></li>
-                  <li><a class="dropdown-item" href="#scrollspyHeading4">대회 정보</a></li>
-                  <li><a class="dropdown-item" href="#scrollspyHeading4">용병 게시판</a></li>
+              	  <li><a class="dropdown-item" href="<c:url value="/commu_bas/board/List"/>">자유 게시판</a></li>
+                  <li><a class="dropdown-item" href="<c:url value="/commu_bas/compet/List"/>">대회 정보</a></li>
+                  <li><a class="dropdown-item" href="<c:url value="/commu_bas/guest/List"/>">용병 게시판</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle link-dark" data-bs-toggle="dropdown" role="button"aria-current="page" href="#"  aria-expanded="false">축구 게시판</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="<c:url value="/commu_bas/board/List"/>">자유 게시판</a></li>
-                  <li><a class="dropdown-item" href="#scrollspyHeading4">대회 정보</a></li>
-                  <li><a class="dropdown-item" href="#scrollspyHeading4">용병 게시판</a></li>
+              	  <li><a class="dropdown-item" href="<c:url value="/commu_soc/board/List"/>">자유 게시판</a></li>
+                  <li><a class="dropdown-item" href="<c:url value="/commu_soc/compet/List"/>">대회 정보</a></li>
+                  <li><a class="dropdown-item" href="<c:url value="/commu_soc/guest/List"/>">용병 게시판</a></li>
             </ul>
           </li>
            <li class="nav-item">

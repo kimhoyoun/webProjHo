@@ -17,11 +17,11 @@ public class BoardDetail implements BoardService{
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 
-//		if (session.getAttribute("User") == null) {
-//			request.setAttribute("msg", "로그인이 필요합니다.");
-//			request.setAttribute("goUrl", "../../member/Login");
-//			request.setAttribute("mainUrl", "alert");
-//		} else {
+		if (session.getAttribute("User") == null) {
+			request.setAttribute("msg", "로그인이 필요합니다.");
+			request.setAttribute("goUrl", "../../member/Login");
+			request.setAttribute("mainUrl", "alert");
+		} else {
 			String post_id = request.getParameter("post_id");
 			BoardDAO dao = new BoardDAO();
 			ArrayList<CommentDTO> comment_dto = new CommentDAO().list(post_id);
@@ -33,7 +33,7 @@ public class BoardDetail implements BoardService{
 			request.setAttribute("dto",data);
 			request.setAttribute("comment_dto", comment_dto);
 			request.setAttribute("mainUrl", "commu_bas/board/Detail");	
-//		}
+		}
 	}
 	
 }

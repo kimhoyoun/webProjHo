@@ -15,6 +15,20 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+<style>
+.btn-primary{
+  color: #fff;
+  background-color: #7b9acc;
+  border-color: #7b9acc;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #5c87cb;
+  border-color: #5c87cb;
+}
+</style>
+
  <!-- jQuery -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
   <!-- iamport.payment.js -->

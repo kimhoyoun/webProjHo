@@ -41,7 +41,7 @@ public class LessonInsertReg implements LessonService{
 			ServletFileUpload fileUpload = new ServletFileUpload(diskFileItemFactory);
 			
 			List<FileItem> items = fileUpload.parseRequest(request);
-	         
+			int i = 1;
 			for (FileItem item : items) {
 	            if (item.isFormField()) {
 	               map.put(item.getFieldName(), item.getString());
@@ -49,16 +49,16 @@ public class LessonInsertReg implements LessonService{
 	            } else {
 	               if (item.getSize() > 0) {
 	                  String separator = File.separator;
-	                  System.out.println();
-	                  int index = item.getName().lastIndexOf(separator);
+	                  int index = item.getName().lastIndexOf(".");
+	                  String expert = item.getName().substring(index);
 	                  
-	                  String fileName = item.getName().substring(index + 1);
+	                  String fileName = "img"+System.currentTimeMillis()+i+expert;
 	                  
 	                  File uploadFile = new File(realPath + separator + fileName);
 	                  allImg += fileName + ",";
 	                  
 	                  item.write(uploadFile);
-	                  
+	                  i++;
 	               } // if
 	            } // else
 	         } // for 
@@ -96,9 +96,6 @@ public class LessonInsertReg implements LessonService{
 		request.setAttribute("msg", "작성되었습니다");
 		request.setAttribute("goUrl", "List");
 		request.setAttribute("mainUrl", "alert");
-		System.out.println("LessonInsertReg execute() 실행");
-		
-
 		
 	}
 	

@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import support.SupportService;
 import support.feedback.model.FeedbackDAO;
 import support.feedback.model.FeedbackDTO;
-import support.feedback.model.FeedbackQuestionDTO;
 import support.notice.model.NoticeDAO;
 import support.notice.model.NoticeDTO;
 

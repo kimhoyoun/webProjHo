@@ -44,7 +44,7 @@ public class LessonDeleteReg implements LessonService{
 		if (res > 0) {
 			
 			msg = "삭제 성공";
-			goUrl = "List" + "?page=" + request.getParameter("nowPage");
+			goUrl = "List?page=" + request.getAttribute("nowPage");
 			
 			if (delDTO.getImg() != null) {
 				String images = delDTO.getImg();

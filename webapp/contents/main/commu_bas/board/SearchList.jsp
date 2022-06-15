@@ -120,12 +120,12 @@ td.BTNnewWrite {
 						<nav aria-label="Page navigation example">
 				            <ul class="pagination justify-content-center">
 							<c:if test="${pageStart > 1 }">
-								<li class="page-item disabled"><a class="page-link" href="<c:url value="/commu_bas/board/SearchList?page=${pageStart - 1 }&field=${param.field }&search=${param.search }"/>">[이전]</a></li>
+								<li class="page-item "><a class="page-link" href="<c:url value="/commu_bas/board/SearchList?page=${pageStart - 1 }&field=${param.field }&search=${param.search }"/>">이전</a></li>
 							</c:if>	
 							<c:forEach var="i" begin="${pageStart }" end="${pageEnd }" step="1">
 								<c:choose>
 									<c:when test="${nowPage ==i }">
-				                        <li class="page-item"><a class="page-link" href="#">${i }</a></li>
+				                        <li class="page-item disabled"><a class="page-link" href="#">${i }</a></li>
 									</c:when>
 									<c:otherwise>
 										<li class="page-item"><a class="page-link" href="<c:url value="/commu_bas/board/SearchList?page=${i }&field=${param.field }&search=${param.search }"/>">${i }</a></li>
@@ -133,7 +133,7 @@ td.BTNnewWrite {
 								</c:choose>
 							</c:forEach>
 							<c:if test="${pageEnd<pageTotal }">
-								<li class="page-item"><a class="page-link" href="<c:url value="/commu_bas/board/SearchList?page=${pageEnd + 1 }&field=${param.field }&search=${param.search }"/>">[다음]</a></li>
+								<li class="page-item"><a class="page-link" href="<c:url value="/commu_bas/board/SearchList?page=${pageEnd + 1 }&field=${param.field }&search=${param.search }"/>">다음</a></li>
 							</c:if>	
 				            </ul>
 			            </nav>

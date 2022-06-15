@@ -18,6 +18,8 @@ div#contents_wrap div.gym_list:last-child{
 }
 
 div.gym_item_img{
+	width:500px;
+	height:300px;
 	margin:0px;
   padding: 0px;
 }
@@ -66,7 +68,7 @@ div.res_time_text{
 }
 
 div.option_div{
-  width: 500px;
+  width: 650px;
   margin : 0px auto;
   background: #eee;
   margin-bottom: 10px;

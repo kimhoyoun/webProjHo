@@ -21,8 +21,8 @@ public class LessonSearchList implements LessonService{
 			System.out.println(field);
 		}
 		
-		int limit = 3; // 한 페이지당 게시물 갯수
-		int pageLimit = 3; // 페이지 번호 갯수
+		int limit = 8; // 한 페이지당 게시물 갯수
+		int pageLimit = 5; // 페이지 번호 갯수
 		int total = 0;
 		
 		LessonDAO dao = new LessonDAO();

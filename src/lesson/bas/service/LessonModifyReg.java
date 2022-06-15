@@ -23,12 +23,12 @@ public class LessonModifyReg implements LessonService{
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("User") == null) {
-			request.setAttribute("msg", "관리자만 이용할 수 있습니다.");
-			request.setAttribute("mainUrl", "alert");
-			request.setAttribute("goUrl", "member/Login");
-		}
-		else {	
+//		if(session.getAttribute("User") == null) {
+//			request.setAttribute("msg", "관리자만 이용할 수 있습니다.");
+//			request.setAttribute("mainUrl", "alert");
+//			request.setAttribute("goUrl", "member/Login");
+//		}
+//		else {	
 			String realPath = "";
 			String savePath = "C:\\temp\\jsp_work\\readytoplay\\webapp\\uploadFile\\lesson\\bas";
 		    int maxSize = 10*1024*1024;
@@ -48,23 +48,24 @@ public class LessonModifyReg implements LessonService{
 				ServletFileUpload fileUpload = new ServletFileUpload(diskFileItemFactory);
 				
 				List<FileItem> items = fileUpload.parseRequest(request);
-		         
+		         int i = 1;
 				for (FileItem item : items) {
 		            if (item.isFormField()) {
 		               map.put(item.getFieldName(), item.getString());
 		               
 		            } else {
 		               if (item.getSize() > 0) {
-		                  String separator = File.separator;
-		                  int index = item.getName().lastIndexOf(separator);
+		            	   String separator = File.separator;
+		                  int index = item.getName().lastIndexOf(".");
+		                  String expert = item.getName().substring(index);
 		                  
-		                  String fileName = item.getName().substring(index + 1);
+		                  String fileName = "img"+System.currentTimeMillis()+i+expert;
 		                  
 		                  File uploadFile = new File(realPath + separator + fileName);
 		                  allImg += fileName + ",";
 		                  
 		                  item.write(uploadFile);
-		                  
+		                  i++;
 		               } // if
 		            } // else
 		         } // for 
@@ -101,7 +102,7 @@ public class LessonModifyReg implements LessonService{
 			
 		         if (res > 0) {
 					msg = "수정 성공";
-					goUrl = "Detail?post_id=" + dto.getPost_id() + "&page=" + request.getAttribute	("nowPage");
+					goUrl = "Detail?post_id=" + dto.getPost_id() + "&page=" + request.getAttribute("nowPage");
 		         }
 	         	        
 	
@@ -112,11 +113,10 @@ public class LessonModifyReg implements LessonService{
 			
 			request.setAttribute("msg", msg);
 			request.setAttribute("goUrl", goUrl);
-			request.setAttribute("mainUrl", "lesson_bas/alert");
-			System.out.println("LessonModifyReg execute() 실행");
+			request.setAttribute("mainUrl", "alert");
 			
 		
 		}
-	}
+//	}
 	
 }

@@ -1,10 +1,14 @@
 package lesson.bas.service;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import lesson.bas.LessonService;
 import lesson.bas.model.LessonDAO;
+import lesson.bas.model.LessonDTO;
+import payment.model.PaymentDAO;
 
 
 public class LessonList implements LessonService{
@@ -15,8 +19,8 @@ public class LessonList implements LessonService{
 		int page = 	(int)request.getAttribute("nowPage");
 
 		
-		int limit = 3; // 한 페이지당 게시물 갯수
-		int pageLimit = 3; // 페이지 번호 갯수
+		int limit = 8; // 한 페이지당 게시물 갯수
+		int pageLimit = 5; // 페이지 번호 갯수
 		
 		LessonDAO dao = new LessonDAO();
 		
@@ -35,19 +39,25 @@ public class LessonList implements LessonService{
 			pageEnd = pageTotal;
 		}
 		
-		Object data = dao.list(start, limit);
+		ArrayList<LessonDTO> data = dao.list(start, limit);
 		
 		request.setAttribute("mainData", data);
+		
+		ArrayList<Integer> resdateList = new PaymentDAO().basResList(data);
+		
+		System.out.println(resdateList);
+		
+		request.setAttribute("resdateList", resdateList);
+		
 		request.setAttribute("mainUrl", "lesson/bas/List");
 		
 		request.setAttribute("start", start);
-
+		
 		request.setAttribute("pageTotal", pageTotal);
 		request.setAttribute("pageStart", pageStart);
 		request.setAttribute("pageEnd", pageEnd);
 
 
-		System.out.println("LessonList execute() 실행" + data + "," + total);
 	}
 	
 }

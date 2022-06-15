@@ -82,7 +82,7 @@ td.BTNnewWrite {
 
 <div id="main_wrap">
 	<div>
-		<h2 id="main_title">농구 자유게시판 리스트</h2>
+		<h2 id="main_title">농구 자유게시판</h2>
 	</div>
 	<hr>
 	<div id="commu_bas_board">

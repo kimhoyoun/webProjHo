@@ -93,7 +93,7 @@ td.modiNdel {
                        <a href="<c:url value="/commu_bas/board/List?page=${nowPage }"/>"><button>목록으로</button></a>
                    </td>
                    <td class="modiNdel" colspan="2">
-                   	<a href="<c:url value="/commu_bas/board/Detail?post_id=${dto.post_id }&page=${nowPage }"/>"><button>뒤로</button></a>
+                   	<a href="<c:url value="/commu_bas/board/Detail?post_id=${dto.post_id }&page=${nowPage }"/>"><button type="button">뒤로</button></a>
                    	<input type="reset" value="초기화" />
 					<input type="submit" value="수정" />
 					<input type="hidden" value="${nowPage }" name="nowPage"/>
