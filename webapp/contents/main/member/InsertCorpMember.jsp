@@ -141,7 +141,7 @@
 								<option selected value="gmail.com">gmail.com</option>
 								<option value="naver.com">naver.com</option>
 								<option value="nate.com">nate.com</option>
-							</select>
+								</select>
 						</div>
 						<div class="invalid-feedback">이메일 인증이 필요합니다.</div>
 					</div>

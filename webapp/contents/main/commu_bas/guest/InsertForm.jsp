@@ -30,6 +30,7 @@ div#BTNsubmit {
 
     
 <form action="InsertReg" method="post" enctype="multipart/form-data">
+<input type="hidden" name ="user_id"  value="${User.pid }"/>
    <div id="main_wrap">
        <div><h2 id="main_title">농구 용병 게시판 새글쓰기</h2></div>
        <hr>

@@ -57,7 +57,7 @@
               <input class="form-check-input" type="checkbox" value="" id="option4" name = "option4">
                <label class="form-check-label" for="option4">정수기</label>
               <input class="form-check-input" type="checkbox" value="" id="option5" name = "option5">
-               <label class="form-check-label" for="option5">마루바닥</label>
+               <label class="form-check-label" for="option5">잔디구장</label>
             </div>
           </div>
 

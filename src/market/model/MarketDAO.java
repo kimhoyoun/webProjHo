@@ -121,6 +121,7 @@ public class MarketDAO {
 				dto.setPrice(rs.getInt("price"));
 				dto.setContent(rs.getString("content"));
 				dto.setReg_date(rs.getTimestamp("reg_date"));
+				dto.setImg(rs.getString("img"));
 				dto.setCnt(rs.getInt("cnt"));
 
 				res.add(dto);
@@ -164,6 +165,7 @@ public class MarketDAO {
 				dto.setPrice(rs.getInt("price"));
 				dto.setContent(rs.getString("content"));
 				dto.setReg_date(rs.getTimestamp("reg_date"));
+				dto.setImg(rs.getString("img"));
 				dto.setCnt(rs.getInt("cnt"));
 
 				res.add(dto);

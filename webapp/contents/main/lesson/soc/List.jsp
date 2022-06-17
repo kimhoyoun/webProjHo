@@ -32,6 +32,7 @@
 
 
     div.gym_list {
+      margin:0px;
       margin-bottom: 20px;
       margin-left: 0px;
       border: 1px solid black;
@@ -115,11 +116,21 @@
 	<div id="lesson_soc_list">
 	
 		<c:forEach var="dto" items="${mainData }" varStatus="no">		
+			<c:choose >
+				<c:when test="${dto.img == null || dto.img == \"\"}">
+					<c:set var = "res" value="/readytoplay/images/nullImg.png"/>
+				</c:when>
+				<c:otherwise>
+					<c:set var = "res" value="/readytoplay/uploadFile/lesson/soc/${fn:split(dto.img, ',')[0]}"/>
+				</c:otherwise>
+			</c:choose>	
 				<div class="row gym_list">
 					<div class="col-sm-5 gym_item_img">
 						<!-- 이미지 크기 고정 520x290 -->
-						<img src="<c:url value="/uploadFile/lesson/soc/${fn:split(dto.img, ',')[0]}"/>" class="figure-img img-fluid rounded;"
-							alt="" style="width: 520px; height: 350px; " id="listImg">
+						<a href = "<c:url value="/lesson/soc/Detail?post_id=${dto.post_id }&page=${nowPage }"/>">
+						<img src="${res }" class="figure-img img-fluid rounded;"
+							alt="" style="width: 520px; height: 410px; " id="listImg">
+						</a>
 					</div>
 
 					<div class="col-sm-7 right-note gym_item_info">
@@ -211,18 +222,13 @@
 						                 </c:choose>
 						              </div>
 						            </div>
-									
-									
-									
-									
-									
 								</div>
 							</div>
 						</div>
-						<div class="enrollment" style="margin-bottom: 10px;">
-							<button>
-								<a href="수강신청 링크"></a>신청하기
-							</button>
+						<div class="enrollment text-center" style="margin-bottom: 10px;">
+							<a  href="<c:url value="/lesson/soc/Detail?post_id=${dto.post_id }&page=${nowPage }"/>">
+							<button type="button" class="btn btn-outline-secondary" style="width:200px">신청하기</button>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -231,9 +237,11 @@
 		
 			</c:forEach>
 			<br />
+			<c:if test="${User.grade == 1 }">
 			<div id="newPost" align="right">
-				<a href="<c:url value="/lesson/soc/InsertForm?page=${nowPage }"/>"><button>새글쓰기</button></a>
+				<a href="<c:url value="/lesson/soc/InsertForm?page=${nowPage }"/>"><button type = "button" class ="btn btn-outline-secondary">새글쓰기</button></a>
 			</div>
+			</c:if>
 			<hr />
 			<nav aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">

@@ -131,7 +131,7 @@ public class CertMailReg implements CertService{
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to_email));
 
 			// 메일 제목
-			msg.setSubject("안녕하세요. 솔진김의 인증메일입니다.", "UTF-8");
+			msg.setSubject("안녕하세요. ReadytoPlay의 인증메일입니다.", "UTF-8");
 			// 메일 내용
 			msg.setText("인증 번호 :" + AuthenticationKey );
 

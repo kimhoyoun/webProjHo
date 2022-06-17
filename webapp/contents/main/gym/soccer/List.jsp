@@ -69,74 +69,28 @@
 			})
 		</script>
 	</div>
+	<c:if test="${User.grade==1 }">
 	<div class ="col-sm-1" style="padding: 0px; width:75px">
 		<a href="<c:url value="InsertForm?page=${nowPage }"/>"><button type="button" class="btn btn-outline-secondary">글쓰기</button></a>
 	</div>
+	</c:if>
 </div>
-<!-- <div id = "table_wrap"> -->
-
-<!-- <table border="">  -->
-
-<!-- 	<tr> -->
-<!-- 		<th>이미지</th> -->
-<!-- 		<th>경기장</th> -->
-<!-- 		<th>매니저</th> -->
-<!-- 		<th>작성일</th> -->
-<!-- 	</tr> -->
-<%-- 	<c:forEach var="dto" items="${mainData }" varStatus="no"> --%>
-
-<!-- 	<tr> -->
-<!-- 		<td> -->
-<%-- 			<img src="<c:url value="/uploadFile/gym/basketball/${fn:split(dto.img, ',')[0]}"/>" alt="" /> --%>
-<!-- 		</td> -->
-<!-- 		<td> -->
-<%-- 			<a href="<c:url value="Detail?id=${dto.id }&page=${nowPage }&dateSet=${dateSet }"/>">${dto.sname }</a> --%>
-<!-- 		</td> -->
-<%-- 		<td>${dto.manager_id }</td> --%>
-<!-- 		<td> -->
-<%-- 		<fmt:formatDate value="${dto.reg_date }" pattern="yy-MM-dd"/> --%>
-<!-- 		</td> -->
-<!-- 	</tr> -->
-
-<%-- 	</c:forEach> --%>
-<!-- 	<tr> -->
-<!-- 		<td colspan="5" align="center"> -->
-<%-- 			<c:if test="${pageStart > 1 }"> --%>
-<%-- 				<a href="<c:url value="List?page=${pageStart-1 }"/>">[이전]</a> --%>
-<%-- 			</c:if> --%>
-<%-- 			<c:forEach var ="i" begin="${pageStart }" end="${pageEnd }" step="1"> --%>
-<%-- 				<c:choose> --%>
-<%-- 					<c:when test="${nowPage == i }"> --%>
-<%-- 							[${i }] --%>
-<%-- 					</c:when>		 --%>
-
-<%-- 					<c:otherwise> --%>
-<%-- 					<a href="<c:url value="List?page=${i }"/>">${i }</a> --%>
-<%-- 					</c:otherwise>		 --%>
-<%-- 				</c:choose> --%>
-
-<%-- 			</c:forEach> --%>
-
-<%-- 			<c:if test="${pageEnd<pageTotal }"> --%>
-<%-- 			<a href="<c:url value="List?page=${pageEnd+1 }"/>">[다음]</a> --%>
-<%-- 			</c:if> --%>
-<!-- 		</td> -->
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td colspan="5" align="right"> -->
-<%-- 			<a href="<c:url value="InsertForm?page=${nowPage }"/>">글쓰기</a> --%>
-<!-- 		</td> -->
-<!-- 	</tr> -->
-<!-- </table> -->
-<!-- </div> -->
 
 <div id=gym_lit_wrap>
 	<c:forEach var="dto" items="${mainData }" varStatus="no">
+		<c:choose >
+			<c:when test="${dto.img == null || dto.img == \"\"}">
+				<c:set var = "res" value="/readytoplay/images/nullImg.png"/>
+			</c:when>
+			<c:otherwise>
+				<c:set var = "res" value="/readytoplay/uploadFile/gym/soccer/${fn:split(dto.img, ',')[0]}"/>
+			</c:otherwise>
+		</c:choose>
 		<div class="row gym_list">
 			<div class="col-sm-5 gym_item_img">
 				<a
 					href="<c:url value="Detail?id=${dto.id }&page=${nowPage }&dateSet=${dateSet }"/>"><img
-					src="<c:url value="/uploadFile/gym/soccer/${fn:split(dto.img, ',')[0]}"/>"
+					src="${res }"
 					class="img-fluid rounded;" alt="${dto.sname }" style="width:500px; height:300px"/></a>
 
 			</div>

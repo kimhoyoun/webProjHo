@@ -162,7 +162,7 @@ table tr td textarea {
         
         <!-- 댓글 리스트 -->
         <div id="comment_table">
-            <table class="comment_table" align="center" >
+            <table class="comment_table"  style="margin:0px auto;">
                 <c:forEach var="comment_dto" items="${comment_dto }" varStatus="no">
                 	
                     <tr>

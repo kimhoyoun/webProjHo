@@ -26,6 +26,46 @@
   color: #fff;
   background-color: #5c87cb;
   border-color: #5c87cb;
+  
+}
+
+footer {
+    width: 100%;
+    height: 90px;
+    bottom: 0px;
+    border-top: 1px solid #c4c4c4;
+    padding-top: 10px;
+    color: #808080;
+    font-size: 11px;
+    
+}
+.foo_div {
+    padding-left: 10px;
+    float: left;
+}
+      
+table#footer_table {
+    float: left;
+}
+
+
+.footer_div1 {
+    float: right;
+}
+footer p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.footer_div1 span {
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+
+img#footer_logo {
+    width: 100px;
+    height: auto;
 }
 </style>
 

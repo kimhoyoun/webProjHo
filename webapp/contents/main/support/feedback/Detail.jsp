@@ -53,7 +53,7 @@
           </div>
         </div>
         <div class="row" style="padding-bottom: 10px; margin-bottom: 20px">
-          <p class=" fs-5 pe-none">${dto.question }</p>
+          <p class=" fs-5 pe-none">${dto.questionBr }</p>
         </div>
     </div>
     
@@ -87,7 +87,7 @@
 				            <p class="fs-3 fw-bold pe-none">Answer</p>
 				          </div>
 				          <div class="row">
-				            <p class="fs-5 pe-none">${dto.answer }</p>
+				            <p class="fs-5 pe-none">${dto.answerBr }</p>
 				          </div>
 				          <div class="row">
 				            <div class="col sm-1">

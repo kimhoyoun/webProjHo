@@ -80,7 +80,6 @@ public class CompetModifyReg implements CompetService{
 				dto.setTitle(list.get("title"));
 				dto.setUpfile(list.get("upfile"));
 				dto.setImg(list.get("img"));
-				dto.setUser_id(list.get("user_id"));
 				dto.setPost_id(list.get("post_id"));
 				dto.setContent(list.get("content"));
 	

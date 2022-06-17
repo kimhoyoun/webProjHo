@@ -30,8 +30,8 @@
 					<div id="visual_inner">
 						<ul id="visual_list">
 							<c:choose >
-								<c:when test="${post_dto.img == '' }">
-									<li><img src="<c:url value="/readytoplay/images/nullImg.png"/>" alt="" /></li>
+								<c:when test="${post_dto.img == null || post_dto.img == \"\"}">
+									<li><img src="<c:url value="/images/nullImg.png"/>" alt="" /></li>
 								</c:when>
 								<c:otherwise>
 									<c:forTokens items="${post_dto.img }" delims="," var="ee" varStatus="no">
@@ -92,10 +92,12 @@
 				<button type="button" onclick="location.href='PostList?page=${nowPage }'">목록으로</button>
 			</td>
 			<td class="modiNdel" colspan="2">
+				<c:if test="${User.pid == dto.user_id }">
 				<button type="button"
 					onclick="location.href='PostModify?post_id=${post_dto.post_id }&page=${nowPage }'";>수정</button>
 				<button type="button"
 					onclick="location.href='PostDelete_Reg?post_id=${post_dto.post_id }&page=${nowPage }'";>삭제</button>
+					</c:if>
 			</td>
 		</tr>
 		<tr>

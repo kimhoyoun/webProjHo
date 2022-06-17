@@ -78,9 +78,12 @@
             예약 시간
         </div>
         <div class="col-sm-6 fs-4">
-           <c:forTokens items ="${dto.resTime }"	delims = "," var = "time" varStatus="no">
-				${time*2 }시~${(time+1)*2  }시 
-		</c:forTokens>
+        	<c:if test="${fn:contains(dto.id, 'gym')}">
+				<c:forTokens items ="${dto.resTime }"
+					delims = "," var = "time" varStatus="no">
+					${time*2 }시~${(time+1)*2  }시 
+				</c:forTokens>
+            </c:if>
         </div>
     </div>
 
@@ -97,7 +100,7 @@
   </main>
   <div class="row text-center"> 
   <form action="CancelledReg" method="post">
-	<input type="hidden" name = "imp_uid" value="${imp_uid }" />
+	<input type="hidden" name = "imp_uid" value="${dto.imp_uid }" />
 	<a href="<c:url value="/index.jsp"/>"><button type = "button"class="btn btn-outline-primary">돌아가기</button></a>
 	<button type = "submit"class="btn btn-outline-danger">환불하기</button>
 	</form>

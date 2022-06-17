@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link rel="stylesheet" href="/readytoplay/css/market.css">
 
 <div id="main_area">
@@ -48,7 +47,15 @@
 				<div class="col"
 					OnClick="location.href ='PostDetail_Reg?post_id=${dto.post_id }&page=${nowPage }'"
 					style="cursor: pointer;">
-					<img src="/readytoplay/uploadFile/market/${dto.firstImg }" class="img-thumbnail" alt="상품 이미지">
+					<c:choose >
+							<c:when test="${dto.firstImg == null }">
+								<c:set var = "res" value="/readytoplay/images/nullImg.png"/>
+							</c:when>
+							<c:otherwise>
+								<c:set var = "res" value="/readytoplay/uploadFile/market/${dto.firstImg }"/>
+							</c:otherwise>
+						</c:choose>
+					<img src="${res }" class="img-thumbnail" alt="상품 이미지">
 					<div class="product_detail">
 						<p>상품명 : ${dto.title }</p>
 						<p>상품 상태 : ${dto.check_quality }</p>

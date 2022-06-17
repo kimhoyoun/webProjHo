@@ -95,9 +95,6 @@ table tr td textarea {
 	margin: 20px 0px 20px 100px;
 }
 </style>
-
-
-
     <div id="main_wrap">
         <div>
             <h2 id="main_title">축구 용병 게시판 상세보기</h2>
@@ -170,7 +167,7 @@ table tr td textarea {
         
         <!-- 댓글 리스트 -->
         <div id="comment_table">
-            <table class="comment_table" align="center" >
+            <table class="comment_table" style="margin:0px auto;" >
                 <c:forEach var="comment_dto" items="${comment_dto }" varStatus="no">
                 	
                     <tr>

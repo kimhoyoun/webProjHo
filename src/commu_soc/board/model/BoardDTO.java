@@ -16,7 +16,7 @@ public class BoardDTO {
 	public BoardDTO(String title, String user_id, String post_id, String content, String allfile) {
 		this.title = title;
 		this.user_id = user_id;
-		this.post_id = "commu_bas_board" + System.currentTimeMillis();
+		this.post_id = "commu_soc_board" + System.currentTimeMillis();
 		this.content = content;
 		this.allfile = allfile;
 	}

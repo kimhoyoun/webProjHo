@@ -101,27 +101,27 @@
                            <ul class="pagination justify-content-center">
                              <li class="page-item">
                             <c:if test="${pageStart > 1 }">
-                            	 <a class="page-link"  href="<c:url value="List?page=${pageStart-1 }"/>">이전</a>
+                            	 <a class="page-link"  href="<c:url value="List?page=${pageStart-1 }&board=${param.board }"/>">이전</a>
 							</c:if>
                           	 </li>
 						<c:forEach var ="i" begin="${pageStart }" end="${pageEnd }" step="1"> 
 							<c:choose>
 								<c:when test="${nowPage == i }">
 										<li class="page-item disabled">
-											<a class="page-link" href="<c:url value="List?page=${i }"/>">${i }</a>
+											<a class="page-link" href="<c:url value="List?page=${i }&board=${param.board }"/>">${i }</a>
 										</li>
 								</c:when>		
 								
 								<c:otherwise>
 								<li class="page-item">
-									<a class="page-link" href="<c:url value="List?page=${i }"/>">${i }</a>
+									<a class="page-link" href="<c:url value="List?page=${i }&board=${param.board }"/>">${i }</a>
 								</li>
 								</c:otherwise>		
 							</c:choose>
 						</c:forEach>
                              	<li class="page-item">
 	                   			<c:if test="${pageEnd<pageTotal }">
-	                                <a class="page-link" href="<c:url value="List?page=${pageEnd+1 }"/>">다음</a>
+	                                <a class="page-link" href="<c:url value="List?page=${pageEnd+1 }&board=${param.board }"/>">다음</a>
 								</c:if>
 							</li>
                            </ul>

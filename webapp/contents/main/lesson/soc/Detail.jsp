@@ -119,11 +119,11 @@ div#lesson_soc_detail {
 						                 <c:choose>
 						                    <c:when test="${dto.option5 }">
 						                       <img src="<c:url value="/images/option5.png"/>" alt="" style="width: 110px;">
-						                      <div class="text-center fs-5 fw-bold" style="margin-top: 10px;">마룻바닥 <br>있음</div>
+						                      <div class="text-center fs-5 fw-bold" style="margin-top: 10px;">잔디구장 <br>있음</div>
 						                    </c:when>
 						                    <c:otherwise>
 						                       <img src="<c:url value="/images/option5_f.png"/>" alt="" style="width: 110px;">
-						                      <div class="text-center fs-5 fw-bold" style="margin-top: 10px;">마룻바닥 <br>없음</div>
+						                      <div class="text-center fs-5 fw-bold" style="margin-top: 10px;">잔디구장 <br>없음</div>
 						                    </c:otherwise>
 						                 </c:choose>
 						              </div>
@@ -142,7 +142,7 @@ div#lesson_soc_detail {
                     </td>
                 </tr>
                 <tr>
-                    <td><div id="lesson_reservation"><a href=""><button type="submit">신청하기</button></a></div></td>
+                    <td><div id="lesson_reservation"><a href=""><button type="submit" class ="btn btn-outline-secondary" style ="width:200px">신청하기</button></a></div></td>
                 </tr>
             </table>
             
@@ -252,11 +252,11 @@ div#lesson_soc_detail {
                     <div><p class="bottom_content">${dto.manager_id }</p></div>
                 </div>            
                 <div class="bottom_button">
-                	<a href="<c:url value="/lesson/soc/List?page=${nowPage }"/>"><button>목록으로</button></a>
-                    <a href="<c:url value="/lesson/soc/InsertForm?page=${nowPage }"/>"><button>새글쓰기</button></a>
-                    <a href="<c:url value="/lesson/soc/ModifyForm?post_id=${dto.post_id }&page=${nowPage }"/>"><button>수정</button></a>
-                    <a href="<c:url value="/lesson/soc/DeleteForm?post_id=${dto.post_id }&page=${nowPage }"/>"><button type="button">삭제</button></a>
-                    
+                	<a href="<c:url value="/lesson/soc/List?page=${nowPage }"/>"><button type="button" class ="btn btn-outline-secondary" >목록으로</button></a>
+                    <c:if test="${User.grade == 1 }">
+                    <a href="<c:url value="/lesson/soc/ModifyForm?post_id=${dto.post_id }&page=${nowPage }"/>"><button type="button" class ="btn btn-outline-secondary" >수정</button></a>
+                    <a href="<c:url value="/lesson/soc/DeleteForm?post_id=${dto.post_id }&page=${nowPage }"/>"><button type="button" class ="btn btn-outline-secondary" >삭제</button></a>
+                    </c:if>
                 </div>
             </div>
             </form>
@@ -426,103 +426,3 @@ div#lesson_soc_detail {
     })
   </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <h2>레슨 상세보기</h2> -->
-
-
-<!-- <table border=""> -->
-
-<!-- 	<tr> -->
-<!-- 		<td>카테고리</td> -->
-<%-- 		<td>${dto.category }</td> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>레슨명</td> -->
-<%-- 		<td>${dto.sname }</td> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>이미지</td> -->
-<!-- 		<td> -->
-<%-- 			<c:forTokens items ="${dto.img }" --%>
-<%-- 				delims = "," var = "image" varStatus="no"> --%>
-<%-- 				<img src="<c:url value="/uploadFile/lesson/soc/${image}"/>" alt="" /> --%>
-<%-- 			</c:forTokens> --%>
-<!-- 		</td> -->
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>info</td> -->
-<%-- 		<td>${dto.contents_info }</td> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>detail</td> -->
-<%-- 		<td>${dto.contents_detail }</td> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>rule</td> -->
-<%-- 		<td>${dto.contents_rule }</td> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>refund</td> -->
-<%-- 		<td>${dto.contents_refund }</td> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>비용</td> -->
-<%-- 		<td>${dto.price }</td> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>레슨 시간</td> -->
-<%-- 		<td>${dto.lesson_time }</td> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>모집인원</td> -->
-<%-- 		<td>${dto.max_student }</td> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>주소</td> -->
-<%-- 		<td>${dto.address } <br /> --%>
-<!-- 			 -->
-<!-- 			<div id="map" style="width:500px;height:400px;"></div> -->
-<!-- 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5055bae492acc70f48ba8a992e50a421&libraries=services -->
-<!-- 			"></script> -->
-<!-- 			
-<!-- 		</td> -->
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>옵션</td> -->
-<%-- 		<td>샤워장 : ${dto.option1 }, 주차장 : ${dto.option2 }, 냉/난방시설 : ${dto.option3 }, 정수기 : ${dto.option4 }, 마루바닥 : ${dto.option5 }</td> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td>매니저</td> -->
-<%-- 		<td>${dto.manager_id }</td> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td colspan="2"> -->
-<%-- 			<a href="<c:url value="/lesson/soc/List?page=${nowPage }"/>">목록으로</a> --%>
-<!-- 			<input type="submit"  value="레슨 신청"/> -->
-<!-- 		</td> -->
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td colspan="2"> -->
-<%-- 			<a href="<c:url value="ModifyForm?post_id=${dto.post_id }&page=${nowPage }"/>">수정</a> --%>
-<%-- 			<a href="<c:url value="DeleteForm?post_id=${dto.post_id }&page=${nowPage }"/>">삭제</a> --%>
-<!-- 		</td> -->
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<!-- 		<td colspan="4" >리뷰</td> -->
-<!-- 	</tr> -->
-	
-<!-- </table> -->
-<!-- </form> -->

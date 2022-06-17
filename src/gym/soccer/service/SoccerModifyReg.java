@@ -101,7 +101,7 @@ public class SoccerModifyReg implements GymService{
 	         
 	         if(res>0) {
 	        	 msg = "수정되었습니다.";
-	        	 goUrl = "Detail?id="+dto.getId()+"&page="+request.getAttribute("nowPage")+"&dateSet=";
+	        	 goUrl = "Detail?id="+dto.getId()+"&page="+request.getAttribute("nowPage")+"&dateSet="+request.getParameter("dateSet");;
 	         }
 	         
 	         request.setAttribute("msg", msg);

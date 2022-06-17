@@ -121,7 +121,7 @@
 								name="email1" maxlength="30" placeholder="Username"
 								aria-label="Username"> <span class="input-group-text">@</span>
 							<select class="form-select" id="selectEmailForm" name="email2">
-								<option selected value="google.com">google.com</option>
+								<option selected value="gmail.com">gmail.com</option>
 								<option value="naver.com">naver.com</option>
 								<option value="nate.com">nate.com</option>
 							</select>

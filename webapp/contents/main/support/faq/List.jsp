@@ -26,14 +26,14 @@
 			      <h2 class="accordion-header" id="${onetwo[no.index] }">
 			        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="${onetwoColshop[no.index] }" aria-expanded="false" aria-controls="${onetwoCol[no.index]}">
 			        <font class = " fs-5 fw-bold" style="vertical-align: inherit;">
-			         	${dto.question }
+			         	${dto.questionBr }
 			        </font>
 			        </button>
 			      </h2>
 			      <div id="${onetwoCol[no.index] }" class="accordion-collapse collapse" aria-labelledby="${onetwo[no.index]}" data-bs-parent="#accordionExample" style="">
 			        <div class="accordion-body">
 			          <font style="vertical-align: inherit;">
-			          		${dto.answer }
+			          		${dto.answerBr }
 			      	  </font>
 			          </div>
 			      </div>

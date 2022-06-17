@@ -27,9 +27,9 @@ div#BTNsubmit {
 	text-align: right;
 }
 </style>
-
     
 <form action="InsertReg" method="post" enctype="multipart/form-data">
+<input type="hidden" name ="user_id"  value="${User.pid }"/>
    <div id="main_wrap">
        <div><h2 id="main_title">축구 용병 게시판 새글쓰기</h2></div>
        <hr>

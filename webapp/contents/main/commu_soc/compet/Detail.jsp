@@ -104,7 +104,7 @@ table tr td textarea {
         </div>
         <hr>
         <div id="commu_soc_compet_detail" >
-            <table class="table">
+            <table class="table" >
                 <tr>
                 	<td class="head">[${dto.head }]</td>
                     <td class="title" colspan="3">${dto.title }</td>
@@ -170,7 +170,7 @@ table tr td textarea {
         
         <!-- 댓글 리스트 -->
         <div id="comment_table">
-            <table class="comment_table" align="center" >
+            <table class="comment_table" style="margin:0px auto;">
                 <c:forEach var="comment_dto" items="${comment_dto }" varStatus="no">
                 	
                     <tr>

@@ -32,7 +32,7 @@
             </div>
           </div>
            <div class="row" style="padding:10px" >
-            <p class=" fs-4">${dto.content }</p>
+            <p class=" fs-4">${dto.contentBr }</p>
           </div>
           
       </div>

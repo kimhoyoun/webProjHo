@@ -83,6 +83,15 @@
                                 <dt class="list_title">비용</dt>
                                 <input type="text" class="form-control" name="price" id="title" placeholder="150000" required>
                             </div>
+                            <div class="detail_list">
+                                <dt class="list_title">법인</dt>
+                                <select class="form-select form-select-lg sm-3 text-center fs-5" name="manager_id" id="" style="width: 300px;">
+				                  <option value="none">======= 법인 =======</option>
+				                  <c:forEach var="mem" items="${mainData }">
+									<option value="${mem }">${mem }</option>
+								  </c:forEach>
+				                </select>
+                            </div>
                         </div>
                     </td>
                 </tr>

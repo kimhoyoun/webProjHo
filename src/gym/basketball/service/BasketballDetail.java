@@ -1,6 +1,8 @@
 package gym.basketball.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,13 +13,19 @@ import payment.model.PaymentDAO;
 import payment.model.PaymentDTO;
 
 public class BasketballDetail implements GymService{
-
+	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	String today = format.format(new Date());
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		String id = request.getParameter("id");
 		
 		String resDate = request.getParameter("dateSet");
+		if(request.getParameter("dateSet") == null) {
+			resDate = today;
+		}
+		
 		BasketballDAO dao = new BasketballDAO();
 		
 		Object data = dao.detail(id);

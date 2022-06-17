@@ -32,7 +32,14 @@ public class FaqDTO {
 	public void setQuestion(String question) {
 		this.question = question;
 	}
-
+	
+	public String getQuestionBr() {
+		return question.replaceAll("\n", "<br>");
+	}
+	
+	public String getAnswerBr() {
+		return answer.replaceAll("\n", "<br>");
+	}
 
 	public String getAnswer() {
 		return answer;

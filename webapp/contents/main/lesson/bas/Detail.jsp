@@ -142,7 +142,7 @@ div#lesson_bas_detail {
                     </td>
                 </tr>
                 <tr>
-                    <td><div id="lesson_reservation"><a href=""><button type="submit">신청하기</button></a></div></td>
+                    <td><div id="lesson_reservation"><a href=""><button type="submit" class ="btn btn-outline-secondary" style ="width:200px">신청하기</button></a></div></td>
                 </tr>
             </table>
             
@@ -252,11 +252,11 @@ div#lesson_bas_detail {
                     <div><p class="bottom_content">${dto.manager_id }</p></div>
                 </div>            
                 <div class="bottom_button">
-                	<a href="<c:url value="/lesson/bas/List?page=${nowPage }"/>"><button>목록으로</button></a>
-                    <a href="<c:url value="/lesson/bas/InsertForm?page=${nowPage }"/>"><button>새글쓰기</button></a>
-                    <a href="<c:url value="/lesson/bas/ModifyForm?post_id=${dto.post_id }&page=${nowPage }"/>"><button>수정</button></a>
-                    <a href="<c:url value="/lesson/bas/DeleteForm?post_id=${dto.post_id }&page=${nowPage }"/>"><button type="button">삭제</button></a>
-                    
+                	<a href="<c:url value="/lesson/bas/List?page=${nowPage }"/>"><button type="button" class ="btn btn-outline-secondary" >목록으로</button></a>
+                    <c:if test="${User.grade == 1 }">
+                    <a href="<c:url value="/lesson/bas/ModifyForm?post_id=${dto.post_id }&page=${nowPage }"/>"><button type="button" class ="btn btn-outline-secondary">수정</button></a>
+                    <a href="<c:url value="/lesson/bas/DeleteForm?post_id=${dto.post_id }&page=${nowPage }"/>"><button type="button" class ="btn btn-outline-secondary">삭제</button></a>
+                    </c:if>
                 </div>
             </div>
             </form>

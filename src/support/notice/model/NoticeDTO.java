@@ -41,7 +41,10 @@ public class NoticeDTO {
 		return content;
 	}
 
-
+	public String getContentBr() {
+		return content.replaceAll("\n", "<br>");
+	}
+	
 	public void setContent(String content) {
 		this.content = content;
 	}

@@ -38,7 +38,7 @@ public class PaymentCancelledReg implements ContentsService{
 
         try {
             IamportResponse<Payment> payment_response = client.cancelPaymentByImpUid(cancel_data);
-
+            	
             if(payment_response.getResponse()!=null) {
             	
             	System.out.println("cancel_data : "+cancel_data.toString());

@@ -1,6 +1,8 @@
 package gym.basketball.service;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,9 +22,9 @@ import support.notice.model.NoticeDTO;
 
 public class BasketballModifyReg implements GymService{
 	
-	public BasketballModifyReg() {
-	}
-
+	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	String today = format.format(new Date());
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 			
@@ -104,7 +106,7 @@ public class BasketballModifyReg implements GymService{
 	         
 	         if(res>0) {
 	        	 msg = "수정되었습니다.";
-	        	 goUrl = "Detail?id="+dto.getId()+"&page="+request.getAttribute("nowPage")+"&dateSet=";
+	        	 goUrl = "Detail?id="+dto.getId()+"&page="+request.getAttribute("nowPage")+"&dateSet="+today;
 	         }
 	         
 	         request.setAttribute("msg", msg);

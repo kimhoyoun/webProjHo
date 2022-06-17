@@ -4,7 +4,7 @@
 
 <div id="main_wrap">
      <div class="row border-dark border-bottom" style="margin-bottom:20px">
-		<h1>Q&A 작성</h1>
+		<h1>Q&A 수정</h1>
 	</div>
 	
 	<div class="row">

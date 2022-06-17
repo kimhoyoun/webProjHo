@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import commu_bas.board.model.BoardDAO;
 import commu_bas.board.model.BoardDTO;
+import commu_bas.compet.model.CompetDTO;
+import commu_bas.guest.model.GuestDTO;
 import market.model.MarketDAO;
 import market.model.MarketDTO;
 import member.model.CorpMemberDTO;
@@ -29,7 +31,7 @@ public class BoardList implements MypageService{
 		MyBoardDAO dao = new MyBoardDAO();
 		
 		int page = (int)request.getAttribute("nowPage");
-		
+		 
 		int limit =8; // 한 페이지당 게시글 수
 		int pageLimit = 4; // 페이지 번호 갯수
 		
@@ -54,7 +56,48 @@ public class BoardList implements MypageService{
 			ArrayList<BoardDTO> data = dao.commu_bas_list(start, pageLimit, user_id);
 			
 			request.setAttribute("mainData", data);
-		}else if (board.contains("market")) {
+		}
+		else if (board.contains("bas_compet")) {
+			total = dao.commu_bas_compet_cnt(user_id);
+			calcPaging(page, limit, pageLimit, total);
+			
+			ArrayList<CompetDTO> data = dao.commu_bas_compet_list(start, pageLimit, user_id);
+			
+			request.setAttribute("mainData", data);
+		}
+		else if (board.contains("bas_guest")) {
+			total = dao.commu_bas_guest_cnt(user_id);
+			calcPaging(page, limit, pageLimit, total);
+			
+			ArrayList<GuestDTO> data = dao.commu_bas_guest_list(start, pageLimit, user_id);
+			
+			request.setAttribute("mainData", data);
+		}
+		else if (board.contains("soc_board")) {
+			total = dao.commu_soc_cnt(user_id);
+			calcPaging(page, limit, pageLimit, total);
+			
+			ArrayList<commu_soc.board.model.BoardDTO> data = dao.commu_soc_list(start, pageLimit, user_id);
+			
+			request.setAttribute("mainData", data);
+		}
+		else if (board.contains("soc_compet")) {
+			total = dao.commu_soc_compet_cnt(user_id);
+			calcPaging(page, limit, pageLimit, total);
+			
+			ArrayList<commu_soc.compet.model.CompetDTO> data = dao.commu_soc_compet_list(start, pageLimit, user_id);
+			
+			request.setAttribute("mainData", data);
+		}
+		else if (board.contains("soc_guest")) {
+			total = dao.commu_soc_guest_cnt(user_id);
+			calcPaging(page, limit, pageLimit, total);
+			
+			ArrayList<commu_soc.guest.model.GuestDTO> data = dao.commu_soc_guest_list(start, pageLimit, user_id);
+			
+			request.setAttribute("mainData", data);
+		}
+		else if (board.contains("market")) {
 			total = dao.market_cnt(user_id);
 			calcPaging(page, limit, pageLimit, total);
 			

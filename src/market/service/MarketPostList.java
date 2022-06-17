@@ -1,10 +1,13 @@
 package market.service;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import market.Market_Service;
 import market.model.MarketDAO;
+import market.model.MarketDTO;
 
 
 public class MarketPostList implements Market_Service {
@@ -35,7 +38,14 @@ public class MarketPostList implements Market_Service {
 			pageEnd = pageTotal;
 		}
 		
-		Object data = dao.list(start, limit);
+		ArrayList<MarketDTO> data = dao.list(start, limit);
+		
+		for(int i = 0; i < data.size(); i++) {
+			if((data.get(i).getImg()!=null)&&(!data.get(i).getImg().equals(""))) {
+				String[] imgList = data.get(i).getImg().split(",");
+				data.get(i).setFirstImg(imgList[0]);
+			} 
+		}
 		
 		request.setAttribute("mainData", data);
 		request.setAttribute("mainUrl", "market/PostList");

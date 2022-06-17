@@ -310,7 +310,7 @@ public class CompetDAO {
 	public int modify(CompetDTO dto) {	
 		int res = 0;
 		
-		sql = "update commu_soc_compet set head =?, title =?, " + "content=?, upfile=?, img=?,user_id=? "
+		sql = "update commu_soc_compet set head =?, title =?, " + "content=?, upfile=?, img=? "
 				+ "where post_id=? ";
 		
 		try {
@@ -321,8 +321,7 @@ public class CompetDAO {
 			ptmt.setString(3, dto.getContent());
 			ptmt.setString(4, dto.getUpfile());
 			ptmt.setString(5, dto.getImg());
-			ptmt.setString(6, dto.getUser_id());
-			ptmt.setString(7, dto.getPost_id());
+			ptmt.setString(6, dto.getPost_id());
 						
 			res = ptmt.executeUpdate();
 			

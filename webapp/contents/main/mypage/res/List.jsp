@@ -87,11 +87,18 @@
                   </td>
                   <td  class = "col text-center">
                     <c:choose>
-                  		<c:when test="${today < dto.resDate }">
+                  		<c:when test="${today < dto.resDate && !dto.refund_reg}">
                   			<button onclick="paymentCancelled('${dto.imp_uid}')">환불하기</button>
                   		</c:when>
                   		<c:otherwise>
-                  			-
+                  			<c:choose>
+                  				<c:when test="${dto.refund_reg }">
+                  					환불 <br /> 완료
+                  				</c:when>
+                  				<c:otherwise>
+                  					환불 <br /> 불가
+                  				</c:otherwise>
+                  			</c:choose>
                   		</c:otherwise>
                   	</c:choose>
                   </td>

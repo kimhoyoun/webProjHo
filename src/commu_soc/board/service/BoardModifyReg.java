@@ -83,7 +83,6 @@ public class BoardModifyReg implements BoardService{
 				
 				dto.setImg(list.get("img"));
 				
-				dto.setUser_id(list.get("user_id"));
 				dto.setPost_id(list.get("post_id"));
 				dto.setContent(list.get("content"));
 	

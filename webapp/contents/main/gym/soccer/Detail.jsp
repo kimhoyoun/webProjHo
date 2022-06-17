@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+ 
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  <style>
  
  ul#resTime_list li.selected{
@@ -154,12 +157,12 @@
       <h1>축구 구장 상세정보</h1>
     </div>
     <div class="row" style="margin-bottom:10px">
-<%--     	<c:if test="${User.grade==1 }"> --%>
+    	<c:if test="${User.grade==1 }">
             <div class="col text-end" >
             	<a href="ModifyForm?id=${dto.id }&page=${nowPage}&dateSet=${dateSet }"><button type="button" class="btn btn-outline-secondary">수정</button></a>
             	<a href="DeleteForm?id=${dto.id }&page=${nowPage}&dateSet=${dateSet }"><button type="button" class="btn btn-outline-secondary">삭제</button></a>
             </div>
-<%--         </c:if> --%>
+        </c:if>
     </div>
 <form action="ReservationForm" method="post">
       <input type="hidden" name = "id" value="${dto.id }" />
@@ -180,7 +183,7 @@
         </div>
         <div class="row border-bottom text-center" style=" margin: 0px;">
           <div class="col">
-            <img src="<c:url value="/images/bas.png"/>" alt="" style="width: 500px; height: 400px;">
+            <img src="<c:url value="/images/soc.jpg"/>" alt="" style="width: 500px; height: 400px;">
           </div>
           <div class="col">
             <div class="row" style="margin-top: 50px;">
@@ -253,9 +256,9 @@
             <div class="row border-top border-dark" style="margin-top:10px; padding-top:20px">
               <div class="text-start fs-5 fw-bold">[예약비용](2시간 기준)</div>
               <div class="row fs-5" style="margin-top: 5px; margin-left: 3px;">
-                  평일 주간 : ${dto.price_weekday_weekly }원 /  평일 야간 : ${dto.price_weekday_nighttime }원
+                   평일 주간 : <fmt:formatNumber value="${dto.price_weekday_weekly }" />원 /  평일 야간 : <fmt:formatNumber value="${dto.price_weekday_nighttime }" />원
                   <br>
-                  주말 주간 : ${dto.price_weekend_weekly }원 /  주말 야간 : ${dto.price_weekend_nighttime }원
+                  주말 주간 : <fmt:formatNumber value="${dto.price_weekend_weekly }" />원 /  주말 야간 : <fmt:formatNumber value="${dto.price_weekend_nighttime }" />원
               </div>
             </div>
           </div>
